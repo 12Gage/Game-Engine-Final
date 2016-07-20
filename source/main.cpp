@@ -1,4 +1,3 @@
-
 #include "SDL2/SDL.h"
 #include <stdio.h>
 
@@ -24,6 +23,18 @@ int main(int argc, char* argv[]) {
         printf("Could not create window: %s\n", SDL_GetError());
         return 1;
     }
+
+	//The surface contained by the window
+	SDL_Surface* screenSurface = NULL;
+
+	//Get window surface
+	screenSurface = SDL_GetWindowSurface( window );
+
+	//Fill the surface white
+	SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0, 42, 254 ) );
+
+	//Update the surface
+	SDL_UpdateWindowSurface( window );
 
     // The window is open: could enter program loop here (see SDL_PollEvent())
 
