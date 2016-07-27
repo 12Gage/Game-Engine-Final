@@ -30,9 +30,11 @@ string images_dir = currentWorkingDirectory + "/Game-Engine-Final/image/";
 
 #endif
 
-float deltaTime = 0.0;
-int thisTime = 0;
-int lastTime = 0;
+bool penGot = false, willGot = false, gunGot = false;
+
+bool Pfront = true, Pback = false, Pright = false, Pleft = false;
+
+int ammo = 11;
 
 int main(int argc, char* argv[]) {
 
@@ -58,9 +60,10 @@ int main(int argc, char* argv[]) {
 
     SDL_Event e;
 
-    //Player player1(renderer, 0, images_dir.c_str(), 10.0, 250.0);
-
     SDL_Texture *Player = IMG_LoadTexture(renderer, (images_dir + "Player.png").c_str());
+    SDL_Texture *PlayerB = IMG_LoadTexture(renderer, (images_dir + "PlayerB.png").c_str());
+    SDL_Texture *PlayerR = IMG_LoadTexture(renderer, (images_dir + "PlayerR.png").c_str());
+    SDL_Texture *PlayerL = IMG_LoadTexture(renderer, (images_dir + "PlayerL.png").c_str());
 
     SDL_Rect PlayerPos;
 
@@ -153,37 +156,10 @@ int main(int argc, char* argv[]) {
     bag3Pos.h = 135;
 
     SDL_Texture *bagClosed1 = IMG_LoadTexture(renderer, (images_dir + "bagClosed1.png").c_str());
-    SDL_Rect bagClosed1Pos;
-
-    bagClosed1Pos.x = 375;
-
-    bagClosed1Pos.y = 10;
-
-    bagClosed1Pos.w = 90;
-
-    bagClosed1Pos.h = 135;
 
     SDL_Texture *bagClosed2 = IMG_LoadTexture(renderer, (images_dir + "bagClosed2.png").c_str());
-    SDL_Rect bagClosed2Pos;
-
-    bagClosed2Pos.x = 475;
-
-    bagClosed2Pos.y = 10;
-
-    bagClosed2Pos.w = 90;
-
-    bagClosed2Pos.h = 135;
 
     SDL_Texture *bagClosed3 = IMG_LoadTexture(renderer, (images_dir + "bagClosed3.png").c_str());
-    SDL_Rect bagClosed3Pos;
-
-    bagClosed3Pos.x = 575;
-
-    bagClosed3Pos.y = 10;
-
-    bagClosed3Pos.w = 90;
-
-    bagClosed3Pos.h = 135;
 
 
     SDL_Texture *Pen = IMG_LoadTexture(renderer, (images_dir + "Pen.png").c_str());
@@ -221,6 +197,17 @@ int main(int argc, char* argv[]) {
 
 
     SDL_Texture *Ammo0 = IMG_LoadTexture(renderer, (images_dir + "Ammo0.png").c_str());
+    SDL_Texture *Ammo1 = IMG_LoadTexture(renderer, (images_dir + "Ammo1.png").c_str());
+    SDL_Texture *Ammo2 = IMG_LoadTexture(renderer, (images_dir + "Ammo2.png").c_str());
+    SDL_Texture *Ammo3 = IMG_LoadTexture(renderer, (images_dir + "Ammo3.png").c_str());
+    SDL_Texture *Ammo4 = IMG_LoadTexture(renderer, (images_dir + "Ammo4.png").c_str());
+    SDL_Texture *Ammo5 = IMG_LoadTexture(renderer, (images_dir + "Ammo5.png").c_str());
+    SDL_Texture *Ammo6 = IMG_LoadTexture(renderer, (images_dir + "Ammo6.png").c_str());
+    SDL_Texture *Ammo7 = IMG_LoadTexture(renderer, (images_dir + "Ammo7.png").c_str());
+    SDL_Texture *Ammo8 = IMG_LoadTexture(renderer, (images_dir + "Ammo8.png").c_str());
+    SDL_Texture *Ammo9 = IMG_LoadTexture(renderer, (images_dir + "Ammo9.png").c_str());
+    SDL_Texture *Ammo10 = IMG_LoadTexture(renderer, (images_dir + "Ammo10.png").c_str());
+    SDL_Texture *Ammo11 = IMG_LoadTexture(renderer, (images_dir + "Ammo11.png").c_str());
     SDL_Rect Ammo0Pos;
 
     Ammo0Pos.x = 50;
@@ -231,8 +218,8 @@ int main(int argc, char* argv[]) {
 
     Ammo0Pos.h = 65;
 
-    SDL_Texture *Empty, *Full;
 
+    SDL_Texture *Empty, *Full;
     SDL_Rect EmptyPos, FullPos;
 
     Empty = IMG_LoadTexture(renderer, (images_dir + "HealthEmpty.png").c_str());
@@ -242,6 +229,39 @@ int main(int argc, char* argv[]) {
     EmptyPos.y = FullPos.y = 50;
     EmptyPos.w = FullPos.w = 239;
     EmptyPos.h = FullPos.h = 32;
+
+    SDL_Texture *Pickup = IMG_LoadTexture(renderer, (images_dir + "Ammo0.png").c_str());
+    SDL_Rect PickupPos;
+
+    PickupPos.x = 50;
+
+    PickupPos.y = 500;
+
+    PickupPos.w = 10;
+
+    PickupPos.h = 25;
+
+    SDL_Texture *HealthPickup = IMG_LoadTexture(renderer, (images_dir + "HealthPickup.png").c_str());
+    SDL_Rect HealthPickupPos;
+
+    HealthPickupPos.x = 125;
+
+    HealthPickupPos.y = 500;
+
+    HealthPickupPos.w = 10;
+
+    HealthPickupPos.h = 25;
+
+    SDL_Texture *Enemy = IMG_LoadTexture(renderer, (images_dir + "Enemy.png").c_str());
+    SDL_Rect EnemyPos;
+
+    EnemyPos.x = 200;
+
+    EnemyPos.y = 300;
+
+    EnemyPos.w = 46;
+
+    EnemyPos.h = 38;
 
 	//The surface contained by the window
 	SDL_Surface* screenSurface = NULL;
@@ -263,17 +283,36 @@ int main(int argc, char* argv[]) {
 
 					switch(e.key.keysym.sym){
 
-					case SDLK_UP:
+					case SDLK_w:
 					pVelY -= PLAYER_VEL;
+					Pfront = false;
+					Pback = true;
+					Pright = false;
+					Pleft = false;
 					break;
-					case SDLK_DOWN:
+					case SDLK_s:
 					pVelY += PLAYER_VEL;
+					Pfront = true;
+					Pback = false;
+					Pright = false;
+					Pleft = false;
 					break;
-					case SDLK_LEFT:
+					case SDLK_a:
 					pVelX -= PLAYER_VEL;
+					Pfront = false;
+					Pback = false;
+					Pright = false;
+					Pleft = true;
 					break;
-					case SDLK_RIGHT:
+					case SDLK_d:
 					pVelX += PLAYER_VEL;
+					Pfront = false;
+					Pback = false;
+					Pright = true;
+					Pleft = false;
+					break;
+					case SDLK_SPACE:
+					ammo--;
 					break;
 					}
 				}
@@ -282,18 +321,18 @@ int main(int argc, char* argv[]) {
 				{
 					switch(e.key.keysym.sym){
 
-					case SDLK_UP:
-						pVelY += PLAYER_VEL;
-						break;
-					case SDLK_DOWN:
-						pVelY -= PLAYER_VEL;
-						break;
-					case SDLK_LEFT:
-						pVelX += PLAYER_VEL;
-						break;
-					case SDLK_RIGHT:
-						pVelX -= PLAYER_VEL;
-						break;
+					case SDLK_w:
+					pVelY += PLAYER_VEL;
+					break;
+					case SDLK_s:
+					pVelY -= PLAYER_VEL;
+					break;
+					case SDLK_a:
+					pVelX += PLAYER_VEL;
+					break;
+					case SDLK_d:
+					pVelX -= PLAYER_VEL;
+					break;
 
 					}
 				}
@@ -317,6 +356,11 @@ int main(int argc, char* argv[]) {
 			PenPos.x -=pVelX;
 			WillPos.x -=pVelX;
 			GunPos.x -=pVelX;
+
+			PickupPos.x -=pVelX;
+			HealthPickupPos.x -=pVelX;
+
+			EnemyPos.x -=pVelX;
 		}
 
 		if(PlayerPos.x < (0 + (PlayerPos.w * 2))){
@@ -333,6 +377,11 @@ int main(int argc, char* argv[]) {
 			PenPos.x -=pVelX;
 			WillPos.x -=pVelX;
 			GunPos.x -=pVelX;
+
+			PickupPos.x -=pVelX;
+			HealthPickupPos.x -=pVelX;
+
+			EnemyPos.x -=pVelX;
 		}
 
 		if( SDL_HasIntersection(&PlayerPos, &Wall) || SDL_HasIntersection(&PlayerPos, &Wall2) ||
@@ -358,6 +407,11 @@ int main(int argc, char* argv[]) {
 			PenPos.y -=pVelY;
 			WillPos.y -=pVelY;
 			GunPos.y -=pVelY;
+
+			PickupPos.y -=pVelY;
+			HealthPickupPos.y -=pVelY;
+
+			EnemyPos.y -=pVelY;
 		}
 
 		if(PlayerPos.y > (768 - (PlayerPos.h * 2))){
@@ -374,12 +428,58 @@ int main(int argc, char* argv[]) {
 			PenPos.y -=pVelY;
 			WillPos.y -=pVelY;
 			GunPos.y -=pVelY;
+
+			PickupPos.y -=pVelY;
+			HealthPickupPos.y -=pVelY;
+
+			EnemyPos.y -=pVelY;
 		}
 
 		if( SDL_HasIntersection(&PlayerPos, &Wall) || SDL_HasIntersection(&PlayerPos, &Wall2)  ||
 				SDL_HasIntersection(&PlayerPos, &Wall3) || SDL_HasIntersection(&PlayerPos, &Wall4)) {
 
 			PlayerPos.y -= pVelY;
+		}
+
+		if( SDL_HasIntersection(&PlayerPos, &PenPos)) {
+
+			PenPos.x = -1000;
+			penGot = true;
+		}
+
+		if( SDL_HasIntersection(&PlayerPos, &WillPos)) {
+
+			WillPos.x = -1000;
+			willGot = true;
+		}
+
+		if( SDL_HasIntersection(&PlayerPos, &GunPos)) {
+
+			GunPos.x = -1000;
+			gunGot = true;
+		}
+
+		if(ammo <= 5)
+		{
+			if( SDL_HasIntersection(&PlayerPos, &PickupPos)) {
+
+				PickupPos.x = -1000;
+				ammo += 6;
+			}
+		}
+
+		if(FullPos.w <= 120)
+		{
+			if( SDL_HasIntersection(&PlayerPos, &HealthPickupPos)) {
+
+				HealthPickupPos.x = -1000;
+				FullPos.w += 60;
+			}
+		}
+
+		if( SDL_HasIntersection(&PlayerPos, &EnemyPos)) {
+
+			FullPos.w -=5;
 		}
 
 
@@ -389,6 +489,11 @@ int main(int argc, char* argv[]) {
 		SDL_RenderCopy(renderer, bkgd, NULL, &bkgdRect);
 
 
+		SDL_RenderCopy(renderer, HealthPickup, NULL, &HealthPickupPos);
+
+		SDL_RenderCopy(renderer, Pickup, NULL, &PickupPos);
+
+
 		SDL_RenderCopy(renderer, Pen, NULL, &PenPos);
 
 		SDL_RenderCopy(renderer, Will, NULL, &WillPos);
@@ -396,15 +501,106 @@ int main(int argc, char* argv[]) {
 		SDL_RenderCopy(renderer, Gun, NULL, &GunPos);
 
 
+		if(Pfront == true)
+		{
 		SDL_RenderCopy(renderer, Player, NULL, &PlayerPos);
+		}
+		if(Pback == true)
+		{
+		SDL_RenderCopy(renderer, PlayerB, NULL, &PlayerPos);
+		}
+		if(Pright == true)
+		{
+		SDL_RenderCopy(renderer, PlayerR, NULL, &PlayerPos);
+		}
+		if(Pleft == true)
+		{
+		SDL_RenderCopy(renderer, PlayerL, NULL, &PlayerPos);
+		}
 
+
+		if(penGot == false)
+		{
 		SDL_RenderCopy(renderer, bagOpen1, NULL, &bag1Pos);
+		}
 
+		if(willGot == false)
+		{
 		SDL_RenderCopy(renderer, bagOpen2, NULL, &bag2Pos);
+		}
 
+		if(gunGot == false)
+		{
 		SDL_RenderCopy(renderer, bagOpen3, NULL, &bag3Pos);
+		}
 
+
+		if(penGot == true)
+		{
+		SDL_RenderCopy(renderer, bagClosed1, NULL, &bag1Pos);
+		}
+
+		if(willGot == true)
+		{
+		SDL_RenderCopy(renderer, bagClosed2, NULL, &bag2Pos);
+		}
+
+		if(gunGot == true)
+		{
+		SDL_RenderCopy(renderer, bagClosed3, NULL, &bag3Pos);
+		}
+
+
+		if(ammo == 11)
+		{
 		SDL_RenderCopy(renderer, Ammo0, NULL, &Ammo0Pos);
+		}
+		if(ammo == 10)
+		{
+		SDL_RenderCopy(renderer, Ammo1, NULL, &Ammo0Pos);
+		}
+		if(ammo == 9)
+		{
+		SDL_RenderCopy(renderer, Ammo2, NULL, &Ammo0Pos);
+		}
+		if(ammo == 8)
+		{
+		SDL_RenderCopy(renderer, Ammo3, NULL, &Ammo0Pos);
+		}
+		if(ammo == 7)
+		{
+		SDL_RenderCopy(renderer, Ammo4, NULL, &Ammo0Pos);
+		}
+		if(ammo == 6)
+		{
+		SDL_RenderCopy(renderer, Ammo5, NULL, &Ammo0Pos);
+		}
+		if(ammo == 5)
+		{
+		SDL_RenderCopy(renderer, Ammo6, NULL, &Ammo0Pos);
+		}
+		if(ammo == 4)
+		{
+		SDL_RenderCopy(renderer, Ammo7, NULL, &Ammo0Pos);
+		}
+		if(ammo == 3)
+		{
+		SDL_RenderCopy(renderer, Ammo8, NULL, &Ammo0Pos);
+		}
+		if(ammo == 2)
+		{
+		SDL_RenderCopy(renderer, Ammo9, NULL, &Ammo0Pos);
+		}
+		if(ammo == 1)
+		{
+		SDL_RenderCopy(renderer, Ammo10, NULL, &Ammo0Pos);
+		}
+		if(ammo <= 0)
+		{
+		SDL_RenderCopy(renderer, Ammo11, NULL, &Ammo0Pos);
+		}
+
+		SDL_RenderCopy(renderer, Enemy, NULL, &EnemyPos);
 
 		SDL_RenderCopy(renderer, Empty, NULL, &EmptyPos);
 
@@ -425,3 +621,4 @@ int main(int argc, char* argv[]) {
     SDL_Quit();
     return 0;
 }
+
