@@ -75,7 +75,7 @@ int main(int argc, char* argv[]) {
 
     PlayerPos.h = 56;
 
-	const int PLAYER_VEL = 5;
+	const float PLAYER_VEL = 3.5;
 
 	int pVelX = 0;
 	int pVelY = 0;
@@ -342,9 +342,9 @@ int main(int argc, char* argv[]) {
 		PlayerPos.x += pVelX;
 
 
-		if(PlayerPos.x > (1024 - (PlayerPos.w * 2))){
+		if(PlayerPos.x > (1024 - (PlayerPos.w * 1))){
 
-			PlayerPos.x = (1024 - (PlayerPos.w * 2));
+			PlayerPos.x = (1024 - (PlayerPos.w * 1));
 
 			bkgdRect.x -= pVelX;
 
@@ -363,9 +363,9 @@ int main(int argc, char* argv[]) {
 			EnemyPos.x -=pVelX;
 		}
 
-		if(PlayerPos.x < (0 + (PlayerPos.w * 2))){
+		if(PlayerPos.x < (0 + (PlayerPos.w * 1))){
 
-			PlayerPos.x = (0 + (PlayerPos.w * 2));
+			PlayerPos.x = (0 + (PlayerPos.w * 1));
 
 			bkgdRect.x -= pVelX;
 
@@ -393,9 +393,9 @@ int main(int argc, char* argv[]) {
 
 		PlayerPos.y += pVelY;
 
-		if(PlayerPos.y < (0 + (PlayerPos.h * 2))){
+		if(PlayerPos.y < (0 + (PlayerPos.h * 0))){
 
-			PlayerPos.y = (0 + (PlayerPos.h * 2));
+			PlayerPos.y = (0 + (PlayerPos.h * 0));
 
 			bkgdRect.y -= pVelY;
 
@@ -414,9 +414,9 @@ int main(int argc, char* argv[]) {
 			EnemyPos.y -=pVelY;
 		}
 
-		if(PlayerPos.y > (768 - (PlayerPos.h * 2))){
+		if(PlayerPos.y > (768 - (PlayerPos.h * 1))){
 
-			PlayerPos.y = 768 - (PlayerPos.h * 2);
+			PlayerPos.y = 768 - (PlayerPos.h * 1);
 
 			bkgdRect.y -= pVelY;
 
@@ -479,7 +479,12 @@ int main(int argc, char* argv[]) {
 
 		if( SDL_HasIntersection(&PlayerPos, &EnemyPos)) {
 
-			FullPos.w -=5;
+			FullPos.w -=.025;
+
+			if(FullPos.w == 0)
+			{
+				FullPos.w = 0;
+			}
 		}
 
 
