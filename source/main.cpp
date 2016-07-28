@@ -75,7 +75,7 @@ int main(int argc, char* argv[]) {
 
     PlayerPos.h = 56;
 
-	const float PLAYER_VEL = 30;
+	const float PLAYER_VEL = 3.5;
 
 	int pVelX = 0;
 	int pVelY = 0;
@@ -262,6 +262,20 @@ int main(int argc, char* argv[]) {
     EnemyPos.w = 46;
 
     EnemyPos.h = 38;
+
+    SDL_Texture *Lake = IMG_LoadTexture(renderer, (images_dir + "Lake.png").c_str());
+    SDL_Rect LakePos;
+    LakePos.x = 185;
+    LakePos.y = -525;
+    LakePos.w = 430;
+    LakePos.h = 333;
+
+    SDL_Texture *Dock = IMG_LoadTexture(renderer, (images_dir + "Dock.png").c_str());
+    SDL_Rect DockPos;
+    DockPos.x = 85;
+    DockPos.y = -485;
+    DockPos.w = 119;
+    DockPos.h = 96;
 
     SDL_Texture *Tree = IMG_LoadTexture(renderer, (images_dir + "Tree.png").c_str());
     SDL_Rect TreePos;
@@ -489,6 +503,10 @@ int main(int argc, char* argv[]) {
 
 			EnemyPos.x -=pVelX;
 
+			LakePos.x -=pVelX;
+
+			DockPos.x -=pVelX;
+
 			TreePos.x -=pVelX;
 			TreePos2.x -=pVelX;
 			TreePos3.x -=pVelX;
@@ -532,6 +550,10 @@ int main(int argc, char* argv[]) {
 
 			EnemyPos.x -=pVelX;
 
+			LakePos.x -=pVelX;
+
+			DockPos.x -=pVelX;
+
 			TreePos.x -=pVelX;
 			TreePos2.x -=pVelX;
 			TreePos3.x -=pVelX;
@@ -567,7 +589,7 @@ int main(int argc, char* argv[]) {
 				 SDL_HasIntersection(&PlayerPos, &TreePos15)|| SDL_HasIntersection(&PlayerPos, &TreePos16)||
 				 SDL_HasIntersection(&PlayerPos, &TreePos17)|| SDL_HasIntersection(&PlayerPos, &TreePos18)||
 				 SDL_HasIntersection(&PlayerPos, &TreePos19)|| SDL_HasIntersection(&PlayerPos, &TreePos20)||
-				 SDL_HasIntersection(&PlayerPos, &TreePos21)){
+				 SDL_HasIntersection(&PlayerPos, &TreePos21)|| SDL_HasIntersection(&PlayerPos, &LakePos)){
 
 			PlayerPos.x -= pVelX;
 		}
@@ -594,6 +616,10 @@ int main(int argc, char* argv[]) {
 			HealthPickupPos.y -=pVelY;
 
 			EnemyPos.y -=pVelY;
+
+			LakePos.y -=pVelY;
+
+			DockPos.y -=pVelY;
 
 			TreePos.y -=pVelY;
 			TreePos2.y -=pVelY;
@@ -638,6 +664,10 @@ int main(int argc, char* argv[]) {
 
 			EnemyPos.y -=pVelY;
 
+			LakePos.y -=pVelY;
+
+			DockPos.y -=pVelY;
+
 			TreePos.y -=pVelY;
 			TreePos2.y -=pVelY;
 			TreePos3.y -=pVelY;
@@ -673,7 +703,8 @@ int main(int argc, char* argv[]) {
 				 SDL_HasIntersection(&PlayerPos, &TreePos15)|| SDL_HasIntersection(&PlayerPos, &TreePos16)||
 				 SDL_HasIntersection(&PlayerPos, &TreePos17)|| SDL_HasIntersection(&PlayerPos, &TreePos18)||
 				 SDL_HasIntersection(&PlayerPos, &TreePos19)|| SDL_HasIntersection(&PlayerPos, &TreePos20)||
-				 SDL_HasIntersection(&PlayerPos, &TreePos21)){
+				 SDL_HasIntersection(&PlayerPos, &TreePos21) || SDL_HasIntersection(&PlayerPos, &LakePos)||
+				 SDL_HasIntersection(&PlayerPos, &DockPos)){
 
 			PlayerPos.y -= pVelY;
 		}
@@ -742,6 +773,10 @@ int main(int argc, char* argv[]) {
 
 		SDL_RenderCopy(renderer, Gun, NULL, &GunPos);
 
+		SDL_RenderCopy(renderer, Lake, NULL, &LakePos);
+
+		SDL_RenderCopy(renderer, Dock, NULL, &DockPos);
+
 
 		if(Pfront == true)
 		{
@@ -759,7 +794,6 @@ int main(int argc, char* argv[]) {
 		{
 		SDL_RenderCopy(renderer, PlayerL, NULL, &PlayerPos);
 		}
-
 
 		SDL_RenderCopy(renderer, Tree, NULL, &TreePos);
 		SDL_RenderCopy(renderer, Tree, NULL, &TreePos2);
