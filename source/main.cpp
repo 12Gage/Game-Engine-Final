@@ -75,7 +75,7 @@ int main(int argc, char* argv[]) {
 
     PlayerPos.h = 56;
 
-	const float PLAYER_VEL = 3.5;
+	const float PLAYER_VEL = 30;
 
 	int pVelX = 0;
 	int pVelY = 0;
@@ -252,7 +252,7 @@ int main(int argc, char* argv[]) {
 
     HealthPickupPos.h = 25;
 
-    SDL_Texture *Enemy = IMG_LoadTexture(renderer, (images_dir + "EnemyP.png").c_str());
+    SDL_Texture *Enemy = IMG_LoadTexture(renderer, (images_dir + "Enemy.png").c_str());
     SDL_Rect EnemyPos;
 
     EnemyPos.x = 200;
@@ -262,6 +262,133 @@ int main(int argc, char* argv[]) {
     EnemyPos.w = 46;
 
     EnemyPos.h = 38;
+
+    SDL_Texture *Tree = IMG_LoadTexture(renderer, (images_dir + "Tree.png").c_str());
+    SDL_Rect TreePos;
+    TreePos.x = 250;
+    TreePos.y = 650;
+    TreePos.w = 68;
+    TreePos.h = 60;
+
+    SDL_Rect TreePos2;
+    TreePos2.x = 400;
+    TreePos2.y = 650;
+    TreePos2.w = 68;
+    TreePos2.h = 60;
+
+    SDL_Rect TreePos3;
+    TreePos3.x = 525;
+    TreePos3.y = 625;
+    TreePos3.w = 68;
+    TreePos3.h = 60;
+
+    SDL_Rect TreePos4;
+    TreePos4.x = 525;
+    TreePos4.y = 725;
+    TreePos4.w = 68;
+    TreePos4.h = 60;
+
+    SDL_Rect TreePos5;
+    TreePos5.x = 575;
+    TreePos5.y = 800;
+    TreePos5.w = 68;
+    TreePos5.h = 60;
+
+    SDL_Rect TreePos6;
+    TreePos6.x = 550;
+    TreePos6.y = 925;
+    TreePos6.w = 68;
+    TreePos6.h = 60;
+
+    SDL_Rect TreePos7;
+    TreePos7.x = 465;
+    TreePos7.y = 875;
+    TreePos7.w = 68;
+    TreePos7.h = 60;
+
+    SDL_Rect TreePos8;
+    TreePos8.x = 400;
+    TreePos8.y = 785;
+    TreePos8.w = 68;
+    TreePos8.h = 60;
+
+    SDL_Rect TreePos9;
+    TreePos9.x = 300;
+    TreePos9.y = 725;
+    TreePos9.w = 68;
+    TreePos9.h = 60;
+
+    SDL_Rect TreePos10;
+    TreePos10.x = 235;
+    TreePos10.y = 800;
+    TreePos10.w = 68;
+    TreePos10.h = 60;
+
+    SDL_Rect TreePos11;
+    TreePos11.x = 235;
+    TreePos11.y = 925;
+    TreePos11.w = 68;
+    TreePos11.h = 60;
+
+    SDL_Rect TreePos12;
+    TreePos12.x = 335;
+    TreePos12.y = 875;
+    TreePos12.w = 68;
+    TreePos12.h = 60;
+
+    SDL_Rect TreePos13;
+    TreePos13.x = 400;
+    TreePos13.y = 975;
+    TreePos13.w = 68;
+    TreePos13.h = 60;
+
+    SDL_Rect TreePos14;
+    TreePos14.x = 2750;
+    TreePos14.y = 850;
+    TreePos14.w = 68;
+    TreePos14.h = 60;
+
+    SDL_Rect TreePos15;
+    TreePos15.x = 2600;
+    TreePos15.y = 835;
+    TreePos15.w = 68;
+    TreePos15.h = 60;
+
+    SDL_Rect TreePos16;
+    TreePos16.x = 2585;
+    TreePos16.y = 755;
+    TreePos16.w = 68;
+    TreePos16.h = 60;
+
+    SDL_Rect TreePos17;
+    TreePos17.x = 2675;
+    TreePos17.y = 765;
+    TreePos17.w = 68;
+    TreePos17.h = 60;
+
+    SDL_Rect TreePos18;
+    TreePos18.x = 2780;
+    TreePos18.y = 750;
+    TreePos18.w = 68;
+    TreePos18.h = 60;
+
+    SDL_Rect TreePos19;
+    TreePos19.x = 2400;
+    TreePos19.y = -250;
+    TreePos19.w = 68;
+    TreePos19.h = 60;
+
+    SDL_Rect TreePos20;
+    TreePos20.x = 1435;
+    TreePos20.y = -655;
+    TreePos20.w = 68;
+    TreePos20.h = 60;
+
+    SDL_Rect TreePos21;
+    TreePos21.x = 1000;
+    TreePos21.y = -660;
+    TreePos21.w = 68;
+    TreePos21.h = 60;
 
 	//The surface contained by the window
 	SDL_Surface* screenSurface = NULL;
@@ -361,6 +488,28 @@ int main(int argc, char* argv[]) {
 			HealthPickupPos.x -=pVelX;
 
 			EnemyPos.x -=pVelX;
+
+			TreePos.x -=pVelX;
+			TreePos2.x -=pVelX;
+			TreePos3.x -=pVelX;
+			TreePos4.x -=pVelX;
+			TreePos5.x -=pVelX;
+			TreePos6.x -=pVelX;
+			TreePos7.x -=pVelX;
+			TreePos8.x -=pVelX;
+			TreePos9.x -=pVelX;
+			TreePos10.x -=pVelX;
+			TreePos11.x -=pVelX;
+			TreePos12.x -=pVelX;
+			TreePos13.x -=pVelX;
+			TreePos14.x -=pVelX;
+			TreePos15.x -=pVelX;
+			TreePos16.x -=pVelX;
+			TreePos17.x -=pVelX;
+			TreePos18.x -=pVelX;
+			TreePos19.x -=pVelX;
+			TreePos20.x -=pVelX;
+			TreePos21.x -=pVelX;
 		}
 
 		if(PlayerPos.x < (0 + (PlayerPos.w * 2))){
@@ -382,10 +531,43 @@ int main(int argc, char* argv[]) {
 			HealthPickupPos.x -=pVelX;
 
 			EnemyPos.x -=pVelX;
+
+			TreePos.x -=pVelX;
+			TreePos2.x -=pVelX;
+			TreePos3.x -=pVelX;
+			TreePos4.x -=pVelX;
+			TreePos5.x -=pVelX;
+			TreePos6.x -=pVelX;
+			TreePos7.x -=pVelX;
+			TreePos8.x -=pVelX;
+			TreePos9.x -=pVelX;
+			TreePos10.x -=pVelX;
+			TreePos11.x -=pVelX;
+			TreePos12.x -=pVelX;
+			TreePos13.x -=pVelX;
+			TreePos14.x -=pVelX;
+			TreePos15.x -=pVelX;
+			TreePos16.x -=pVelX;
+			TreePos17.x -=pVelX;
+			TreePos18.x -=pVelX;
+			TreePos19.x -=pVelX;
+			TreePos20.x -=pVelX;
+			TreePos21.x -=pVelX;
 		}
 
 		if( SDL_HasIntersection(&PlayerPos, &Wall) || SDL_HasIntersection(&PlayerPos, &Wall2) ||
-				SDL_HasIntersection(&PlayerPos, &Wall3) || SDL_HasIntersection(&PlayerPos, &Wall4)){
+				SDL_HasIntersection(&PlayerPos, &Wall3) || SDL_HasIntersection(&PlayerPos, &Wall4)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos)|| SDL_HasIntersection(&PlayerPos, &TreePos2)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos3)|| SDL_HasIntersection(&PlayerPos, &TreePos4)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos5)|| SDL_HasIntersection(&PlayerPos, &TreePos6)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos7)|| SDL_HasIntersection(&PlayerPos, &TreePos8)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos9)|| SDL_HasIntersection(&PlayerPos, &TreePos10)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos11)|| SDL_HasIntersection(&PlayerPos, &TreePos12)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos13)|| SDL_HasIntersection(&PlayerPos, &TreePos14)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos15)|| SDL_HasIntersection(&PlayerPos, &TreePos16)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos17)|| SDL_HasIntersection(&PlayerPos, &TreePos18)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos19)|| SDL_HasIntersection(&PlayerPos, &TreePos20)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos21)){
 
 			PlayerPos.x -= pVelX;
 		}
@@ -412,6 +594,28 @@ int main(int argc, char* argv[]) {
 			HealthPickupPos.y -=pVelY;
 
 			EnemyPos.y -=pVelY;
+
+			TreePos.y -=pVelY;
+			TreePos2.y -=pVelY;
+			TreePos3.y -=pVelY;
+			TreePos4.y -=pVelY;
+			TreePos5.y -=pVelY;
+			TreePos6.y -=pVelY;
+			TreePos7.y -=pVelY;
+			TreePos8.y -=pVelY;
+			TreePos9.y -=pVelY;
+			TreePos10.y -=pVelY;
+			TreePos11.y -=pVelY;
+			TreePos12.y -=pVelY;
+			TreePos13.y -=pVelY;
+			TreePos14.y -=pVelY;
+			TreePos15.y -=pVelY;
+			TreePos16.y -=pVelY;
+			TreePos17.y -=pVelY;
+			TreePos18.y -=pVelY;
+			TreePos19.y -=pVelY;
+			TreePos20.y -=pVelY;
+			TreePos21.y -=pVelY;
 		}
 
 		if(PlayerPos.y > (768 - (PlayerPos.h * 2))){
@@ -433,10 +637,43 @@ int main(int argc, char* argv[]) {
 			HealthPickupPos.y -=pVelY;
 
 			EnemyPos.y -=pVelY;
+
+			TreePos.y -=pVelY;
+			TreePos2.y -=pVelY;
+			TreePos3.y -=pVelY;
+			TreePos4.y -=pVelY;
+			TreePos5.y -=pVelY;
+			TreePos6.y -=pVelY;
+			TreePos7.y -=pVelY;
+			TreePos8.y -=pVelY;
+			TreePos9.y -=pVelY;
+			TreePos10.y -=pVelY;
+			TreePos11.y -=pVelY;
+			TreePos12.y -=pVelY;
+			TreePos13.y -=pVelY;
+			TreePos14.y -=pVelY;
+			TreePos15.y -=pVelY;
+			TreePos16.y -=pVelY;
+			TreePos17.y -=pVelY;
+			TreePos18.y -=pVelY;
+			TreePos19.y -=pVelY;
+			TreePos20.y -=pVelY;
+			TreePos21.y -=pVelY;
 		}
 
-		if( SDL_HasIntersection(&PlayerPos, &Wall) || SDL_HasIntersection(&PlayerPos, &Wall2)  ||
-				SDL_HasIntersection(&PlayerPos, &Wall3) || SDL_HasIntersection(&PlayerPos, &Wall4)) {
+		if( SDL_HasIntersection(&PlayerPos, &Wall) || SDL_HasIntersection(&PlayerPos, &Wall2) ||
+				SDL_HasIntersection(&PlayerPos, &Wall3) || SDL_HasIntersection(&PlayerPos, &Wall4)||
+				SDL_HasIntersection(&PlayerPos, &TreePos)|| SDL_HasIntersection(&PlayerPos, &TreePos2)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos3)|| SDL_HasIntersection(&PlayerPos, &TreePos4)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos5)|| SDL_HasIntersection(&PlayerPos, &TreePos6)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos7)|| SDL_HasIntersection(&PlayerPos, &TreePos8)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos9)|| SDL_HasIntersection(&PlayerPos, &TreePos10)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos11)|| SDL_HasIntersection(&PlayerPos, &TreePos12)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos13)|| SDL_HasIntersection(&PlayerPos, &TreePos14)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos15)|| SDL_HasIntersection(&PlayerPos, &TreePos16)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos17)|| SDL_HasIntersection(&PlayerPos, &TreePos18)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos19)|| SDL_HasIntersection(&PlayerPos, &TreePos20)||
+				 SDL_HasIntersection(&PlayerPos, &TreePos21)){
 
 			PlayerPos.y -= pVelY;
 		}
@@ -522,6 +759,29 @@ int main(int argc, char* argv[]) {
 		{
 		SDL_RenderCopy(renderer, PlayerL, NULL, &PlayerPos);
 		}
+
+
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos2);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos3);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos4);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos5);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos6);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos7);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos8);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos9);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos10);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos11);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos12);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos13);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos14);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos15);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos16);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos17);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos18);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos19);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos20);
+		SDL_RenderCopy(renderer, Tree, NULL, &TreePos21);
 
 
 		if(penGot == false)
