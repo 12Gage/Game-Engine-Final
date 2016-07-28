@@ -162,7 +162,7 @@ int main(int argc, char* argv[]) {
     SDL_Texture *bagClosed3 = IMG_LoadTexture(renderer, (images_dir + "bagClosed3.png").c_str());
 
 
-    SDL_Texture *Pen = IMG_LoadTexture(renderer, (images_dir + "Pen.png").c_str());
+    SDL_Texture *Pen = IMG_LoadTexture(renderer, (images_dir + "PenP.png").c_str());
     SDL_Rect PenPos;
 
     PenPos.x = 100;
@@ -173,7 +173,7 @@ int main(int argc, char* argv[]) {
 
     PenPos.h = 45;
 
-    SDL_Texture *Will = IMG_LoadTexture(renderer, (images_dir + "Will.png").c_str());
+    SDL_Texture *Will = IMG_LoadTexture(renderer, (images_dir + "WillP.png").c_str());
     SDL_Rect WillPos;
 
     WillPos.x = 100;
@@ -184,7 +184,7 @@ int main(int argc, char* argv[]) {
 
     WillPos.h = 45;
 
-    SDL_Texture *Gun = IMG_LoadTexture(renderer, (images_dir + "Gun.png").c_str());
+    SDL_Texture *Gun = IMG_LoadTexture(renderer, (images_dir + "GunP.png").c_str());
     SDL_Rect GunPos;
 
     GunPos.x = 100;
@@ -230,7 +230,7 @@ int main(int argc, char* argv[]) {
     EmptyPos.w = FullPos.w = 239;
     EmptyPos.h = FullPos.h = 32;
 
-    SDL_Texture *Pickup = IMG_LoadTexture(renderer, (images_dir + "Ammo0.png").c_str());
+    SDL_Texture *Pickup = IMG_LoadTexture(renderer, (images_dir + "AmmoP.png").c_str());
     SDL_Rect PickupPos;
 
     PickupPos.x = 50;
@@ -241,7 +241,7 @@ int main(int argc, char* argv[]) {
 
     PickupPos.h = 25;
 
-    SDL_Texture *HealthPickup = IMG_LoadTexture(renderer, (images_dir + "HealthPickup.png").c_str());
+    SDL_Texture *HealthPickup = IMG_LoadTexture(renderer, (images_dir + "HealthP.png").c_str());
     SDL_Rect HealthPickupPos;
 
     HealthPickupPos.x = 125;
@@ -252,7 +252,7 @@ int main(int argc, char* argv[]) {
 
     HealthPickupPos.h = 25;
 
-    SDL_Texture *Enemy = IMG_LoadTexture(renderer, (images_dir + "Enemy.png").c_str());
+    SDL_Texture *Enemy = IMG_LoadTexture(renderer, (images_dir + "EnemyP.png").c_str());
     SDL_Rect EnemyPos;
 
     EnemyPos.x = 200;
@@ -342,9 +342,9 @@ int main(int argc, char* argv[]) {
 		PlayerPos.x += pVelX;
 
 
-		if(PlayerPos.x > (1024 - (PlayerPos.w * 1))){
+		if(PlayerPos.x > (1024 - (PlayerPos.w * 2))){
 
-			PlayerPos.x = (1024 - (PlayerPos.w * 1));
+			PlayerPos.x = (1024 - (PlayerPos.w * 2));
 
 			bkgdRect.x -= pVelX;
 
@@ -363,9 +363,9 @@ int main(int argc, char* argv[]) {
 			EnemyPos.x -=pVelX;
 		}
 
-		if(PlayerPos.x < (0 + (PlayerPos.w * 1))){
+		if(PlayerPos.x < (0 + (PlayerPos.w * 2))){
 
-			PlayerPos.x = (0 + (PlayerPos.w * 1));
+			PlayerPos.x = (0 + (PlayerPos.w * 2));
 
 			bkgdRect.x -= pVelX;
 
@@ -393,9 +393,9 @@ int main(int argc, char* argv[]) {
 
 		PlayerPos.y += pVelY;
 
-		if(PlayerPos.y < (0 + (PlayerPos.h * 0))){
+		if(PlayerPos.y < (0 + (PlayerPos.h * 2))){
 
-			PlayerPos.y = (0 + (PlayerPos.h * 0));
+			PlayerPos.y = (0 + (PlayerPos.h * 2));
 
 			bkgdRect.y -= pVelY;
 
@@ -414,9 +414,9 @@ int main(int argc, char* argv[]) {
 			EnemyPos.y -=pVelY;
 		}
 
-		if(PlayerPos.y > (768 - (PlayerPos.h * 1))){
+		if(PlayerPos.y > (768 - (PlayerPos.h * 2))){
 
-			PlayerPos.y = 768 - (PlayerPos.h * 1);
+			PlayerPos.y = 768 - (PlayerPos.h * 2);
 
 			bkgdRect.y -= pVelY;
 
