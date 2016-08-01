@@ -36,9 +36,11 @@ bool penGot = false, willGot = false, gunGot = false;
 
 bool Pfront = true, Pback = false, Pright = false, Pleft = false;
 
-bool fireRight = true, fireLeft = false, fireUp = false, fireDown = false;
+bool fireRight = false, fireLeft = false, fireUp = true, fireDown = false;
 
 int ammo = 11;
+
+int enemyHealth = 5, turretHealth = 5;
 
 int main(int argc, char* argv[]) {
 
@@ -101,10 +103,25 @@ int main(int argc, char* argv[]) {
     drop3Pos.w = 28;
     drop3Pos.h = 56;
 
+    SDL_Rect drop4Pos;
+    drop4Pos.x = PlayerPos.x + 50;
+    drop4Pos.y = PlayerPos.y;
+    drop4Pos.w = 28;
+    drop4Pos.h = 56;
+
 	const float DROP_VEL = 3.5;
 
-	int dVelX = 0;
-	int dVelY = 0;
+	int dVelX1 = 0;
+	int dVelY1 = 0;
+
+	int dVelX2 = 0;
+	int dVelY2 = 0;
+
+	int dVelX3 = 0;
+	int dVelY3 = 0;
+
+	int dVelX4 = 0;
+	int dVelY4 = 0;
 
     SDL_Texture *bkgd = IMG_LoadTexture(renderer, (images_dir + "Path.png").c_str());
 
@@ -490,7 +507,7 @@ int main(int argc, char* argv[]) {
 
 					if(Pfront == true)
 					{
-						dVelY += DROP_VEL;
+						dVelY4 += DROP_VEL;
 						fireUp = false;
 						fireDown = true;
 						fireRight = false;
@@ -498,7 +515,7 @@ int main(int argc, char* argv[]) {
 					}
 					if(Pback == true)
 					{
-						dVelY -= DROP_VEL;
+						dVelY3 -= DROP_VEL;
 						fireUp = true;
 						fireDown = false;
 						fireRight = false;
@@ -506,7 +523,7 @@ int main(int argc, char* argv[]) {
 					}
 					if(Pright == true)
 					{
-						dVelX += DROP_VEL;
+						dVelX1 += DROP_VEL;
 						fireUp = false;
 						fireDown = false;
 						fireRight = true;
@@ -514,7 +531,7 @@ int main(int argc, char* argv[]) {
 					}
 					if(Pleft == true)
 					{
-						dVelX -= DROP_VEL;
+						dVelX2 -= DROP_VEL;
 						fireUp = false;
 						fireDown = false;
 						fireRight = false;
@@ -549,9 +566,10 @@ int main(int argc, char* argv[]) {
 
 		PlayerPos.x += pVelX;
 
-		dropPos.x += dVelX + pVelX;
-		drop2Pos.x += dVelX + pVelX;
-		drop3Pos.x += dVelX + pVelX;
+		dropPos.x += dVelX1 + pVelX;
+		drop2Pos.x += dVelX2 + pVelX;
+		drop3Pos.x += dVelX3 + pVelX;
+		drop4Pos.x += dVelX4 + pVelX;
 
 
 		if(PlayerPos.x > (1024 - (PlayerPos.w * 2))){
@@ -605,6 +623,7 @@ int main(int argc, char* argv[]) {
 			dropPos.x -=pVelX;
 			drop2Pos.x -=pVelX;
 			drop3Pos.x -=pVelX;
+			drop4Pos.x -=pVelX;
 		}
 
 		if(PlayerPos.x < (0 + (PlayerPos.w * 2))){
@@ -658,6 +677,7 @@ int main(int argc, char* argv[]) {
 			dropPos.x -=pVelX;
 			drop2Pos.x -=pVelX;
 			drop3Pos.x -=pVelX;
+			drop4Pos.x -=pVelX;
 		}
 
 		if( SDL_HasIntersection(&PlayerPos, &Wall) || SDL_HasIntersection(&PlayerPos, &Wall2) ||
@@ -680,9 +700,10 @@ int main(int argc, char* argv[]) {
 
 		PlayerPos.y += pVelY;
 
-		dropPos.y += dVelY + pVelY;
-		drop2Pos.y += dVelY + pVelY;
-		drop3Pos.y += dVelY + pVelY;
+		dropPos.y += dVelY1 + pVelY;
+		drop2Pos.y += dVelY2 + pVelY;
+		drop3Pos.y += dVelY3 + pVelY;
+		drop4Pos.y += dVelY4 + pVelY;
 
 		if(PlayerPos.y < (0 + (PlayerPos.h * 2))){
 
@@ -735,6 +756,7 @@ int main(int argc, char* argv[]) {
 			dropPos.y -=pVelY;
 			drop2Pos.y -=pVelY;
 			drop3Pos.y -=pVelY;
+			drop4Pos.y -=pVelY;
 		}
 
 		if(PlayerPos.y > (768 - (PlayerPos.h * 2))){
@@ -788,6 +810,7 @@ int main(int argc, char* argv[]) {
 			dropPos.y -=pVelY;
 			drop2Pos.y -=pVelY;
 			drop3Pos.y -=pVelY;
+			drop4Pos.y -=pVelY;
 		}
 
 		if( SDL_HasIntersection(&PlayerPos, &Wall) || SDL_HasIntersection(&PlayerPos, &Wall2) ||
@@ -908,7 +931,7 @@ int main(int argc, char* argv[]) {
 		}
 		if(fireDown == true)
 		{
-		SDL_RenderCopy(renderer, drop3, NULL, &drop3Pos);
+		SDL_RenderCopy(renderer, drop3, NULL, &drop4Pos);
 		}
 
 		SDL_RenderCopy(renderer, Tree, NULL, &TreePos);
