@@ -32,11 +32,14 @@ string images_dir = currentWorkingDirectory + "/Game-Engine-Final/image/";
 
 #endif
 
+#include "player.h"
+#include "turret.h"
+
 bool penGot = false, willGot = false, gunGot = false;
 
 bool Pfront = true, Pback = false, Pright = false, Pleft = false;
 
-bool fireRight = false, fireLeft = false, fireUp = true, fireDown = false;
+bool fireRight = false, fireLeft = false, fireUp = false, fireDown = false;
 
 int ammo = 11;
 
@@ -65,6 +68,8 @@ int main(int argc, char* argv[]) {
     bool quit = true;
 
     SDL_Event e;
+
+    Player player1 = Player(renderer, 0, images_dir.c_str(), 100.0, 250.0);
 
     SDL_Texture *Player = IMG_LoadTexture(renderer, (images_dir + "Player.png").c_str());
     SDL_Texture *PlayerB = IMG_LoadTexture(renderer, (images_dir + "PlayerB.png").c_str());
@@ -261,18 +266,6 @@ int main(int argc, char* argv[]) {
 
     Ammo0Pos.h = 65;
 
-
-    SDL_Texture *Empty, *Full;
-    SDL_Rect EmptyPos, FullPos;
-
-    Empty = IMG_LoadTexture(renderer, (images_dir + "HealthEmpty.png").c_str());
-    Full = IMG_LoadTexture(renderer, (images_dir + "HealthFull.png").c_str());
-
-    EmptyPos.x = FullPos.x = 10;
-    EmptyPos.y = FullPos.y = 50;
-    EmptyPos.w = FullPos.w = 239;
-    EmptyPos.h = FullPos.h = 32;
-
     SDL_Texture *Pickup = IMG_LoadTexture(renderer, (images_dir + "AmmoP.png").c_str());
     SDL_Rect PickupPos;
 
@@ -447,12 +440,7 @@ int main(int argc, char* argv[]) {
     TreePos21.w = 68;
     TreePos21.h = 60;
 
-    SDL_Texture *turret = IMG_LoadTexture(renderer, (images_dir + "turret.png").c_str());
-    SDL_Rect turretPos;
-    turretPos.x = 200;
-    turretPos.y = 500;
-    turretPos.w = 100;
-    turretPos.h = 100;
+    Turrent turret1 = Turrent(renderer, images_dir.c_str(), 200, 500);
 
 	//The surface contained by the window
 	SDL_Surface* screenSurface = NULL;
@@ -476,6 +464,8 @@ int main(int argc, char* argv[]) {
 
 					case SDLK_w:
 					pVelY -= PLAYER_VEL;
+					player1.pVelY -= player1.PLAYER_VEL;
+					player1.playerNum = 3;
 					Pfront = false;
 					Pback = true;
 					Pright = false;
@@ -483,6 +473,8 @@ int main(int argc, char* argv[]) {
 					break;
 					case SDLK_s:
 					pVelY += PLAYER_VEL;
+					player1.pVelY += player1.PLAYER_VEL;
+					player1.playerNum = 0;
 					Pfront = true;
 					Pback = false;
 					Pright = false;
@@ -490,6 +482,8 @@ int main(int argc, char* argv[]) {
 					break;
 					case SDLK_a:
 					pVelX -= PLAYER_VEL;
+					player1.pVelX -= player1.PLAYER_VEL;
+					player1.playerNum = 2;
 					Pfront = false;
 					Pback = false;
 					Pright = false;
@@ -497,6 +491,8 @@ int main(int argc, char* argv[]) {
 					break;
 					case SDLK_d:
 					pVelX += PLAYER_VEL;
+					player1.pVelX += player1.PLAYER_VEL;
+					player1.playerNum = 1;
 					Pfront = false;
 					Pback = false;
 					Pright = true;
@@ -504,7 +500,10 @@ int main(int argc, char* argv[]) {
 					break;
 					case SDLK_SPACE:
 					ammo--;
-
+					if(ammo >= 9)
+					{
+					player1.CreateBullet();
+					}
 					if(Pfront == true)
 					{
 						dVelY4 += DROP_VEL;
@@ -548,15 +547,19 @@ int main(int argc, char* argv[]) {
 
 					case SDLK_w:
 					pVelY += PLAYER_VEL;
+					player1.pVelY += player1.PLAYER_VEL;
 					break;
 					case SDLK_s:
 					pVelY -= PLAYER_VEL;
+					player1.pVelY -= player1.PLAYER_VEL;
 					break;
 					case SDLK_a:
 					pVelX += PLAYER_VEL;
+					player1.pVelX += player1.PLAYER_VEL;
 					break;
 					case SDLK_d:
 					pVelX -= PLAYER_VEL;
+					player1.pVelX -= player1.PLAYER_VEL;
 					break;
 
 					}
@@ -565,6 +568,8 @@ int main(int argc, char* argv[]) {
 		}
 
 		PlayerPos.x += pVelX;
+
+		player1.posRect.x += player1.pVelX;
 
 		dropPos.x += dVelX1 + pVelX;
 		drop2Pos.x += dVelX2 + pVelX;
@@ -618,7 +623,7 @@ int main(int argc, char* argv[]) {
 			TreePos20.x -=pVelX;
 			TreePos21.x -=pVelX;
 
-			turretPos.x -=pVelX;
+			turret1.baseRect.x -= pVelX;
 
 			dropPos.x -=pVelX;
 			drop2Pos.x -=pVelX;
@@ -672,7 +677,7 @@ int main(int argc, char* argv[]) {
 			TreePos20.x -=pVelX;
 			TreePos21.x -=pVelX;
 
-			turretPos.x -=pVelX;
+			turret1.baseRect.x -= pVelX;
 
 			dropPos.x -=pVelX;
 			drop2Pos.x -=pVelX;
@@ -699,6 +704,8 @@ int main(int argc, char* argv[]) {
 
 
 		PlayerPos.y += pVelY;
+
+		player1.posRect.y += player1.pVelY;
 
 		dropPos.y += dVelY1 + pVelY;
 		drop2Pos.y += dVelY2 + pVelY;
@@ -751,7 +758,7 @@ int main(int argc, char* argv[]) {
 			TreePos20.y -=pVelY;
 			TreePos21.y -=pVelY;
 
-			turretPos.y -=pVelY;
+			turret1.baseRect.y -= pVelY;
 
 			dropPos.y -=pVelY;
 			drop2Pos.y -=pVelY;
@@ -805,7 +812,7 @@ int main(int argc, char* argv[]) {
 			TreePos20.y -=pVelY;
 			TreePos21.y -=pVelY;
 
-			turretPos.y -=pVelY;
+			turret1.baseRect.y -= pVelY;
 
 			dropPos.y -=pVelY;
 			drop2Pos.y -=pVelY;
@@ -858,22 +865,22 @@ int main(int argc, char* argv[]) {
 			}
 		}
 
-		if(FullPos.w <= 120)
+		if(player1.FullPos.w <= 120)
 		{
 			if( SDL_HasIntersection(&PlayerPos, &HealthPickupPos)) {
 
 				HealthPickupPos.x = -1000;
-				FullPos.w += 60;
+				player1.FullPos.w += 60;
 			}
 		}
 
 		if( SDL_HasIntersection(&PlayerPos, &EnemyPos)) {
 
-			FullPos.w -=.025;
+			player1.FullPos.w -=.025;
 
-			if(FullPos.w == 0)
+			if(player1.FullPos.w == 0)
 			{
-				FullPos.w = 0;
+				player1.FullPos.w = 0;
 			}
 		}
 
@@ -955,8 +962,6 @@ int main(int argc, char* argv[]) {
 		SDL_RenderCopy(renderer, Tree, NULL, &TreePos19);
 		SDL_RenderCopy(renderer, Tree, NULL, &TreePos20);
 		SDL_RenderCopy(renderer, Tree, NULL, &TreePos21);
-
-		SDL_RenderCopy(renderer, turret, NULL, &turretPos);
 
 
 		if(penGot == false)
@@ -1040,11 +1045,11 @@ int main(int argc, char* argv[]) {
 		SDL_RenderCopy(renderer, Ammo11, NULL, &Ammo0Pos);
 		}
 
+		player1.Draw(renderer);
+
+		turret1.Draw(renderer);
+
 		SDL_RenderCopy(renderer, Enemy, NULL, &EnemyPos);
-
-		SDL_RenderCopy(renderer, Empty, NULL, &EmptyPos);
-
-		SDL_RenderCopy(renderer, Full, NULL, &FullPos);
 
 		SDL_RenderPresent(renderer);
 
