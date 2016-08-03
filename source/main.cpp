@@ -89,7 +89,7 @@ int main(int argc, char* argv[]) {
 
     SDL_Texture *drop = IMG_LoadTexture(renderer, (images_dir + "drop.png").c_str());
     SDL_Rect dropPos;
-    dropPos.x = PlayerPos.x + 75;
+    dropPos.x = PlayerPos.w + 75;
     dropPos.y = PlayerPos.y + 15;
     dropPos.w = 28;
     dropPos.h = 56;
@@ -464,8 +464,8 @@ int main(int argc, char* argv[]) {
 
 					case SDLK_w:
 					pVelY -= PLAYER_VEL;
-					player1.pVelY -= player1.PLAYER_VEL;
-					player1.playerNum = 3;
+					//player1.pVelY -= player1.PLAYER_VEL;
+					//player1.playerNum = 3;
 					Pfront = false;
 					Pback = true;
 					Pright = false;
@@ -473,8 +473,8 @@ int main(int argc, char* argv[]) {
 					break;
 					case SDLK_s:
 					pVelY += PLAYER_VEL;
-					player1.pVelY += player1.PLAYER_VEL;
-					player1.playerNum = 0;
+					//player1.pVelY += player1.PLAYER_VEL;
+					//player1.playerNum = 0;
 					Pfront = true;
 					Pback = false;
 					Pright = false;
@@ -482,8 +482,8 @@ int main(int argc, char* argv[]) {
 					break;
 					case SDLK_a:
 					pVelX -= PLAYER_VEL;
-					player1.pVelX -= player1.PLAYER_VEL;
-					player1.playerNum = 2;
+					//player1.pVelX -= player1.PLAYER_VEL;
+					//player1.playerNum = 2;
 					Pfront = false;
 					Pback = false;
 					Pright = false;
@@ -491,8 +491,8 @@ int main(int argc, char* argv[]) {
 					break;
 					case SDLK_d:
 					pVelX += PLAYER_VEL;
-					player1.pVelX += player1.PLAYER_VEL;
-					player1.playerNum = 1;
+					//player1.pVelX += player1.PLAYER_VEL;
+					//player1.playerNum = 1;
 					Pfront = false;
 					Pback = false;
 					Pright = true;
@@ -502,38 +502,26 @@ int main(int argc, char* argv[]) {
 					ammo--;
 					if(ammo >= 9)
 					{
-					player1.CreateBullet();
+					//player1.CreateBullet();
 					}
 					if(Pfront == true)
 					{
 						dVelY4 += DROP_VEL;
-						fireUp = false;
 						fireDown = true;
-						fireRight = false;
-						fireLeft = false;
 					}
 					if(Pback == true)
 					{
 						dVelY3 -= DROP_VEL;
 						fireUp = true;
-						fireDown = false;
-						fireRight = false;
-						fireLeft = false;
 					}
 					if(Pright == true)
 					{
 						dVelX1 += DROP_VEL;
-						fireUp = false;
-						fireDown = false;
 						fireRight = true;
-						fireLeft = false;
 					}
 					if(Pleft == true)
 					{
 						dVelX2 -= DROP_VEL;
-						fireUp = false;
-						fireDown = false;
-						fireRight = false;
 						fireLeft = true;
 					}
 
@@ -547,19 +535,19 @@ int main(int argc, char* argv[]) {
 
 					case SDLK_w:
 					pVelY += PLAYER_VEL;
-					player1.pVelY += player1.PLAYER_VEL;
+					//player1.pVelY += player1.PLAYER_VEL;
 					break;
 					case SDLK_s:
 					pVelY -= PLAYER_VEL;
-					player1.pVelY -= player1.PLAYER_VEL;
+					//player1.pVelY -= player1.PLAYER_VEL;
 					break;
 					case SDLK_a:
 					pVelX += PLAYER_VEL;
-					player1.pVelX += player1.PLAYER_VEL;
+					//player1.pVelX += player1.PLAYER_VEL;
 					break;
 					case SDLK_d:
 					pVelX -= PLAYER_VEL;
-					player1.pVelX -= player1.PLAYER_VEL;
+					//player1.pVelX -= player1.PLAYER_VEL;
 					break;
 
 					}
@@ -569,7 +557,7 @@ int main(int argc, char* argv[]) {
 
 		PlayerPos.x += pVelX;
 
-		player1.posRect.x += player1.pVelX;
+		//player1.posRect.x += player1.pVelX;
 
 		dropPos.x += dVelX1 + pVelX;
 		drop2Pos.x += dVelX2 + pVelX;
@@ -705,7 +693,7 @@ int main(int argc, char* argv[]) {
 
 		PlayerPos.y += pVelY;
 
-		player1.posRect.y += player1.pVelY;
+		//player1.posRect.y += player1.pVelY;
 
 		dropPos.y += dVelY1 + pVelY;
 		drop2Pos.y += dVelY2 + pVelY;
@@ -928,17 +916,49 @@ int main(int argc, char* argv[]) {
 		{
 		SDL_RenderCopy(renderer, drop, NULL, &dropPos);
 		}
+
+		if(dropPos.x >= 1024)
+		{
+		    dropPos.x = PlayerPos.x;
+		    dropPos.y = PlayerPos.y;
+		    dVelX1 = 0;
+			fireRight = false;
+		}
 		if(fireLeft == true)
 		{
 		SDL_RenderCopy(renderer, drop2, NULL, &drop2Pos);
+		}
+
+		if(drop2Pos.x <= 0)
+		{
+		    drop2Pos.x = PlayerPos.x;
+		    drop2Pos.y = PlayerPos.y;
+		    dVelX2 = 0;
+			fireLeft = false;
 		}
 		if(fireUp == true)
 		{
 		SDL_RenderCopy(renderer, drop3, NULL, &drop3Pos);
 		}
+
+		if(drop3Pos.y <= 0)
+		{
+		    drop3Pos.x = PlayerPos.x;
+		    drop3Pos.y = PlayerPos.y;
+		    dVelY3 = 0;
+			fireUp = false;
+		}
 		if(fireDown == true)
 		{
 		SDL_RenderCopy(renderer, drop3, NULL, &drop4Pos);
+		}
+
+		if(drop4Pos.y >= 768)
+		{
+		    drop4Pos.x = PlayerPos.x;
+		    drop4Pos.y = PlayerPos.y;
+		    dVelY4 = 0;
+			fireDown = false;
 		}
 
 		SDL_RenderCopy(renderer, Tree, NULL, &TreePos);

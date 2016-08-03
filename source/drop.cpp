@@ -11,11 +11,11 @@ Drop::Drop(SDL_Renderer *renderer, string filePath, float x, float y)
 
 	int w, h;
 	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-	posRect.w = w;
-	posRect.h = h;
+	dropRect.w = w;
+	dropRect.h = h;
 
-	posRect.x = x;
-	posRect.y = y;
+	dropRect.x = x;
+	dropRect.y = y;
 }
 
 void Drop::Start(SDL_Rect playerPos, SDL_Rect turretPos) {
@@ -31,15 +31,15 @@ void Drop::Start(SDL_Rect playerPos, SDL_Rect turretPos) {
 
 void Drop::Reset()
 {
-	posRect.x = -1000;
+	dropRect.x = -1000;
 
-	pVelX = posRect.x;
+	pVelX = dropRect.x;
 
 	active = false;
 }
 
 void Drop::Draw(SDL_Renderer *renderer) {
-	SDL_RenderCopy(renderer, texture, NULL, &posRect);
+	SDL_RenderCopy(renderer, texture, NULL, &dropRect);
 }
 
 void Drop::Update(float deltaTime)
@@ -50,10 +50,10 @@ void Drop::Update(float deltaTime)
 	pVelX += (vX * DROP_VEL * deltaTime);
 	pVelY += (vY * DROP_VEL * deltaTime);
 
-	posRect.x = (int)(pVelX + 0.5f);
-	posRect.y = (int)(pVelY + 0.5f);
+	dropRect.x = (int)(pVelX + 0.5f);
+	dropRect.y = (int)(pVelY + 0.5f);
 
-	if ((posRect.y < (0 - posRect.h)) || (posRect.y > 768) || (posRect.x < (0 - posRect.w)) || (posRect.x > 1024)) {
+	if ((dropRect.y < (0 - dropRect.h)) || (dropRect.y > 768) || (dropRect.x < (0 - dropRect.w)) || (dropRect.x > 1024)) {
 		Reset();
 	}
 }

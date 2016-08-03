@@ -134,7 +134,7 @@ void Player::Draw(SDL_Renderer *renderer)
 		}
 	}
 
-	SDL_RenderCopy(renderer, texture, NULL, &posRect);
+	//SDL_RenderCopy(renderer, texture, NULL, &posRect);
 
 	SDL_RenderCopy(renderer, Empty, NULL, &EmptyPos);
 	SDL_RenderCopy(renderer, Full, NULL, &FullPos);
@@ -149,8 +149,8 @@ void Player::CreateBullet(){
 
 		bulletList[i].active = true;
 
-		bulletList[i].posRect.x = (posRect.x + (posRect.w/2));
-		bulletList[i].posRect.y = (posRect.y + (posRect.h/2));
+		bulletList[i].dropRect.x = (posRect.x + (posRect.w/2));
+		bulletList[i].dropRect.y = (posRect.y + (posRect.h/2));
 
 		break;
 

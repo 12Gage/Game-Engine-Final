@@ -22,7 +22,7 @@ public:
 
 	SDL_Texture *texture;
 
-	SDL_Rect posRect;
+	SDL_Rect dropRect;
 
 	float DROP_VEL;
 
