@@ -33,7 +33,6 @@ string images_dir = currentWorkingDirectory + "/Game-Engine-Final/image/";
 #endif
 
 #include "player.h"
-#include "turret.h"
 
 bool penGot = false, willGot = false, gunGot = false;
 
@@ -43,7 +42,15 @@ bool fireRight = false, fireLeft = false, fireUp = false, fireDown = false;
 
 int ammo = 11;
 
-int enemyHealth = 5, turretHealth = 5;
+int enemyHealth = 5, turretHealth = 5, playerHealth = 10;
+
+bool turretActive = false;
+
+bool eBulletActive = true;
+bool pBulletActive = true;
+
+int eBulletDir = 0;
+int pBulletDir = 0;
 
 int main(int argc, char* argv[]) {
 
@@ -87,10 +94,17 @@ int main(int argc, char* argv[]) {
 	int pVelX = 0;
 	int pVelY = 0;
 
+    SDL_Texture *turret = IMG_LoadTexture(renderer, (images_dir + "turret.png").c_str());
+    SDL_Rect turretPos;
+    turretPos.x = 200;
+    turretPos.y = 500;
+    turretPos.w = 100;
+    turretPos.h = 100;
+
     SDL_Texture *drop = IMG_LoadTexture(renderer, (images_dir + "drop.png").c_str());
     SDL_Rect dropPos;
-    dropPos.x = PlayerPos.w + 75;
-    dropPos.y = PlayerPos.y + 15;
+    dropPos.x = -100;
+    dropPos.y = -100;
     dropPos.w = 28;
     dropPos.h = 56;
 
@@ -113,6 +127,13 @@ int main(int argc, char* argv[]) {
     drop4Pos.y = PlayerPos.y;
     drop4Pos.w = 28;
     drop4Pos.h = 56;
+
+    SDL_Texture *bee = IMG_LoadTexture(renderer, (images_dir + "bee.png").c_str());
+    SDL_Rect beePos;
+    beePos.x = -200;
+    beePos.y = -200;
+    beePos.w = 16;
+    beePos.h = 16;
 
 	const float DROP_VEL = 3.5;
 
@@ -440,8 +461,6 @@ int main(int argc, char* argv[]) {
     TreePos21.w = 68;
     TreePos21.h = 60;
 
-    Turrent turret1 = Turrent(renderer, images_dir.c_str(), 200, 500);
-
 	//The surface contained by the window
 	SDL_Surface* screenSurface = NULL;
 
@@ -499,29 +518,41 @@ int main(int argc, char* argv[]) {
 					Pleft = false;
 					break;
 					case SDLK_SPACE:
+						if(pBulletActive == false){
+							dropPos.x = PlayerPos.x;
+							dropPos.y = (PlayerPos.y + (PlayerPos.h/2));
+
+							drop2Pos.x = PlayerPos.x;
+							drop2Pos.y = (PlayerPos.y + (PlayerPos.h/2));
+
+							drop3Pos.x = PlayerPos.x;
+							drop3Pos.y = (PlayerPos.y + (PlayerPos.h/2));
+
+							drop4Pos.x = PlayerPos.x;
+							drop4Pos.y = (PlayerPos.y + (PlayerPos.h/2));
+
+							if(PlayerPos.x  < turretPos.x){
+								pBulletDir = 5;
+							}else{
+								pBulletDir = -5;
+							}
+							pBulletActive = true;
+						}
 					ammo--;
-					if(ammo >= 9)
-					{
-					//player1.CreateBullet();
-					}
 					if(Pfront == true)
 					{
-						dVelY4 += DROP_VEL;
 						fireDown = true;
 					}
 					if(Pback == true)
 					{
-						dVelY3 -= DROP_VEL;
 						fireUp = true;
 					}
 					if(Pright == true)
 					{
-						dVelX1 += DROP_VEL;
 						fireRight = true;
 					}
 					if(Pleft == true)
 					{
-						dVelX2 -= DROP_VEL;
 						fireLeft = true;
 					}
 
@@ -535,19 +566,15 @@ int main(int argc, char* argv[]) {
 
 					case SDLK_w:
 					pVelY += PLAYER_VEL;
-					//player1.pVelY += player1.PLAYER_VEL;
 					break;
 					case SDLK_s:
 					pVelY -= PLAYER_VEL;
-					//player1.pVelY -= player1.PLAYER_VEL;
 					break;
 					case SDLK_a:
 					pVelX += PLAYER_VEL;
-					//player1.pVelX += player1.PLAYER_VEL;
 					break;
 					case SDLK_d:
 					pVelX -= PLAYER_VEL;
-					//player1.pVelX -= player1.PLAYER_VEL;
 					break;
 
 					}
@@ -556,14 +583,6 @@ int main(int argc, char* argv[]) {
 		}
 
 		PlayerPos.x += pVelX;
-
-		//player1.posRect.x += player1.pVelX;
-
-		dropPos.x += dVelX1 + pVelX;
-		drop2Pos.x += dVelX2 + pVelX;
-		drop3Pos.x += dVelX3 + pVelX;
-		drop4Pos.x += dVelX4 + pVelX;
-
 
 		if(PlayerPos.x > (1024 - (PlayerPos.w * 2))){
 
@@ -610,13 +629,6 @@ int main(int argc, char* argv[]) {
 			TreePos19.x -=pVelX;
 			TreePos20.x -=pVelX;
 			TreePos21.x -=pVelX;
-
-			turret1.baseRect.x -= pVelX;
-
-			dropPos.x -=pVelX;
-			drop2Pos.x -=pVelX;
-			drop3Pos.x -=pVelX;
-			drop4Pos.x -=pVelX;
 		}
 
 		if(PlayerPos.x < (0 + (PlayerPos.w * 2))){
@@ -664,13 +676,6 @@ int main(int argc, char* argv[]) {
 			TreePos19.x -=pVelX;
 			TreePos20.x -=pVelX;
 			TreePos21.x -=pVelX;
-
-			turret1.baseRect.x -= pVelX;
-
-			dropPos.x -=pVelX;
-			drop2Pos.x -=pVelX;
-			drop3Pos.x -=pVelX;
-			drop4Pos.x -=pVelX;
 		}
 
 		if( SDL_HasIntersection(&PlayerPos, &Wall) || SDL_HasIntersection(&PlayerPos, &Wall2) ||
@@ -694,11 +699,6 @@ int main(int argc, char* argv[]) {
 		PlayerPos.y += pVelY;
 
 		//player1.posRect.y += player1.pVelY;
-
-		dropPos.y += dVelY1 + pVelY;
-		drop2Pos.y += dVelY2 + pVelY;
-		drop3Pos.y += dVelY3 + pVelY;
-		drop4Pos.y += dVelY4 + pVelY;
 
 		if(PlayerPos.y < (0 + (PlayerPos.h * 2))){
 
@@ -745,13 +745,6 @@ int main(int argc, char* argv[]) {
 			TreePos19.y -=pVelY;
 			TreePos20.y -=pVelY;
 			TreePos21.y -=pVelY;
-
-			turret1.baseRect.y -= pVelY;
-
-			dropPos.y -=pVelY;
-			drop2Pos.y -=pVelY;
-			drop3Pos.y -=pVelY;
-			drop4Pos.y -=pVelY;
 		}
 
 		if(PlayerPos.y > (768 - (PlayerPos.h * 2))){
@@ -799,13 +792,6 @@ int main(int argc, char* argv[]) {
 			TreePos19.y -=pVelY;
 			TreePos20.y -=pVelY;
 			TreePos21.y -=pVelY;
-
-			turret1.baseRect.y -= pVelY;
-
-			dropPos.y -=pVelY;
-			drop2Pos.y -=pVelY;
-			drop3Pos.y -=pVelY;
-			drop4Pos.y -=pVelY;
 		}
 
 		if( SDL_HasIntersection(&PlayerPos, &Wall) || SDL_HasIntersection(&PlayerPos, &Wall2) ||
@@ -825,6 +811,114 @@ int main(int argc, char* argv[]) {
 
 			PlayerPos.y -= pVelY;
 		}
+
+
+		double distancex = ((turretPos.x + (turretPos.w /2))
+				- (PlayerPos.x + (PlayerPos.w / 2)))
+						*((turretPos.x + (turretPos.w / 2))
+								- (PlayerPos.x + (PlayerPos.w / 2)));
+		double distancey = (turretPos.y - PlayerPos.y)
+				* (turretPos.y - PlayerPos.y);
+
+		double calcdistance = sqrt(distancex + distancey);
+
+		if( calcdistance <= 255){
+
+			turretActive = true;
+
+			int random_number = std::rand()%50;
+
+			if((eBulletActive) == false && (random_number == 5)){
+
+				beePos.x = turretPos.x;
+				beePos.y = (turretPos.y + (turretPos.h/2));
+
+				if(PlayerPos.x < turretPos.x){
+					eBulletDir = -5;
+				}else{
+					eBulletDir = 5;
+				}
+
+				eBulletActive = true;
+			}
+		} else{
+
+			turretActive = false;
+		}
+
+		if(eBulletActive){
+			beePos.x += eBulletDir;
+		}
+
+		if(beePos.x > 1024 || beePos.x < 0){
+			eBulletActive = false;
+			beePos.x = -200;
+			beePos.y = -200;
+			eBulletDir = 0;
+		}
+
+		if(fireRight == true)
+		{
+			if(pBulletActive){
+				dropPos.x += pBulletDir;
+			}
+		}
+
+		if(fireLeft == true)
+		{
+			if(pBulletActive){
+				drop2Pos.x -= pBulletDir;
+			}
+		}
+
+		if(fireUp == true)
+		{
+			if(pBulletActive){
+				drop3Pos.y -= pBulletDir;
+			}
+		}
+
+		if(fireDown == true)
+		{
+			if(pBulletActive){
+				drop4Pos.y += pBulletDir;
+			}
+		}
+
+		if(dropPos.x > 1024 || dropPos.x < 0){
+			pBulletActive = false;
+			dropPos.x = -100;
+			dropPos.y = -100;
+			pBulletDir = 0;
+		}
+
+		if(SDL_HasIntersection(&PlayerPos, &beePos)){
+
+			eBulletActive = false;
+			beePos.x = -200;
+			beePos.y = -200;
+			eBulletDir = 0;
+
+			playerHealth -= 1;
+		}
+
+		if(SDL_HasIntersection(&turretPos, &dropPos) && turretActive == true){
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+
+			turretHealth -=1;
+		}
+
+		if(SDL_HasIntersection(&turretPos, &dropPos) && turretActive == false){
+
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+		}
+
 
 		if( SDL_HasIntersection(&PlayerPos, &PenPos)) {
 
@@ -894,6 +988,13 @@ int main(int argc, char* argv[]) {
 
 		SDL_RenderCopy(renderer, Dock, NULL, &DockPos);
 
+		if(eBulletActive){
+			SDL_RenderCopy(renderer, bee, NULL, &beePos);
+		}
+
+		if(pBulletActive){
+			SDL_RenderCopy(renderer, drop, NULL, &dropPos);
+		}
 
 		if(Pfront == true)
 		{
@@ -912,6 +1013,9 @@ int main(int argc, char* argv[]) {
 		SDL_RenderCopy(renderer, PlayerL, NULL, &PlayerPos);
 		}
 
+		SDL_RenderCopy(renderer, turret, NULL, &turretPos);
+
+
 		if(fireRight == true)
 		{
 		SDL_RenderCopy(renderer, drop, NULL, &dropPos);
@@ -919,9 +1023,10 @@ int main(int argc, char* argv[]) {
 
 		if(dropPos.x >= 1024)
 		{
+			pBulletActive = false;
 		    dropPos.x = PlayerPos.x;
 		    dropPos.y = PlayerPos.y;
-		    dVelX1 = 0;
+		    pBulletDir = 0;
 			fireRight = false;
 		}
 		if(fireLeft == true)
@@ -931,9 +1036,10 @@ int main(int argc, char* argv[]) {
 
 		if(drop2Pos.x <= 0)
 		{
+			pBulletActive = false;
 		    drop2Pos.x = PlayerPos.x;
 		    drop2Pos.y = PlayerPos.y;
-		    dVelX2 = 0;
+		    pBulletDir = 0;
 			fireLeft = false;
 		}
 		if(fireUp == true)
@@ -943,9 +1049,10 @@ int main(int argc, char* argv[]) {
 
 		if(drop3Pos.y <= 0)
 		{
+			pBulletActive = false;
 		    drop3Pos.x = PlayerPos.x;
 		    drop3Pos.y = PlayerPos.y;
-		    dVelY3 = 0;
+		    pBulletDir = 0;
 			fireUp = false;
 		}
 		if(fireDown == true)
@@ -955,11 +1062,13 @@ int main(int argc, char* argv[]) {
 
 		if(drop4Pos.y >= 768)
 		{
+			pBulletActive = false;
 		    drop4Pos.x = PlayerPos.x;
 		    drop4Pos.y = PlayerPos.y;
-		    dVelY4 = 0;
+		    pBulletDir = 0;
 			fireDown = false;
 		}
+
 
 		SDL_RenderCopy(renderer, Tree, NULL, &TreePos);
 		SDL_RenderCopy(renderer, Tree, NULL, &TreePos2);
@@ -1066,8 +1175,6 @@ int main(int argc, char* argv[]) {
 		}
 
 		player1.Draw(renderer);
-
-		turret1.Draw(renderer);
 
 		SDL_RenderCopy(renderer, Enemy, NULL, &EnemyPos);
 
