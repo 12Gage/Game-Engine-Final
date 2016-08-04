@@ -135,20 +135,6 @@ int main(int argc, char* argv[]) {
     beePos.w = 16;
     beePos.h = 16;
 
-	const float DROP_VEL = 3.5;
-
-	int dVelX1 = 0;
-	int dVelY1 = 0;
-
-	int dVelX2 = 0;
-	int dVelY2 = 0;
-
-	int dVelX3 = 0;
-	int dVelY3 = 0;
-
-	int dVelX4 = 0;
-	int dVelY4 = 0;
-
     SDL_Texture *bkgd = IMG_LoadTexture(renderer, (images_dir + "Path.png").c_str());
 
     SDL_Rect bkgdRect;
@@ -817,8 +803,11 @@ int main(int argc, char* argv[]) {
 				- (PlayerPos.x + (PlayerPos.w / 2)))
 						*((turretPos.x + (turretPos.w / 2))
 								- (PlayerPos.x + (PlayerPos.w / 2)));
-		double distancey = (turretPos.y - PlayerPos.y)
-				* (turretPos.y - PlayerPos.y);
+
+		double distancey = ((turretPos.y + (turretPos.h /2))
+				- (PlayerPos.y + (PlayerPos.h / 2)))
+						*((turretPos.y + (turretPos.h / 2))
+								- (PlayerPos.y + (PlayerPos.h / 2)));
 
 		double calcdistance = sqrt(distancex + distancey);
 
@@ -857,13 +846,13 @@ int main(int argc, char* argv[]) {
 			eBulletDir = 0;
 		}
 
-		if(fireRight == true)
-		{
-			if(pBulletActive){
-				dropPos.x += pBulletDir;
-			}
+
+		if(pBulletActive){
+			dropPos.x += pBulletDir;
 		}
 
+
+		/*
 		if(fireLeft == true)
 		{
 			if(pBulletActive){
@@ -884,6 +873,7 @@ int main(int argc, char* argv[]) {
 				drop4Pos.y += pBulletDir;
 			}
 		}
+		*/
 
 		if(dropPos.x > 1024 || dropPos.x < 0){
 			pBulletActive = false;
@@ -899,7 +889,12 @@ int main(int argc, char* argv[]) {
 			beePos.y = -200;
 			eBulletDir = 0;
 
-			playerHealth -= 1;
+			player1.FullPos.w -= 11.95;
+
+			if(player1.FullPos.w == 0)
+			{
+				player1.FullPos.w = 0;
+			}
 		}
 
 		if(SDL_HasIntersection(&turretPos, &dropPos) && turretActive == true){
@@ -909,6 +904,11 @@ int main(int argc, char* argv[]) {
 			pBulletDir = 0;
 
 			turretHealth -=1;
+
+			if(turretHealth == 0)
+			{
+				turretPos.x = -200;
+			}
 		}
 
 		if(SDL_HasIntersection(&turretPos, &dropPos) && turretActive == false){
