@@ -47,6 +47,7 @@ int enemyHealth = 5, turretHealth = 5, playerHealth = 10;
 bool turretActive = false;
 
 bool eBulletActive = true;
+bool eBulletActive2 = true;
 bool pBulletActive = true;
 
 int eBulletDir = 0;
@@ -101,32 +102,12 @@ int main(int argc, char* argv[]) {
     turretPos.w = 100;
     turretPos.h = 100;
 
-    SDL_Texture *drop = IMG_LoadTexture(renderer, (images_dir + "drop.png").c_str());
+    SDL_Texture *drop = IMG_LoadTexture(renderer, (images_dir + "drop3.png").c_str());
     SDL_Rect dropPos;
     dropPos.x = -100;
     dropPos.y = -100;
     dropPos.w = 28;
     dropPos.h = 56;
-
-    SDL_Texture *drop2 = IMG_LoadTexture(renderer, (images_dir + "drop2.png").c_str());
-    SDL_Rect drop2Pos;
-    drop2Pos.x = PlayerPos.x + 25;
-    drop2Pos.y = PlayerPos.y + 15;
-    drop2Pos.w = 28;
-    drop2Pos.h = 56;
-
-    SDL_Texture *drop3 = IMG_LoadTexture(renderer, (images_dir + "drop3.png").c_str());
-    SDL_Rect drop3Pos;
-    drop3Pos.x = PlayerPos.x + 50;
-    drop3Pos.y = PlayerPos.y;
-    drop3Pos.w = 28;
-    drop3Pos.h = 56;
-
-    SDL_Rect drop4Pos;
-    drop4Pos.x = PlayerPos.x + 50;
-    drop4Pos.y = PlayerPos.y;
-    drop4Pos.w = 28;
-    drop4Pos.h = 56;
 
     SDL_Texture *bee = IMG_LoadTexture(renderer, (images_dir + "bee.png").c_str());
     SDL_Rect beePos;
@@ -181,39 +162,28 @@ int main(int argc, char* argv[]) {
     SDL_Rect bag1Pos;
 
     bag1Pos.x = 375;
-
     bag1Pos.y = 10;
-
     bag1Pos.w = 90;
-
     bag1Pos.h = 135;
 
     SDL_Texture *bagOpen2 = IMG_LoadTexture(renderer, (images_dir + "bagOpen2.png").c_str());
     SDL_Rect bag2Pos;
 
     bag2Pos.x = 475;
-
     bag2Pos.y = 10;
-
     bag2Pos.w = 90;
-
     bag2Pos.h = 135;
 
     SDL_Texture *bagOpen3 = IMG_LoadTexture(renderer, (images_dir + "bagOpen3.png").c_str());
     SDL_Rect bag3Pos;
 
     bag3Pos.x = 575;
-
     bag3Pos.y = 10;
-
     bag3Pos.w = 90;
-
     bag3Pos.h = 135;
 
     SDL_Texture *bagClosed1 = IMG_LoadTexture(renderer, (images_dir + "bagClosed1.png").c_str());
-
     SDL_Texture *bagClosed2 = IMG_LoadTexture(renderer, (images_dir + "bagClosed2.png").c_str());
-
     SDL_Texture *bagClosed3 = IMG_LoadTexture(renderer, (images_dir + "bagClosed3.png").c_str());
 
 
@@ -221,33 +191,24 @@ int main(int argc, char* argv[]) {
     SDL_Rect PenPos;
 
     PenPos.x = 100;
-
-    PenPos.y = 225;
-
+	PenPos.y = 225;
     PenPos.w = 20;
-
     PenPos.h = 45;
 
     SDL_Texture *Will = IMG_LoadTexture(renderer, (images_dir + "WillP.png").c_str());
     SDL_Rect WillPos;
 
     WillPos.x = 100;
-
     WillPos.y = 275;
-
     WillPos.w = 20;
-
     WillPos.h = 45;
 
     SDL_Texture *Gun = IMG_LoadTexture(renderer, (images_dir + "GunP.png").c_str());
     SDL_Rect GunPos;
 
     GunPos.x = 100;
-
     GunPos.y = 325;
-
     GunPos.w = 35;
-
     GunPos.h = 45;
 
 
@@ -505,40 +466,49 @@ int main(int argc, char* argv[]) {
 					break;
 					case SDLK_SPACE:
 						if(pBulletActive == false){
+							if (ammo >= 0)
+							{
+								ammo--;
+							}
 							dropPos.x = PlayerPos.x;
-							dropPos.y = (PlayerPos.y + (PlayerPos.h/2));
-
-							drop2Pos.x = PlayerPos.x;
-							drop2Pos.y = (PlayerPos.y + (PlayerPos.h/2));
-
-							drop3Pos.x = PlayerPos.x;
-							drop3Pos.y = (PlayerPos.y + (PlayerPos.h/2));
-
-							drop4Pos.x = PlayerPos.x;
-							drop4Pos.y = (PlayerPos.y + (PlayerPos.h/2));
+							dropPos.y = (-10 + PlayerPos.y + (PlayerPos.h/2));
 
 							if(PlayerPos.x  < turretPos.x){
 								pBulletDir = 5;
 							}else{
-								pBulletDir = -5;
+								pBulletDir = 5;
 							}
-							pBulletActive = true;
+							if (ammo >= 0)
+							{
+								pBulletActive = true;
+							}
 						}
-					ammo--;
 					if(Pfront == true)
 					{
 						fireDown = true;
+						fireUp = false;
+						fireRight = false;
+						fireLeft = false;
 					}
 					if(Pback == true)
 					{
+						fireDown = false;
 						fireUp = true;
+						fireRight = false;
+						fireLeft = false;
 					}
 					if(Pright == true)
 					{
+						fireDown = false;
+						fireUp = false;
 						fireRight = true;
+						fireLeft = false;
 					}
 					if(Pleft == true)
 					{
+						fireDown = false;
+						fireUp = false;
+						fireRight = false;
 						fireLeft = true;
 					}
 
@@ -683,8 +653,6 @@ int main(int argc, char* argv[]) {
 
 
 		PlayerPos.y += pVelY;
-
-		//player1.posRect.y += player1.pVelY;
 
 		if(PlayerPos.y < (0 + (PlayerPos.h * 2))){
 
@@ -846,36 +814,42 @@ int main(int argc, char* argv[]) {
 			eBulletDir = 0;
 		}
 
-
-		if(pBulletActive){
-			dropPos.x += pBulletDir;
-		}
-
-
-		/*
-		if(fireLeft == true)
+		if(fireRight == true)
 		{
-			if(pBulletActive){
-				drop2Pos.x -= pBulletDir;
+			if (pBulletActive) {
+				dropPos.x += pBulletDir;
 			}
 		}
 
-		if(fireUp == true)
+		if (fireLeft == true)
 		{
-			if(pBulletActive){
-				drop3Pos.y -= pBulletDir;
+			if (pBulletActive) {
+				dropPos.x -= pBulletDir;
 			}
 		}
 
-		if(fireDown == true)
+		if (fireUp == true)
 		{
-			if(pBulletActive){
-				drop4Pos.y += pBulletDir;
+			if (pBulletActive) {
+				dropPos.y -= pBulletDir;
 			}
 		}
-		*/
+
+		if (fireDown == true)
+		{
+			if (pBulletActive) {
+				dropPos.y += pBulletDir;
+			}
+		}
 
 		if(dropPos.x > 1024 || dropPos.x < 0){
+			pBulletActive = false;
+			dropPos.x = -100;
+			dropPos.y = -100;
+			pBulletDir = 0;
+		}
+
+		if (dropPos.y > 768 || dropPos.y < 0) {
 			pBulletActive = false;
 			dropPos.x = -100;
 			dropPos.y = -100;
@@ -1014,60 +988,6 @@ int main(int argc, char* argv[]) {
 		}
 
 		SDL_RenderCopy(renderer, turret, NULL, &turretPos);
-
-
-		if(fireRight == true)
-		{
-		SDL_RenderCopy(renderer, drop, NULL, &dropPos);
-		}
-
-		if(dropPos.x >= 1024)
-		{
-			pBulletActive = false;
-		    dropPos.x = PlayerPos.x;
-		    dropPos.y = PlayerPos.y;
-		    pBulletDir = 0;
-			fireRight = false;
-		}
-		if(fireLeft == true)
-		{
-		SDL_RenderCopy(renderer, drop2, NULL, &drop2Pos);
-		}
-
-		if(drop2Pos.x <= 0)
-		{
-			pBulletActive = false;
-		    drop2Pos.x = PlayerPos.x;
-		    drop2Pos.y = PlayerPos.y;
-		    pBulletDir = 0;
-			fireLeft = false;
-		}
-		if(fireUp == true)
-		{
-		SDL_RenderCopy(renderer, drop3, NULL, &drop3Pos);
-		}
-
-		if(drop3Pos.y <= 0)
-		{
-			pBulletActive = false;
-		    drop3Pos.x = PlayerPos.x;
-		    drop3Pos.y = PlayerPos.y;
-		    pBulletDir = 0;
-			fireUp = false;
-		}
-		if(fireDown == true)
-		{
-		SDL_RenderCopy(renderer, drop3, NULL, &drop4Pos);
-		}
-
-		if(drop4Pos.y >= 768)
-		{
-			pBulletActive = false;
-		    drop4Pos.x = PlayerPos.x;
-		    drop4Pos.y = PlayerPos.y;
-		    pBulletDir = 0;
-			fireDown = false;
-		}
 
 
 		SDL_RenderCopy(renderer, Tree, NULL, &TreePos);
