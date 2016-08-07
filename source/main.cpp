@@ -1,3 +1,5 @@
+//when you fire make sure you are facing the right way
+
 
 #include <iostream>
 #include <stdio.h>
@@ -39,6 +41,8 @@ bool penGot = false, willGot = false, gunGot = false;
 bool Pfront = true, Pback = false, Pright = false, Pleft = false;
 
 bool fireRight = false, fireLeft = false, fireUp = false, fireDown = false;
+
+bool fire = true;
 
 int ammo = 11;
 
@@ -97,8 +101,8 @@ int main(int argc, char* argv[]) {
 
     SDL_Texture *turret = IMG_LoadTexture(renderer, (images_dir + "turret.png").c_str());
     SDL_Rect turretPos;
-    turretPos.x = 200;
-    turretPos.y = 500;
+    turretPos.x = 275;
+    turretPos.y = 525;
     turretPos.w = 100;
     turretPos.h = 100;
 
@@ -424,58 +428,54 @@ int main(int argc, char* argv[]) {
 			}
 			else
 			{
-				if(e.type == SDL_KEYDOWN && e.key.repeat == 0){
+				if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
 
-					switch(e.key.keysym.sym){
+					switch (e.key.keysym.sym) {
 
 					case SDLK_w:
-					pVelY -= PLAYER_VEL;
-					//player1.pVelY -= player1.PLAYER_VEL;
-					//player1.playerNum = 3;
-					Pfront = false;
-					Pback = true;
-					Pright = false;
-					Pleft = false;
-					break;
+						pVelY -= PLAYER_VEL;
+						Pfront = false;
+						Pback = true;
+						Pright = false;
+						Pleft = false;
+						break;
 					case SDLK_s:
-					pVelY += PLAYER_VEL;
-					//player1.pVelY += player1.PLAYER_VEL;
-					//player1.playerNum = 0;
-					Pfront = true;
-					Pback = false;
-					Pright = false;
-					Pleft = false;
-					break;
+						pVelY += PLAYER_VEL;
+						Pfront = true;
+						Pback = false;
+						Pright = false;
+						Pleft = false;
+						break;
 					case SDLK_a:
-					pVelX -= PLAYER_VEL;
-					//player1.pVelX -= player1.PLAYER_VEL;
-					//player1.playerNum = 2;
-					Pfront = false;
-					Pback = false;
-					Pright = false;
-					Pleft = true;
-					break;
+						pVelX -= PLAYER_VEL;
+						Pfront = false;
+						Pback = false;
+						Pright = false;
+						Pleft = true;
+						break;
 					case SDLK_d:
-					pVelX += PLAYER_VEL;
-					//player1.pVelX += player1.PLAYER_VEL;
-					//player1.playerNum = 1;
-					Pfront = false;
-					Pback = false;
-					Pright = true;
-					Pleft = false;
-					break;
+						pVelX += PLAYER_VEL;
+						Pfront = false;
+						Pback = false;
+						Pright = true;
+						Pleft = false;
+						break;
 					case SDLK_SPACE:
-						if(pBulletActive == false){
+						if (fire == true)
+						{
+						fire = false;
+						if (pBulletActive == false) {
 							if (ammo >= 0)
 							{
 								ammo--;
 							}
 							dropPos.x = PlayerPos.x;
-							dropPos.y = (-10 + PlayerPos.y + (PlayerPos.h/2));
+							dropPos.y = (-10 + PlayerPos.y + (PlayerPos.h / 2));
 
-							if(PlayerPos.x  < turretPos.x){
+							if (PlayerPos.x < turretPos.x) {
 								pBulletDir = 5;
-							}else{
+							}
+							else {
 								pBulletDir = 5;
 							}
 							if (ammo >= 0)
@@ -483,36 +483,37 @@ int main(int argc, char* argv[]) {
 								pBulletActive = true;
 							}
 						}
-					if(Pfront == true)
-					{
-						fireDown = true;
-						fireUp = false;
-						fireRight = false;
-						fireLeft = false;
-					}
-					if(Pback == true)
-					{
-						fireDown = false;
-						fireUp = true;
-						fireRight = false;
-						fireLeft = false;
-					}
-					if(Pright == true)
-					{
-						fireDown = false;
-						fireUp = false;
-						fireRight = true;
-						fireLeft = false;
-					}
-					if(Pleft == true)
-					{
-						fireDown = false;
-						fireUp = false;
-						fireRight = false;
-						fireLeft = true;
-					}
+						if (Pfront == true)
+						{
+							fireDown = true;
+							fireUp = false;
+							fireRight = false;
+							fireLeft = false;
+						}
+						if (Pback == true)
+						{
+							fireDown = false;
+							fireUp = true;
+							fireRight = false;
+							fireLeft = false;
+						}
+						if (Pright == true)
+						{
+							fireDown = false;
+							fireUp = false;
+							fireRight = true;
+							fireLeft = false;
+						}
+						if (Pleft == true)
+						{
+							fireDown = false;
+							fireUp = false;
+							fireRight = false;
+							fireLeft = true;
+						}
 
-					break;
+						break;
+						}
 					}
 				}
 
@@ -585,6 +586,8 @@ int main(int argc, char* argv[]) {
 			TreePos19.x -=pVelX;
 			TreePos20.x -=pVelX;
 			TreePos21.x -=pVelX;
+
+			turretPos.x -= pVelX;
 		}
 
 		if(PlayerPos.x < (0 + (PlayerPos.w * 2))){
@@ -632,6 +635,8 @@ int main(int argc, char* argv[]) {
 			TreePos19.x -=pVelX;
 			TreePos20.x -=pVelX;
 			TreePos21.x -=pVelX;
+
+			turretPos.x -= pVelX;
 		}
 
 		if( SDL_HasIntersection(&PlayerPos, &Wall) || SDL_HasIntersection(&PlayerPos, &Wall2) ||
@@ -699,6 +704,8 @@ int main(int argc, char* argv[]) {
 			TreePos19.y -=pVelY;
 			TreePos20.y -=pVelY;
 			TreePos21.y -=pVelY;
+
+			turretPos.y -= pVelY;
 		}
 
 		if(PlayerPos.y > (768 - (PlayerPos.h * 2))){
@@ -746,6 +753,8 @@ int main(int argc, char* argv[]) {
 			TreePos19.y -=pVelY;
 			TreePos20.y -=pVelY;
 			TreePos21.y -=pVelY;
+
+			turretPos.y -= pVelY;
 		}
 
 		if( SDL_HasIntersection(&PlayerPos, &Wall) || SDL_HasIntersection(&PlayerPos, &Wall2) ||
@@ -844,6 +853,7 @@ int main(int argc, char* argv[]) {
 
 		if(dropPos.x > 1024 || dropPos.x < 0){
 			pBulletActive = false;
+			fire = true;
 			dropPos.x = -100;
 			dropPos.y = -100;
 			pBulletDir = 0;
@@ -851,6 +861,7 @@ int main(int argc, char* argv[]) {
 
 		if (dropPos.y > 768 || dropPos.y < 0) {
 			pBulletActive = false;
+			fire = true;
 			dropPos.x = -100;
 			dropPos.y = -100;
 			pBulletDir = 0;
