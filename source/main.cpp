@@ -1094,172 +1094,7 @@ int main(int argc, char* argv[]) {
 						*((turretPos.y + (turretPos.h / 2))
 								- (PlayerPos.y + (PlayerPos.h / 2)));
 
-		double distancex2 = ((turretPos2.x + (turretPos2.w /2))
-				- (PlayerPos.x + (PlayerPos.w / 2)))
-						*((turretPos2.x + (turretPos2.w / 2))
-								- (PlayerPos.x + (PlayerPos.w / 2)));
-
-		double distancey2 = ((turretPos2.y + (turretPos2.h /2))
-				- (PlayerPos.y + (PlayerPos.h / 2)))
-						*((turretPos2.y + (turretPos2.h / 2))
-								- (turretPos4.y + (turretPos4.h / 2)));
-
-		double distancex3 = ((turretPos3.x + (turretPos3.w /2))
-				- (PlayerPos.x + (PlayerPos.w / 2)))
-						*((turretPos3.x + (turretPos3.w / 2))
-								- (PlayerPos.x + (PlayerPos.w / 2)));
-
-		double distancey3 = ((turretPos3.y + (turretPos3.h /2))
-				- (PlayerPos.y + (PlayerPos.h / 2)))
-						*((turretPos3.y + (turretPos3.h / 2))
-								- (PlayerPos.y + (PlayerPos.h / 2)));
-
-		double distancex4 = ((turretPos4.x + (turretPos4.w /2))
-				- (PlayerPos.x + (PlayerPos.w / 2)))
-						*((turretPos4.x + (turretPos4.w / 2))
-								- (PlayerPos.x + (PlayerPos.w / 2)));
-
-		double distancey4 = ((turretPos4.y + (turretPos4.h /2))
-				- (PlayerPos.y + (PlayerPos.h / 2)))
-						*((turretPos4.y + (turretPos4.h / 2))
-								- (PlayerPos.y + (PlayerPos.h / 2)));
-
-		double distancex5 = ((turretPos5.x + (turretPos5.w /2))
-				- (PlayerPos.x + (PlayerPos.w / 2)))
-						*((turretPos5.x + (turretPos5.w / 2))
-								- (PlayerPos.x + (PlayerPos.w / 2)));
-
-		double distancey5 = ((turretPos5.y + (turretPos5.h /2))
-				- (PlayerPos.y + (PlayerPos.h / 2)))
-						*((turretPos5.y + (turretPos5.h / 2))
-								- (PlayerPos.y + (PlayerPos.h / 2)));
-
-		double distancex6 = ((turretPos6.x + (turretPos6.w /2))
-				- (PlayerPos.x + (PlayerPos.w / 2)))
-						*((turretPos6.x + (turretPos6.w / 2))
-								- (PlayerPos.x + (PlayerPos.w / 2)));
-
-		double distancey6 = ((turretPos6.y + (turretPos6.h /2))
-				- (PlayerPos.y + (PlayerPos.h / 2)))
-						*((turretPos6.y + (turretPos6.h / 2))
-								- (PlayerPos.y + (PlayerPos.h / 2)));
-
-		double distancex7 = ((turretPos7.x + (turretPos7.w /2))
-				- (PlayerPos.x + (PlayerPos.w / 2)))
-						*((turretPos7.x + (turretPos7.w / 2))
-								- (PlayerPos.x + (PlayerPos.w / 2)));
-
-		double distancey7 = ((turretPos7.y + (turretPos7.h /2))
-				- (PlayerPos.y + (PlayerPos.h / 2)))
-						*((turretPos7.y + (turretPos7.h / 2))
-								- (PlayerPos.y + (PlayerPos.h / 2)));
-
-		double distancex8 = ((turretPos8.x + (turretPos8.w /2))
-				- (PlayerPos.x + (PlayerPos.w / 2)))
-						*((turretPos8.x + (turretPos8.w / 2))
-								- (PlayerPos.x + (PlayerPos.w / 2)));
-
-		double distancey8 = ((turretPos8.y + (turretPos8.h /2))
-				- (PlayerPos.y + (PlayerPos.h / 2)))
-						*((turretPos8.y + (turretPos8.h / 2))
-								- (PlayerPos.y + (PlayerPos.h / 2)));
-
-		double distancex9 = ((turretPos9.x + (turretPos9.w /2))
-				- (PlayerPos.x + (PlayerPos.w / 2)))
-						*((turretPos9.x + (turretPos9.w / 2))
-								- (PlayerPos.x + (PlayerPos.w / 2)));
-
-		double distancey9 = ((turretPos9.y + (turretPos9.h /2))
-				- (PlayerPos.y + (PlayerPos.h / 2)))
-						*((turretPos9.y + (turretPos9.h / 2))
-								- (PlayerPos.y + (PlayerPos.h / 2)));
-
-		double distancex10 = ((turretPos10.x + (turretPos10.w /2))
-				- (PlayerPos.x + (PlayerPos.w / 2)))
-						*((turretPos10.x + (turretPos10.w / 2))
-								- (PlayerPos.x + (PlayerPos.w / 2)));
-
-		double distancey10 = ((turretPos10.y + (turretPos10.h /2))
-				- (PlayerPos.y + (PlayerPos.h / 2)))
-						*((turretPos10.y + (turretPos10.h / 2))
-								- (PlayerPos.y + (PlayerPos.h / 2)));
-
-		double distancex11 = ((turretPos11.x + (turretPos11.w /2))
-				- (PlayerPos.x + (PlayerPos.w / 2)))
-						*((turretPos11.x + (turretPos11.w / 2))
-								- (PlayerPos.x + (PlayerPos.w / 2)));
-
-		double distancey11 = ((turretPos11.y + (turretPos11.h /2))
-				- (PlayerPos.y + (PlayerPos.h / 2)))
-						*((turretPos11.y + (turretPos11.h / 2))
-								- (PlayerPos.y + (PlayerPos.h / 2)));
-
-		double distancex12 = ((turretPos12.x + (turretPos12.w /2))
-				- (PlayerPos.x + (PlayerPos.w / 2)))
-						*((turretPos12.x + (turretPos12.w / 2))
-								- (PlayerPos.x + (PlayerPos.w / 2)));
-
-		double distancey12 = ((turretPos12.y + (turretPos12.h /2))
-				- (PlayerPos.y + (PlayerPos.h / 2)))
-						*((turretPos12.y + (turretPos12.h / 2))
-								- (PlayerPos.y + (PlayerPos.h / 2)));
-
-		double distancex13 = ((turretPos13.x + (turretPos13.w /2))
-				- (PlayerPos.x + (PlayerPos.w / 2)))
-						*((turretPos13.x + (turretPos13.w / 2))
-								- (PlayerPos.x + (PlayerPos.w / 2)));
-
-		double distancey13 = ((turretPos13.y + (turretPos13.h /2))
-				- (PlayerPos.y + (PlayerPos.h / 2)))
-						*((turretPos13.y + (turretPos13.h / 2))
-								- (PlayerPos.y + (PlayerPos.h / 2)));
-
-		double distancex14 = ((turretPos14.x + (turretPos14.w /2))
-				- (PlayerPos.x + (PlayerPos.w / 2)))
-						*((turretPos14.x + (turretPos14.w / 2))
-								- (PlayerPos.x + (PlayerPos.w / 2)));
-
-		double distancey14 = ((turretPos14.y + (turretPos14.h /2))
-				- (PlayerPos.y + (PlayerPos.h / 2)))
-						*((turretPos14.y + (turretPos14.h / 2))
-								- (PlayerPos.y + (PlayerPos.h / 2)));
-
-		double distancex15 = ((turretPos15.x + (turretPos15.w /2))
-				- (PlayerPos.x + (PlayerPos.w / 2)))
-						*((turretPos15.x + (turretPos15.w / 2))
-								- (PlayerPos.x + (PlayerPos.w / 2)));
-
-		double distancey15 = ((turretPos15.y + (turretPos15.h /2))
-				- (PlayerPos.y + (PlayerPos.h / 2)))
-						*((turretPos15.y + (turretPos15.h / 2))
-								- (PlayerPos.y + (PlayerPos.h / 2)));
-
-		double distancex16 = ((turretPos16.x + (turretPos16.w /2))
-				- (PlayerPos.x + (PlayerPos.w / 2)))
-						*((turretPos16.x + (turretPos16.w / 2))
-								- (PlayerPos.x + (PlayerPos.w / 2)));
-
-		double distancey16 = ((turretPos16.y + (turretPos16.h /2))
-				- (PlayerPos.y + (PlayerPos.h / 2)))
-						*((turretPos16.y + (turretPos16.h / 2))
-								- (PlayerPos.y + (PlayerPos.h / 2)));
-
 		double calcdistance = sqrt(distancex + distancey);
-		double calcdistance2 = sqrt(distancex2 + distancey2);
-		double calcdistance3 = sqrt(distancex3 + distancey3);
-		double calcdistance4 = sqrt(distancex4 + distancey4);
-		double calcdistance5 = sqrt(distancex5 + distancey5);
-		double calcdistance6 = sqrt(distancex6 + distancey6);
-		double calcdistance7 = sqrt(distancex7 + distancey7);
-		double calcdistance8 = sqrt(distancex8 + distancey8);
-		double calcdistance9 = sqrt(distancex9 + distancey9);
-		double calcdistance10 = sqrt(distancex10 + distancey10);
-		double calcdistance11 = sqrt(distancex11 + distancey11);
-		double calcdistance12 = sqrt(distancex12 + distancey12);
-		double calcdistance13 = sqrt(distancex13 + distancey13);
-		double calcdistance14 = sqrt(distancex14 + distancey14);
-		double calcdistance15 = sqrt(distancex15 + distancey15);
-		double calcdistance16 = sqrt(distancex16 + distancey16);
 
 		if( calcdistance <= 255){
 
@@ -1285,6 +1120,19 @@ int main(int argc, char* argv[]) {
 			turretActive = false;
 		}
 
+
+		double distancex2 = ((turretPos2.x + (turretPos2.w /2))
+				- (PlayerPos.x + (PlayerPos.w / 2)))
+						*((turretPos2.x + (turretPos2.w / 2))
+								- (PlayerPos.x + (PlayerPos.w / 2)));
+
+		double distancey2 = ((turretPos2.y + (turretPos2.h /2))
+				- (PlayerPos.y + (PlayerPos.h / 2)))
+						*((turretPos2.y + (turretPos2.h / 2))
+								- (turretPos4.y + (turretPos4.h / 2)));
+
+		double calcdistance2 = sqrt(distancex2 + distancey2);
+
 		if( calcdistance2 <= 255){
 
 			turretActive2 = true;
@@ -1308,6 +1156,19 @@ int main(int argc, char* argv[]) {
 
 			turretActive2 = false;
 		}
+
+
+		double distancex3 = ((turretPos3.x + (turretPos3.w /2))
+				- (PlayerPos.x + (PlayerPos.w / 2)))
+						*((turretPos3.x + (turretPos3.w / 2))
+								- (PlayerPos.x + (PlayerPos.w / 2)));
+
+		double distancey3 = ((turretPos3.y + (turretPos3.h /2))
+				- (PlayerPos.y + (PlayerPos.h / 2)))
+						*((turretPos3.y + (turretPos3.h / 2))
+								- (PlayerPos.y + (PlayerPos.h / 2)));
+
+		double calcdistance3 = sqrt(distancex3 + distancey3);
 
 		if( calcdistance3 <= 255){
 
@@ -1333,6 +1194,19 @@ int main(int argc, char* argv[]) {
 			turretActive3 = false;
 		}
 
+
+		double distancex4 = ((turretPos4.x + (turretPos4.w /2))
+				- (PlayerPos.x + (PlayerPos.w / 2)))
+						*((turretPos4.x + (turretPos4.w / 2))
+								- (PlayerPos.x + (PlayerPos.w / 2)));
+
+		double distancey4 = ((turretPos4.y + (turretPos4.h /2))
+				- (PlayerPos.y + (PlayerPos.h / 2)))
+						*((turretPos4.y + (turretPos4.h / 2))
+								- (PlayerPos.y + (PlayerPos.h / 2)));
+
+		double calcdistance4 = sqrt(distancex4 + distancey4);
+
 		if( calcdistance4 <= 255){
 
 			turretActive4 = true;
@@ -1356,6 +1230,19 @@ int main(int argc, char* argv[]) {
 
 			turretActive4 = false;
 		}
+
+
+		double distancex5 = ((turretPos5.x + (turretPos5.w /2))
+				- (PlayerPos.x + (PlayerPos.w / 2)))
+						*((turretPos5.x + (turretPos5.w / 2))
+								- (PlayerPos.x + (PlayerPos.w / 2)));
+
+		double distancey5 = ((turretPos5.y + (turretPos5.h /2))
+				- (PlayerPos.y + (PlayerPos.h / 2)))
+						*((turretPos5.y + (turretPos5.h / 2))
+								- (PlayerPos.y + (PlayerPos.h / 2)));
+
+		double calcdistance5 = sqrt(distancex5 + distancey5);
 
 		if( calcdistance5 <= 255){
 
@@ -1381,6 +1268,19 @@ int main(int argc, char* argv[]) {
 			turretActive5 = false;
 		}
 
+
+		double distancex6 = ((turretPos6.x + (turretPos6.w /2))
+				- (PlayerPos.x + (PlayerPos.w / 2)))
+						*((turretPos6.x + (turretPos6.w / 2))
+								- (PlayerPos.x + (PlayerPos.w / 2)));
+
+		double distancey6 = ((turretPos6.y + (turretPos6.h /2))
+				- (PlayerPos.y + (PlayerPos.h / 2)))
+						*((turretPos6.y + (turretPos6.h / 2))
+								- (PlayerPos.y + (PlayerPos.h / 2)));
+
+		double calcdistance6 = sqrt(distancex6 + distancey6);
+
 		if( calcdistance6 <= 255){
 
 			turretActive6 = true;
@@ -1404,6 +1304,19 @@ int main(int argc, char* argv[]) {
 
 			turretActive6 = false;
 		}
+
+
+		double distancex7 = ((turretPos7.x + (turretPos7.w /2))
+				- (PlayerPos.x + (PlayerPos.w / 2)))
+						*((turretPos7.x + (turretPos7.w / 2))
+								- (PlayerPos.x + (PlayerPos.w / 2)));
+
+		double distancey7 = ((turretPos7.y + (turretPos7.h /2))
+				- (PlayerPos.y + (PlayerPos.h / 2)))
+						*((turretPos7.y + (turretPos7.h / 2))
+								- (PlayerPos.y + (PlayerPos.h / 2)));
+
+		double calcdistance7 = sqrt(distancex7 + distancey7);
 
 		if( calcdistance7 <= 255){
 
@@ -1429,6 +1342,19 @@ int main(int argc, char* argv[]) {
 			turretActive7 = false;
 		}
 
+
+		double distancex8 = ((turretPos8.x + (turretPos8.w /2))
+				- (PlayerPos.x + (PlayerPos.w / 2)))
+						*((turretPos8.x + (turretPos8.w / 2))
+								- (PlayerPos.x + (PlayerPos.w / 2)));
+
+		double distancey8 = ((turretPos8.y + (turretPos8.h /2))
+				- (PlayerPos.y + (PlayerPos.h / 2)))
+						*((turretPos8.y + (turretPos8.h / 2))
+								- (PlayerPos.y + (PlayerPos.h / 2)));
+
+		double calcdistance8 = sqrt(distancex8 + distancey8);
+
 		if( calcdistance8 <= 255){
 
 			turretActive8 = true;
@@ -1452,6 +1378,19 @@ int main(int argc, char* argv[]) {
 
 			turretActive8 = false;
 		}
+
+
+		double distancex9 = ((turretPos9.x + (turretPos9.w /2))
+				- (PlayerPos.x + (PlayerPos.w / 2)))
+						*((turretPos9.x + (turretPos9.w / 2))
+								- (PlayerPos.x + (PlayerPos.w / 2)));
+
+		double distancey9 = ((turretPos9.y + (turretPos9.h /2))
+				- (PlayerPos.y + (PlayerPos.h / 2)))
+						*((turretPos9.y + (turretPos9.h / 2))
+								- (PlayerPos.y + (PlayerPos.h / 2)));
+
+		double calcdistance9 = sqrt(distancex9 + distancey9);
 
 		if( calcdistance9 <= 255){
 
@@ -1477,6 +1416,19 @@ int main(int argc, char* argv[]) {
 			turretActive9 = false;
 		}
 
+
+		double distancex10 = ((turretPos10.x + (turretPos10.w /2))
+				- (PlayerPos.x + (PlayerPos.w / 2)))
+						*((turretPos10.x + (turretPos10.w / 2))
+								- (PlayerPos.x + (PlayerPos.w / 2)));
+
+		double distancey10 = ((turretPos10.y + (turretPos10.h /2))
+				- (PlayerPos.y + (PlayerPos.h / 2)))
+						*((turretPos10.y + (turretPos10.h / 2))
+								- (PlayerPos.y + (PlayerPos.h / 2)));
+
+		double calcdistance10 = sqrt(distancex10 + distancey10);
+
 		if( calcdistance10 <= 255){
 
 			turretActive10 = true;
@@ -1500,6 +1452,19 @@ int main(int argc, char* argv[]) {
 
 			turretActive10 = false;
 		}
+
+
+		double distancex11 = ((turretPos11.x + (turretPos11.w /2))
+				- (PlayerPos.x + (PlayerPos.w / 2)))
+						*((turretPos11.x + (turretPos11.w / 2))
+								- (PlayerPos.x + (PlayerPos.w / 2)));
+
+		double distancey11 = ((turretPos11.y + (turretPos11.h /2))
+				- (PlayerPos.y + (PlayerPos.h / 2)))
+						*((turretPos11.y + (turretPos11.h / 2))
+								- (PlayerPos.y + (PlayerPos.h / 2)));
+
+		double calcdistance11 = sqrt(distancex11 + distancey11);
 
 		if( calcdistance11 <= 255){
 
@@ -1525,6 +1490,19 @@ int main(int argc, char* argv[]) {
 			turretActive11 = false;
 		}
 
+
+		double distancex12 = ((turretPos12.x + (turretPos12.w /2))
+				- (PlayerPos.x + (PlayerPos.w / 2)))
+						*((turretPos12.x + (turretPos12.w / 2))
+								- (PlayerPos.x + (PlayerPos.w / 2)));
+
+		double distancey12 = ((turretPos12.y + (turretPos12.h /2))
+				- (PlayerPos.y + (PlayerPos.h / 2)))
+						*((turretPos12.y + (turretPos12.h / 2))
+								- (PlayerPos.y + (PlayerPos.h / 2)));
+
+		double calcdistance12 = sqrt(distancex12 + distancey12);
+
 		if( calcdistance12 <= 255){
 
 			turretActive12 = true;
@@ -1548,6 +1526,19 @@ int main(int argc, char* argv[]) {
 
 			turretActive12 = false;
 		}
+
+
+		double distancex13 = ((turretPos13.x + (turretPos13.w /2))
+				- (PlayerPos.x + (PlayerPos.w / 2)))
+						*((turretPos13.x + (turretPos13.w / 2))
+								- (PlayerPos.x + (PlayerPos.w / 2)));
+
+		double distancey13 = ((turretPos13.y + (turretPos13.h /2))
+				- (PlayerPos.y + (PlayerPos.h / 2)))
+						*((turretPos13.y + (turretPos13.h / 2))
+								- (PlayerPos.y + (PlayerPos.h / 2)));
+
+		double calcdistance13 = sqrt(distancex13 + distancey13);
 
 		if( calcdistance13 <= 255){
 
@@ -1573,6 +1564,19 @@ int main(int argc, char* argv[]) {
 			turretActive13 = false;
 		}
 
+
+		double distancex14 = ((turretPos14.x + (turretPos14.w /2))
+				- (PlayerPos.x + (PlayerPos.w / 2)))
+						*((turretPos14.x + (turretPos14.w / 2))
+								- (PlayerPos.x + (PlayerPos.w / 2)));
+
+		double distancey14 = ((turretPos14.y + (turretPos14.h /2))
+				- (PlayerPos.y + (PlayerPos.h / 2)))
+						*((turretPos14.y + (turretPos14.h / 2))
+								- (PlayerPos.y + (PlayerPos.h / 2)));
+
+		double calcdistance14 = sqrt(distancex14 + distancey14);
+
 		if( calcdistance14 <= 255){
 
 			turretActive14 = true;
@@ -1596,6 +1600,19 @@ int main(int argc, char* argv[]) {
 
 			turretActive14 = false;
 		}
+
+
+		double distancex15 = ((turretPos15.x + (turretPos15.w /2))
+				- (PlayerPos.x + (PlayerPos.w / 2)))
+						*((turretPos15.x + (turretPos15.w / 2))
+								- (PlayerPos.x + (PlayerPos.w / 2)));
+
+		double distancey15 = ((turretPos15.y + (turretPos15.h /2))
+				- (PlayerPos.y + (PlayerPos.h / 2)))
+						*((turretPos15.y + (turretPos15.h / 2))
+								- (PlayerPos.y + (PlayerPos.h / 2)));
+
+		double calcdistance15 = sqrt(distancex15 + distancey15);
 
 		if( calcdistance15 <= 255){
 
@@ -1621,6 +1638,18 @@ int main(int argc, char* argv[]) {
 			turretActive15 = false;
 		}
 
+		double distancex16 = ((turretPos16.x + (turretPos16.w /2))
+				- (PlayerPos.x + (PlayerPos.w / 2)))
+						*((turretPos16.x + (turretPos16.w / 2))
+								- (PlayerPos.x + (PlayerPos.w / 2)));
+
+		double distancey16 = ((turretPos16.y + (turretPos16.h /2))
+				- (PlayerPos.y + (PlayerPos.h / 2)))
+						*((turretPos16.y + (turretPos16.h / 2))
+								- (PlayerPos.y + (PlayerPos.h / 2)));
+
+		double calcdistance16 = sqrt(distancex16 + distancey16);
+
 		if( calcdistance16 <= 255){
 
 			turretActive16 = true;
@@ -1642,8 +1671,9 @@ int main(int argc, char* argv[]) {
 			}
 		} else{
 
-			turretActive2 = false;
+			turretActive16 = false;
 		}
+
 
 		if(eBulletActive){
 			beePos.x += eBulletDir;
