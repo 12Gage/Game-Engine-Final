@@ -116,7 +116,6 @@ int eBulletDir14 = 0;
 int eBulletDir15 = 0;
 int eBulletDir16 = 0;
 
-
 bool pBulletActive = true;
 
 bool enemyActive = true;
@@ -124,6 +123,8 @@ bool enemyActive = true;
 int EnemyDir = 0;
 
 int pBulletDir = 0;
+
+bool Right, Left;
 
 int main(int argc, char* argv[]) {
 
@@ -254,7 +255,7 @@ int main(int argc, char* argv[]) {
     turretPos13.h = 100;
 
     SDL_Rect turretPos14;
-    turretPos14.x = 2645;
+    turretPos14.x = 2700;
     turretPos14.y = 625;
     turretPos14.w = 100;
     turretPos14.h = 100;
@@ -509,6 +510,7 @@ int main(int argc, char* argv[]) {
     HealthPickupPos.h = 25;
 
     SDL_Texture *Enemy = IMG_LoadTexture(renderer, (images_dir + "Enemy.png").c_str());
+    SDL_Texture *Enemy2 = IMG_LoadTexture(renderer, (images_dir + "Enemy2.png").c_str());
     SDL_Rect EnemyPos;
 
     EnemyPos.x = 200;
@@ -666,13 +668,50 @@ int main(int argc, char* argv[]) {
 	//Get window surface
 	screenSurface = SDL_GetWindowSurface( window );
 
+	enum GameState{MENU, GAME, WIN,LOSE};
+
+	GameState gameState = MENU;
+
+	bool menu, game, win, lose;
+
 	while(quit)
 	{
+		switch(gameState)
+		{
+		case MENU:
+			menu = true;
+
+			while(menu)
+			{
+				while(SDL_PollEvent(&e) != 0)
+				{
+					if(e.type == SDL_QUIT)
+					{
+						quit = false;
+						menu = false;
+						break;
+					}
+				}
+
+				SDL_RenderClear(renderer);
+
+				SDL_RenderCopy(renderer, bkgd, NULL, &bkgdRect);
+
+				SDL_RenderPresent(renderer);
+			}
+			break;
+
+		case GAME:
+
+			while(game)
+			{
 		while(SDL_PollEvent(&e) != 0)
 		{
 			if(e.type == SDL_QUIT)
 			{
 				quit = false;
+				game = false;
+				break;
 			}
 			else
 			{
@@ -1083,7 +1122,9 @@ int main(int argc, char* argv[]) {
 			PlayerPos.y -= pVelY;
 		}
 
+		////////////////////////////////////////////Turrets - Start/////////////////////////////////
 
+		///////////////////////////////////Turret1- Start//////////////////////////////////////////
 		double distancex = ((turretPos.x + (turretPos.w /2))
 				- (PlayerPos.x + (PlayerPos.w / 2)))
 						*((turretPos.x + (turretPos.w / 2))
@@ -1100,7 +1141,7 @@ int main(int argc, char* argv[]) {
 
 			turretActive = true;
 
-			int random_number = std::rand()%50;
+			int random_number = std::rand()%10;
 
 			if((eBulletActive) == false && (random_number == 5)){
 
@@ -1120,7 +1161,56 @@ int main(int argc, char* argv[]) {
 			turretActive = false;
 		}
 
+		if(eBulletActive){
+			beePos.x += eBulletDir;
+		}
 
+		if(beePos.x > 1024 || beePos.x < 0){
+			eBulletActive = false;
+			beePos.x = -200;
+			beePos.y = -200;
+			eBulletDir = 0;
+		}
+
+		if(SDL_HasIntersection(&PlayerPos, &beePos)){
+
+			eBulletActive = false;
+			beePos.x = -200;
+			beePos.y = -200;
+			eBulletDir = 0;
+
+			player1.FullPos.w -= 11.95;
+
+			if(player1.FullPos.w == 0)
+			{
+				player1.FullPos.w = 0;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos, &dropPos) && turretActive == true){
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+
+			turretHealth -=1;
+
+			if(turretHealth == 0)
+			{
+				turretPos.x = -200;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos, &dropPos) && turretActive == false){
+
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+		}
+		///////////////////////////////////Turret1- End//////////////////////////////////////////
+
+		///////////////////////////////////Turret2- Start//////////////////////////////////////////
 		double distancex2 = ((turretPos2.x + (turretPos2.w /2))
 				- (PlayerPos.x + (PlayerPos.w / 2)))
 						*((turretPos2.x + (turretPos2.w / 2))
@@ -1137,7 +1227,7 @@ int main(int argc, char* argv[]) {
 
 			turretActive2 = true;
 
-			int random_number2 = std::rand()%50;
+			int random_number2 = std::rand()%10;
 
 			if((eBulletActive2) == false && (random_number2 == 5)){
 
@@ -1157,7 +1247,57 @@ int main(int argc, char* argv[]) {
 			turretActive2 = false;
 		}
 
+		if(eBulletActive2){
+			beePos2.x += eBulletDir2;
+		}
 
+		if(beePos2.x > 1024 || beePos2.x < 0){
+			eBulletActive2 = false;
+			beePos2.x = -200;
+			beePos2.y = -200;
+			eBulletDir2 = 0;
+		}
+
+		if(SDL_HasIntersection(&PlayerPos, &beePos2)){
+
+			eBulletActive2 = false;
+			beePos2.x = -200;
+			beePos2.y = -200;
+			eBulletDir2 = 0;
+
+			player1.FullPos.w -= 11.95;
+
+			if(player1.FullPos.w == 0)
+			{
+				player1.FullPos.w = 0;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos2, &dropPos) && turretActive2 == true){
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+
+			turretHealth2 -=1;
+
+			if(turretHealth2 == 0)
+			{
+				turretPos2.x = -200;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos2, &dropPos) && turretActive2 == false){
+
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+		}
+
+		///////////////////////////////////Turret2 - End//////////////////////////////////////////
+
+		///////////////////////////////////Turret3 - Start//////////////////////////////////////////
 		double distancex3 = ((turretPos3.x + (turretPos3.w /2))
 				- (PlayerPos.x + (PlayerPos.w / 2)))
 						*((turretPos3.x + (turretPos3.w / 2))
@@ -1174,7 +1314,7 @@ int main(int argc, char* argv[]) {
 
 			turretActive3 = true;
 
-			int random_number3 = std::rand()%50;
+			int random_number3 = std::rand()%10;
 
 			if((eBulletActive3) == false && (random_number3 == 5)){
 
@@ -1194,7 +1334,57 @@ int main(int argc, char* argv[]) {
 			turretActive3 = false;
 		}
 
+		if(eBulletActive3){
+			beePos3.x += eBulletDir3;
+		}
 
+		if(beePos3.x > 1024 || beePos3.x < 0){
+			eBulletActive3 = false;
+			beePos3.x = -200;
+			beePos3.y = -200;
+			eBulletDir3 = 0;
+		}
+
+		if(SDL_HasIntersection(&PlayerPos, &beePos3)){
+
+			eBulletActive3 = false;
+			beePos3.x = -200;
+			beePos3.y = -200;
+			eBulletDir3 = 0;
+
+			player1.FullPos.w -= 11.95;
+
+			if(player1.FullPos.w == 0)
+			{
+				player1.FullPos.w = 0;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos3, &dropPos) && turretActive3 == true){
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+
+			turretHealth3 -=1;
+
+			if(turretHealth3 == 0)
+			{
+				turretPos3.x = -200;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos3, &dropPos) && turretActive3 == false){
+
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+		}
+
+		///////////////////////////////////Turret3 - End//////////////////////////////////////////
+
+		///////////////////////////////////Turret4 - Start//////////////////////////////////////////
 		double distancex4 = ((turretPos4.x + (turretPos4.w /2))
 				- (PlayerPos.x + (PlayerPos.w / 2)))
 						*((turretPos4.x + (turretPos4.w / 2))
@@ -1211,7 +1401,7 @@ int main(int argc, char* argv[]) {
 
 			turretActive4 = true;
 
-			int random_number4 = std::rand()%50;
+			int random_number4 = std::rand()%10;
 
 			if((eBulletActive4) == false && (random_number4 == 5)){
 
@@ -1231,7 +1421,56 @@ int main(int argc, char* argv[]) {
 			turretActive4 = false;
 		}
 
+		if(eBulletActive4){
+			beePos4.x += eBulletDir4;
+		}
 
+		if(beePos4.x > 1024 || beePos4.x < 0){
+			eBulletActive4 = false;
+			beePos4.x = -200;
+			beePos4.y = -200;
+			eBulletDir4 = 0;
+		}
+
+		if(SDL_HasIntersection(&PlayerPos, &beePos4)){
+
+			eBulletActive4 = false;
+			beePos4.x = -200;
+			beePos4.y = -200;
+			eBulletDir4 = 0;
+
+			player1.FullPos.w -= 11.95;
+
+			if(player1.FullPos.w == 0)
+			{
+				player1.FullPos.w = 0;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos4, &dropPos) && turretActive4 == true){
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+
+			turretHealth4 -=1;
+
+			if(turretHealth4 == 0)
+			{
+				turretPos4.x = -200;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos4, &dropPos) && turretActive4 == false){
+
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+		}
+		///////////////////////////////////Turret4 - End//////////////////////////////////////////
+
+		///////////////////////////////////Turret5 - Start//////////////////////////////////////////
 		double distancex5 = ((turretPos5.x + (turretPos5.w /2))
 				- (PlayerPos.x + (PlayerPos.w / 2)))
 						*((turretPos5.x + (turretPos5.w / 2))
@@ -1248,7 +1487,7 @@ int main(int argc, char* argv[]) {
 
 			turretActive5 = true;
 
-			int random_number5 = std::rand()%50;
+			int random_number5 = std::rand()%10;
 
 			if((eBulletActive5) == false && (random_number5 == 5)){
 
@@ -1268,7 +1507,57 @@ int main(int argc, char* argv[]) {
 			turretActive5 = false;
 		}
 
+		if(eBulletActive5){
+			beePos5.x += eBulletDir5;
+		}
 
+		if(beePos5.x > 1024 || beePos5.x < 0){
+			eBulletActive5 = false;
+			beePos5.x = -200;
+			beePos5.y = -200;
+			eBulletDir5 = 0;
+		}
+
+		if(SDL_HasIntersection(&PlayerPos, &beePos5)){
+
+			eBulletActive5 = false;
+			beePos5.x = -200;
+			beePos5.y = -200;
+			eBulletDir5 = 0;
+
+			player1.FullPos.w -= 11.95;
+
+			if(player1.FullPos.w == 0)
+			{
+				player1.FullPos.w = 0;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos5, &dropPos) && turretActive5 == true){
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+
+			turretHealth5 -=1;
+
+			if(turretHealth5 == 0)
+			{
+				turretPos5.x = -200;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos5, &dropPos) && turretActive5 == false){
+
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+		}
+
+		///////////////////////////////////Turret5 - End//////////////////////////////////////////
+
+		///////////////////////////////////Turret6 - Start//////////////////////////////////////////
 		double distancex6 = ((turretPos6.x + (turretPos6.w /2))
 				- (PlayerPos.x + (PlayerPos.w / 2)))
 						*((turretPos6.x + (turretPos6.w / 2))
@@ -1285,7 +1574,7 @@ int main(int argc, char* argv[]) {
 
 			turretActive6 = true;
 
-			int random_number6 = std::rand()%50;
+			int random_number6 = std::rand()%10;
 
 			if((eBulletActive6) == false && (random_number6 == 5)){
 
@@ -1305,7 +1594,56 @@ int main(int argc, char* argv[]) {
 			turretActive6 = false;
 		}
 
+		if(eBulletActive6){
+			beePos6.y -= eBulletDir6;
+		}
 
+		if(beePos6.y > 768 || beePos6.y < 0){
+			eBulletActive6 = false;
+			beePos6.x = -200;
+			beePos6.y = -200;
+			eBulletDir6 = 0;
+		}
+
+		if(SDL_HasIntersection(&PlayerPos, &beePos6)){
+
+			eBulletActive6 = false;
+			beePos6.x = -200;
+			beePos6.y = -200;
+			eBulletDir6 = 0;
+
+			player1.FullPos.w -= 11.95;
+
+			if(player1.FullPos.w == 0)
+			{
+				player1.FullPos.w = 0;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos6, &dropPos) && turretActive6 == true){
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+
+			turretHealth6 -=1;
+
+			if(turretHealth6 == 0)
+			{
+				turretPos6.x = -200;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos6, &dropPos) && turretActive6 == false){
+
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+		}
+		///////////////////////////////////Turret6 - End//////////////////////////////////////////
+
+		///////////////////////////////////Turret7 - Start//////////////////////////////////////////
 		double distancex7 = ((turretPos7.x + (turretPos7.w /2))
 				- (PlayerPos.x + (PlayerPos.w / 2)))
 						*((turretPos7.x + (turretPos7.w / 2))
@@ -1322,7 +1660,7 @@ int main(int argc, char* argv[]) {
 
 			turretActive7 = true;
 
-			int random_number7 = std::rand()%50;
+			int random_number7 = std::rand()%10;
 
 			if((eBulletActive7) == false && (random_number7 == 5)){
 
@@ -1342,7 +1680,57 @@ int main(int argc, char* argv[]) {
 			turretActive7 = false;
 		}
 
+		if(eBulletActive7){
+			beePos7.y -= eBulletDir7;
+		}
 
+		if(beePos7.y > 768 || beePos7.y < 0){
+			eBulletActive7 = false;
+			beePos7.x = -200;
+			beePos7.y = -200;
+			eBulletDir7 = 0;
+		}
+
+		if(SDL_HasIntersection(&PlayerPos, &beePos7)){
+
+			eBulletActive7 = false;
+			beePos7.x = -200;
+			beePos7.y = -200;
+			eBulletDir7 = 0;
+
+			player1.FullPos.w -= 11.95;
+
+			if(player1.FullPos.w == 0)
+			{
+				player1.FullPos.w = 0;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos7, &dropPos) && turretActive7 == true){
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+
+			turretHealth7 -=1;
+
+			if(turretHealth7 == 0)
+			{
+				turretPos7.x = -200;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos7, &dropPos) && turretActive7 == false){
+
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+		}
+
+		///////////////////////////////////Turret7 - End//////////////////////////////////////////
+
+		///////////////////////////////////Turret8 - Start//////////////////////////////////////////
 		double distancex8 = ((turretPos8.x + (turretPos8.w /2))
 				- (PlayerPos.x + (PlayerPos.w / 2)))
 						*((turretPos8.x + (turretPos8.w / 2))
@@ -1359,9 +1747,9 @@ int main(int argc, char* argv[]) {
 
 			turretActive8 = true;
 
-			int random_number8 = std::rand()%50;
+			int random_number8 = std::rand()%10;
 
-			if((eBulletActive2) == false && (random_number8 == 5)){
+			if((eBulletActive8) == false && (random_number8 == 5)){
 
 				beePos8.x = turretPos8.x;
 				beePos8.y = (turretPos8.y + (turretPos8.h/2));
@@ -1379,7 +1767,57 @@ int main(int argc, char* argv[]) {
 			turretActive8 = false;
 		}
 
+		if(eBulletActive8){
+			beePos8.y -= eBulletDir8;
+		}
 
+		if(beePos8.y > 768 || beePos8.y < 0){
+			eBulletActive8 = false;
+			beePos8.x = -200;
+			beePos8.y = -200;
+			eBulletDir8 = 0;
+		}
+
+		if(SDL_HasIntersection(&PlayerPos, &beePos8)){
+
+			eBulletActive8 = false;
+			beePos8.x = -200;
+			beePos8.y = -200;
+			eBulletDir8 = 0;
+
+			player1.FullPos.w -= 11.95;
+
+			if(player1.FullPos.w == 0)
+			{
+				player1.FullPos.w = 0;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos8, &dropPos) && turretActive8 == true){
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+
+			turretHealth8 -=1;
+
+			if(turretHealth8 == 0)
+			{
+				turretPos8.x = -200;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos8, &dropPos) && turretActive8 == false){
+
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+		}
+
+		///////////////////////////////////Turret8 - End//////////////////////////////////////////
+
+		///////////////////////////////////Turret9 - Start//////////////////////////////////////////
 		double distancex9 = ((turretPos9.x + (turretPos9.w /2))
 				- (PlayerPos.x + (PlayerPos.w / 2)))
 						*((turretPos9.x + (turretPos9.w / 2))
@@ -1396,9 +1834,9 @@ int main(int argc, char* argv[]) {
 
 			turretActive9 = true;
 
-			int random_number9 = std::rand()%50;
+			int random_number9 = std::rand()%10;
 
-			if((eBulletActive2) == false && (random_number9 == 5)){
+			if((eBulletActive9) == false && (random_number9 == 5)){
 
 				beePos9.x = turretPos9.x;
 				beePos9.y = (turretPos9.y + (turretPos9.h/2));
@@ -1416,7 +1854,57 @@ int main(int argc, char* argv[]) {
 			turretActive9 = false;
 		}
 
+		if(eBulletActive9){
+			beePos9.y -= eBulletDir9;
+		}
 
+		if(beePos9.y > 768 || beePos9.y < 0){
+			eBulletActive9 = false;
+			beePos9.x = -200;
+			beePos9.y = -200;
+			eBulletDir9 = 0;
+		}
+
+		if(SDL_HasIntersection(&PlayerPos, &beePos9)){
+
+			eBulletActive9 = false;
+			beePos9.x = -200;
+			beePos9.y = -200;
+			eBulletDir9 = 0;
+
+			player1.FullPos.w -= 11.95;
+
+			if(player1.FullPos.w == 0)
+			{
+				player1.FullPos.w = 0;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos9, &dropPos) && turretActive9 == true){
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+
+			turretHealth9 -=1;
+
+			if(turretHealth9 == 0)
+			{
+				turretPos9.x = -200;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos9, &dropPos) && turretActive9 == false){
+
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+		}
+
+		///////////////////////////////////Turret9 - End//////////////////////////////////////////
+
+		///////////////////////////////////Turret10 - Start//////////////////////////////////////////
 		double distancex10 = ((turretPos10.x + (turretPos10.w /2))
 				- (PlayerPos.x + (PlayerPos.w / 2)))
 						*((turretPos10.x + (turretPos10.w / 2))
@@ -1433,7 +1921,7 @@ int main(int argc, char* argv[]) {
 
 			turretActive10 = true;
 
-			int random_number10 = std::rand()%50;
+			int random_number10 = std::rand()%10;
 
 			if((eBulletActive10) == false && (random_number10 == 5)){
 
@@ -1453,7 +1941,57 @@ int main(int argc, char* argv[]) {
 			turretActive10 = false;
 		}
 
+		if(eBulletActive10){
+				beePos10.y += eBulletDir10;
+		}
 
+		if(beePos10.y > 768 || beePos10.y < 0){
+			eBulletActive10 = false;
+			beePos10.x = -200;
+			beePos10.y = -200;
+			eBulletDir10 = 0;
+		}
+
+		if(SDL_HasIntersection(&PlayerPos, &beePos10)){
+
+			eBulletActive10 = false;
+			beePos10.x = -200;
+			beePos10.y = -200;
+			eBulletDir10 = 0;
+
+			player1.FullPos.w -= 11.95;
+
+			if(player1.FullPos.w == 0)
+			{
+				player1.FullPos.w = 0;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos10, &dropPos) && turretActive10 == true){
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+
+			turretHealth10 -=1;
+
+			if(turretHealth10 == 0)
+			{
+				turretPos10.x = -200;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos10, &dropPos) && turretActive10 == false){
+
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+		}
+
+		///////////////////////////////////Turret10 - End//////////////////////////////////////////
+
+		///////////////////////////////////Turret11 - Start//////////////////////////////////////////
 		double distancex11 = ((turretPos11.x + (turretPos11.w /2))
 				- (PlayerPos.x + (PlayerPos.w / 2)))
 						*((turretPos11.x + (turretPos11.w / 2))
@@ -1470,7 +2008,7 @@ int main(int argc, char* argv[]) {
 
 			turretActive11 = true;
 
-			int random_number11 = std::rand()%50;
+			int random_number11 = std::rand()%10;
 
 			if((eBulletActive11) == false && (random_number11 == 5)){
 
@@ -1490,7 +2028,56 @@ int main(int argc, char* argv[]) {
 			turretActive11 = false;
 		}
 
+		if(eBulletActive11){
+			beePos11.y += eBulletDir11;
+		}
 
+		if(beePos11.y > 768 || beePos11.y < 0){
+			eBulletActive11 = false;
+			beePos11.x = -200;
+			beePos11.y = -200;
+			eBulletDir11 = 0;
+		}
+
+		if(SDL_HasIntersection(&PlayerPos, &beePos11)){
+
+			eBulletActive11 = false;
+			beePos11.x = -200;
+			beePos11.y = -200;
+			eBulletDir11 = 0;
+
+			player1.FullPos.w -= 11.95;
+
+			if(player1.FullPos.w == 0)
+			{
+				player1.FullPos.w = 0;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos11, &dropPos) && turretActive11 == true){
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+
+			turretHealth11 -=1;
+
+			if(turretHealth11 == 0)
+			{
+				turretPos11.x = -200;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos11, &dropPos) && turretActive11 == false){
+
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+		}
+		///////////////////////////////////Turret11 - End//////////////////////////////////////////
+
+		///////////////////////////////////Turret12 - Start//////////////////////////////////////////
 		double distancex12 = ((turretPos12.x + (turretPos12.w /2))
 				- (PlayerPos.x + (PlayerPos.w / 2)))
 						*((turretPos12.x + (turretPos12.w / 2))
@@ -1507,7 +2094,7 @@ int main(int argc, char* argv[]) {
 
 			turretActive12 = true;
 
-			int random_number12 = std::rand()%50;
+			int random_number12 = std::rand()%10;
 
 			if((eBulletActive12) == false && (random_number12 == 5)){
 
@@ -1527,7 +2114,57 @@ int main(int argc, char* argv[]) {
 			turretActive12 = false;
 		}
 
+		if(eBulletActive12){
+			beePos12.y += eBulletDir12;
+		}
 
+		if(beePos12.y > 768 || beePos12.y < 0){
+			eBulletActive12 = false;
+			beePos12.x = -200;
+			beePos12.y = -200;
+			eBulletDir12 = 0;
+		}
+
+		if(SDL_HasIntersection(&PlayerPos, &beePos12)){
+
+			eBulletActive12 = false;
+			beePos12.x = -200;
+			beePos12.y = -200;
+			eBulletDir12 = 0;
+
+			player1.FullPos.w -= 11.95;
+
+			if(player1.FullPos.w == 0)
+			{
+				player1.FullPos.w = 0;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos12, &dropPos) && turretActive12 == true){
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+
+			turretHealth12 -=1;
+
+			if(turretHealth12 == 0)
+			{
+				turretPos12.x = -200;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos12, &dropPos) && turretActive12 == false){
+
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+		}
+
+		///////////////////////////////////Turret12 - End//////////////////////////////////////////
+
+		///////////////////////////////////Turret13 - Start//////////////////////////////////////////
 		double distancex13 = ((turretPos13.x + (turretPos13.w /2))
 				- (PlayerPos.x + (PlayerPos.w / 2)))
 						*((turretPos13.x + (turretPos13.w / 2))
@@ -1544,7 +2181,7 @@ int main(int argc, char* argv[]) {
 
 			turretActive13 = true;
 
-			int random_number13 = std::rand()%50;
+			int random_number13 = std::rand()%10;
 
 			if((eBulletActive13) == false && (random_number13 == 5)){
 
@@ -1564,7 +2201,57 @@ int main(int argc, char* argv[]) {
 			turretActive13 = false;
 		}
 
+		if(eBulletActive13){
+			beePos13.y += eBulletDir13;
+		}
 
+		if(beePos13.y > 768 || beePos13.y < 0){
+			eBulletActive13 = false;
+			beePos13.x = -200;
+			beePos13.y = -200;
+			eBulletDir13 = 0;
+		}
+
+		if(SDL_HasIntersection(&PlayerPos, &beePos13)){
+
+			eBulletActive13 = false;
+			beePos13.x = -200;
+			beePos13.y = -200;
+			eBulletDir13 = 0;
+
+			player1.FullPos.w -= 11.95;
+
+			if(player1.FullPos.w == 0)
+			{
+				player1.FullPos.w = 0;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos13, &dropPos) && turretActive13 == true){
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+
+			turretHealth -=1;
+
+			if(turretHealth13 == 0)
+			{
+				turretPos13.x = -200;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos13, &dropPos) && turretActive13 == false){
+
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+		}
+
+		///////////////////////////////////Turret13 - End//////////////////////////////////////////
+
+		///////////////////////////////////Turret14 - Start//////////////////////////////////////////
 		double distancex14 = ((turretPos14.x + (turretPos14.w /2))
 				- (PlayerPos.x + (PlayerPos.w / 2)))
 						*((turretPos14.x + (turretPos14.w / 2))
@@ -1581,7 +2268,7 @@ int main(int argc, char* argv[]) {
 
 			turretActive14 = true;
 
-			int random_number14 = std::rand()%50;
+			int random_number14 = std::rand()%10;
 
 			if((eBulletActive14) == false && (random_number14 == 5)){
 
@@ -1601,7 +2288,56 @@ int main(int argc, char* argv[]) {
 			turretActive14 = false;
 		}
 
+		if(eBulletActive14){
+			beePos14.y += eBulletDir14;
+		}
 
+		if(beePos14.y > 768 || beePos14.y < 0){
+			eBulletActive14 = false;
+			beePos14.x = -200;
+			beePos14.y = -200;
+			eBulletDir14 = 0;
+		}
+
+		if(SDL_HasIntersection(&PlayerPos, &beePos14)){
+
+			eBulletActive14 = false;
+			beePos14.x = -200;
+			beePos14.y = -200;
+			eBulletDir14 = 0;
+
+			player1.FullPos.w -= 11.95;
+
+			if(player1.FullPos.w == 0)
+			{
+				player1.FullPos.w = 0;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos14, &dropPos) && turretActive14 == true){
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+
+			turretHealth14 -=1;
+
+			if(turretHealth14 == 0)
+			{
+				turretPos14.x = -200;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos14, &dropPos) && turretActive14 == false){
+
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+		}
+		///////////////////////////////////Turret14 - End//////////////////////////////////////////
+
+		///////////////////////////////////Turret15 - Start//////////////////////////////////////////
 		double distancex15 = ((turretPos15.x + (turretPos15.w /2))
 				- (PlayerPos.x + (PlayerPos.w / 2)))
 						*((turretPos15.x + (turretPos15.w / 2))
@@ -1618,7 +2354,7 @@ int main(int argc, char* argv[]) {
 
 			turretActive15 = true;
 
-			int random_number15 = std::rand()%50;
+			int random_number15 = std::rand()%10;
 
 			if((eBulletActive15) == false && (random_number15 == 5)){
 
@@ -1638,6 +2374,57 @@ int main(int argc, char* argv[]) {
 			turretActive15 = false;
 		}
 
+		if(eBulletActive15){
+			beePos15.x += eBulletDir15;
+		}
+
+		if(beePos15.x > 1024 || beePos15.x < 0){
+			eBulletActive15 = false;
+			beePos15.x = -200;
+			beePos15.y = -200;
+			eBulletDir15 = 0;
+		}
+
+		if(SDL_HasIntersection(&PlayerPos, &beePos15)){
+
+			eBulletActive15 = false;
+			beePos15.x = -200;
+			beePos15.y = -200;
+			eBulletDir15 = 0;
+
+			player1.FullPos.w -= 11.95;
+
+			if(player1.FullPos.w == 0)
+			{
+				player1.FullPos.w = 0;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos15, &dropPos) && turretActive15 == true){
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+
+			turretHealth15 -=1;
+
+			if(turretHealth15 == 0)
+			{
+				turretPos15.x = -200;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos15, &dropPos) && turretActive15 == false){
+
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+		}
+
+		///////////////////////////////////Turret15 - End//////////////////////////////////////////
+
+		///////////////////////////////////Turret16 - Start//////////////////////////////////////////
 		double distancex16 = ((turretPos16.x + (turretPos16.w /2))
 				- (PlayerPos.x + (PlayerPos.w / 2)))
 						*((turretPos16.x + (turretPos16.w / 2))
@@ -1654,7 +2441,7 @@ int main(int argc, char* argv[]) {
 
 			turretActive16 = true;
 
-			int random_number16 = std::rand()%50;
+			int random_number16 = std::rand()%10;
 
 			if((eBulletActive16) == false && (random_number16 == 5)){
 
@@ -1674,174 +2461,8 @@ int main(int argc, char* argv[]) {
 			turretActive16 = false;
 		}
 
-
-		if(eBulletActive){
-			beePos.x += eBulletDir;
-		}
-
-		if(eBulletActive2){
-			beePos2.x += eBulletDir2;
-		}
-
-		if(eBulletActive3){
-			beePos3.x += eBulletDir3;
-		}
-
-		if(eBulletActive4){
-			beePos4.x += eBulletDir4;
-		}
-
-		if(eBulletActive5){
-			beePos5.x += eBulletDir5;
-		}
-
-		if(eBulletActive6){
-			beePos6.x += eBulletDir6;
-		}
-
-		if(eBulletActive7){
-			beePos7.x += eBulletDir7;
-		}
-
-		if(eBulletActive8){
-			beePos8.x += eBulletDir8;
-		}
-
-		if(eBulletActive9){
-			beePos9.x += eBulletDir9;
-		}
-
-		if(eBulletActive10){
-			beePos10.x += eBulletDir10;
-		}
-
-		if(eBulletActive11){
-			beePos11.x += eBulletDir11;
-		}
-
-		if(eBulletActive12){
-			beePos12.x += eBulletDir12;
-		}
-
-		if(eBulletActive13){
-			beePos13.x += eBulletDir13;
-		}
-
-		if(eBulletActive14){
-			beePos14.x += eBulletDir14;
-		}
-
-		if(eBulletActive15){
-			beePos15.x += eBulletDir15;
-		}
-
 		if(eBulletActive16){
 			beePos16.x += eBulletDir16;
-		}
-
-		if(beePos.x > 1024 || beePos.x < 0){
-			eBulletActive = false;
-			beePos.x = -200;
-			beePos.y = -200;
-			eBulletDir = 0;
-		}
-
-		if(beePos2.x > 1024 || beePos2.x < 0){
-			eBulletActive2 = false;
-			beePos2.x = -200;
-			beePos2.y = -200;
-			eBulletDir2 = 0;
-		}
-
-		if(beePos3.x > 1024 || beePos3.x < 0){
-			eBulletActive3 = false;
-			beePos3.x = -200;
-			beePos3.y = -200;
-			eBulletDir3 = 0;
-		}
-
-		if(beePos4.x > 1024 || beePos4.x < 0){
-			eBulletActive4 = false;
-			beePos4.x = -200;
-			beePos4.y = -200;
-			eBulletDir4 = 0;
-		}
-
-		if(beePos5.x > 1024 || beePos5.x < 0){
-			eBulletActive5 = false;
-			beePos5.x = -200;
-			beePos5.y = -200;
-			eBulletDir5 = 0;
-		}
-
-		if(beePos6.x > 1024 || beePos6.x < 0){
-			eBulletActive6 = false;
-			beePos6.x = -200;
-			beePos6.y = -200;
-			eBulletDir6 = 0;
-		}
-
-		if(beePos7.x > 1024 || beePos7.x < 0){
-			eBulletActive7 = false;
-			beePos7.x = -200;
-			beePos7.y = -200;
-			eBulletDir7 = 0;
-		}
-
-		if(beePos8.x > 1024 || beePos8.x < 0){
-			eBulletActive8 = false;
-			beePos8.x = -200;
-			beePos8.y = -200;
-			eBulletDir8 = 0;
-		}
-
-		if(beePos9.x > 1024 || beePos9.x < 0){
-			eBulletActive9 = false;
-			beePos9.x = -200;
-			beePos9.y = -200;
-			eBulletDir9 = 0;
-		}
-
-		if(beePos10.x > 1024 || beePos10.x < 0){
-			eBulletActive10 = false;
-			beePos10.x = -200;
-			beePos10.y = -200;
-			eBulletDir10 = 0;
-		}
-
-		if(beePos11.x > 1024 || beePos11.x < 0){
-			eBulletActive11 = false;
-			beePos11.x = -200;
-			beePos11.y = -200;
-			eBulletDir11 = 0;
-		}
-
-		if(beePos12.x > 1024 || beePos12.x < 0){
-			eBulletActive12 = false;
-			beePos12.x = -200;
-			beePos12.y = -200;
-			eBulletDir12 = 0;
-		}
-
-		if(beePos13.x > 1024 || beePos13.x < 0){
-			eBulletActive13 = false;
-			beePos13.x = -200;
-			beePos13.y = -200;
-			eBulletDir13 = 0;
-		}
-
-		if(beePos14.x > 1024 || beePos14.x < 0){
-			eBulletActive14 = false;
-			beePos14.x = -200;
-			beePos14.y = -200;
-			eBulletDir14 = 0;
-		}
-
-		if(beePos15.x > 1024 || beePos15.x < 0){
-			eBulletActive15 = false;
-			beePos15.x = -200;
-			beePos15.y = -200;
-			eBulletDir15 = 0;
 		}
 
 		if(beePos16.x > 1024 || beePos16.x < 0){
@@ -1850,6 +2471,102 @@ int main(int argc, char* argv[]) {
 			beePos16.y = -200;
 			eBulletDir16 = 0;
 		}
+
+		if(SDL_HasIntersection(&PlayerPos, &beePos16)){
+
+			eBulletActive16 = false;
+			beePos16.x = -200;
+			beePos16.y = -200;
+			eBulletDir16 = 0;
+
+			player1.FullPos.w -= 11.95;
+
+			if(player1.FullPos.w == 0)
+			{
+				player1.FullPos.w = 0;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos16, &dropPos) && turretActive16 == true){
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+
+			turretHealth16 -=1;
+
+			if(turretHealth16 == 0)
+			{
+				turretPos16.x = -200;
+			}
+		}
+
+		if(SDL_HasIntersection(&turretPos16, &dropPos) && turretActive16 == false){
+
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+		}
+		///////////////////////////////////Turret16 - End//////////////////////////////////////////
+
+		////////////////////////////////////////////Turrets - End/////////////////////////////////
+
+
+		////////////////////////////////////////////Enemy - Start/////////////////////////////////
+
+		////////////////////////////////////////////Enemy1 - Start/////////////////////////////////
+		double Enemydistancex = (EnemyPos.x - PlayerPos.x) * (EnemyPos.x - PlayerPos.x);
+		double Enemydistancey = (EnemyPos.y - PlayerPos.y) * (EnemyPos.y - PlayerPos.y);
+
+		double Enemycalcdistance = sqrt(Enemydistancex + Enemydistancey);
+
+		if(Enemycalcdistance <= 255){
+			enemyActive = true;
+
+			if(PlayerPos.x < EnemyPos.x)
+			{
+				Left = true;
+				Right = false;
+			}
+			else
+			{
+				Left = false;
+				Right = true;
+			}
+		}else{
+			enemyActive = false;
+		}
+
+		if(enemyActive)
+		{
+
+		}
+
+		if(SDL_HasIntersection(&EnemyPos, &dropPos) && enemyActive == true){
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+
+			enemyHealth -=1;
+
+			if(enemyHealth == 0)
+			{
+				EnemyPos.x = -200;
+			}
+		}
+
+		if(SDL_HasIntersection(&EnemyPos, &dropPos) && enemyActive == false){
+
+			pBulletActive = false;
+			dropPos.x = -200;
+			dropPos.y = -200;
+			pBulletDir = 0;
+		}
+		////////////////////////////////////////////Enemy1 - End/////////////////////////////////
+
+		////////////////////////////////////////////Enemy - End/////////////////////////////////
 
 		if(fireRight == true)
 		{
@@ -1892,620 +2609,6 @@ int main(int argc, char* argv[]) {
 			fire = true;
 			dropPos.x = -100;
 			dropPos.y = -100;
-			pBulletDir = 0;
-		}
-
-		if(SDL_HasIntersection(&PlayerPos, &beePos)){
-
-			eBulletActive = false;
-			beePos.x = -200;
-			beePos.y = -200;
-			eBulletDir = 0;
-
-			player1.FullPos.w -= 11.95;
-
-			if(player1.FullPos.w == 0)
-			{
-				player1.FullPos.w = 0;
-			}
-		}
-
-		if(SDL_HasIntersection(&PlayerPos, &beePos2)){
-
-			eBulletActive2 = false;
-			beePos2.x = -200;
-			beePos2.y = -200;
-			eBulletDir2 = 0;
-
-			player1.FullPos.w -= 11.95;
-
-			if(player1.FullPos.w == 0)
-			{
-				player1.FullPos.w = 0;
-			}
-		}
-
-		if(SDL_HasIntersection(&PlayerPos, &beePos3)){
-
-			eBulletActive3 = false;
-			beePos3.x = -200;
-			beePos3.y = -200;
-			eBulletDir3 = 0;
-
-			player1.FullPos.w -= 11.95;
-
-			if(player1.FullPos.w == 0)
-			{
-				player1.FullPos.w = 0;
-			}
-		}
-
-		if(SDL_HasIntersection(&PlayerPos, &beePos4)){
-
-			eBulletActive4 = false;
-			beePos4.x = -200;
-			beePos4.y = -200;
-			eBulletDir4 = 0;
-
-			player1.FullPos.w -= 11.95;
-
-			if(player1.FullPos.w == 0)
-			{
-				player1.FullPos.w = 0;
-			}
-		}
-
-		if(SDL_HasIntersection(&PlayerPos, &beePos5)){
-
-			eBulletActive5 = false;
-			beePos5.x = -200;
-			beePos5.y = -200;
-			eBulletDir5 = 0;
-
-			player1.FullPos.w -= 11.95;
-
-			if(player1.FullPos.w == 0)
-			{
-				player1.FullPos.w = 0;
-			}
-		}
-
-		if(SDL_HasIntersection(&PlayerPos, &beePos6)){
-
-			eBulletActive6 = false;
-			beePos6.x = -200;
-			beePos6.y = -200;
-			eBulletDir6 = 0;
-
-			player1.FullPos.w -= 11.95;
-
-			if(player1.FullPos.w == 0)
-			{
-				player1.FullPos.w = 0;
-			}
-		}
-
-		if(SDL_HasIntersection(&PlayerPos, &beePos7)){
-
-			eBulletActive7 = false;
-			beePos7.x = -200;
-			beePos7.y = -200;
-			eBulletDir7 = 0;
-
-			player1.FullPos.w -= 11.95;
-
-			if(player1.FullPos.w == 0)
-			{
-				player1.FullPos.w = 0;
-			}
-		}
-
-		if(SDL_HasIntersection(&PlayerPos, &beePos8)){
-
-			eBulletActive8 = false;
-			beePos8.x = -200;
-			beePos8.y = -200;
-			eBulletDir8 = 0;
-
-			player1.FullPos.w -= 11.95;
-
-			if(player1.FullPos.w == 0)
-			{
-				player1.FullPos.w = 0;
-			}
-		}
-
-		if(SDL_HasIntersection(&PlayerPos, &beePos9)){
-
-			eBulletActive9 = false;
-			beePos9.x = -200;
-			beePos9.y = -200;
-			eBulletDir9 = 0;
-
-			player1.FullPos.w -= 11.95;
-
-			if(player1.FullPos.w == 0)
-			{
-				player1.FullPos.w = 0;
-			}
-		}
-
-		if(SDL_HasIntersection(&PlayerPos, &beePos10)){
-
-			eBulletActive10 = false;
-			beePos10.x = -200;
-			beePos10.y = -200;
-			eBulletDir10 = 0;
-
-			player1.FullPos.w -= 11.95;
-
-			if(player1.FullPos.w == 0)
-			{
-				player1.FullPos.w = 0;
-			}
-		}
-
-		if(SDL_HasIntersection(&PlayerPos, &beePos11)){
-
-			eBulletActive11 = false;
-			beePos11.x = -200;
-			beePos11.y = -200;
-			eBulletDir11 = 0;
-
-			player1.FullPos.w -= 11.95;
-
-			if(player1.FullPos.w == 0)
-			{
-				player1.FullPos.w = 0;
-			}
-		}
-
-		if(SDL_HasIntersection(&PlayerPos, &beePos12)){
-
-			eBulletActive12 = false;
-			beePos12.x = -200;
-			beePos12.y = -200;
-			eBulletDir12 = 0;
-
-			player1.FullPos.w -= 11.95;
-
-			if(player1.FullPos.w == 0)
-			{
-				player1.FullPos.w = 0;
-			}
-		}
-
-		if(SDL_HasIntersection(&PlayerPos, &beePos13)){
-
-			eBulletActive13 = false;
-			beePos13.x = -200;
-			beePos13.y = -200;
-			eBulletDir13 = 0;
-
-			player1.FullPos.w -= 11.95;
-
-			if(player1.FullPos.w == 0)
-			{
-				player1.FullPos.w = 0;
-			}
-		}
-
-		if(SDL_HasIntersection(&PlayerPos, &beePos14)){
-
-			eBulletActive14 = false;
-			beePos14.x = -200;
-			beePos14.y = -200;
-			eBulletDir14 = 0;
-
-			player1.FullPos.w -= 11.95;
-
-			if(player1.FullPos.w == 0)
-			{
-				player1.FullPos.w = 0;
-			}
-		}
-
-		if(SDL_HasIntersection(&PlayerPos, &beePos15)){
-
-			eBulletActive15 = false;
-			beePos15.x = -200;
-			beePos15.y = -200;
-			eBulletDir15 = 0;
-
-			player1.FullPos.w -= 11.95;
-
-			if(player1.FullPos.w == 0)
-			{
-				player1.FullPos.w = 0;
-			}
-		}
-
-		if(SDL_HasIntersection(&PlayerPos, &beePos16)){
-
-			eBulletActive16 = false;
-			beePos16.x = -200;
-			beePos16.y = -200;
-			eBulletDir16 = 0;
-
-			player1.FullPos.w -= 11.95;
-
-			if(player1.FullPos.w == 0)
-			{
-				player1.FullPos.w = 0;
-			}
-		}
-
-		if(SDL_HasIntersection(&turretPos, &dropPos) && turretActive == true){
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-
-			turretHealth -=1;
-
-			if(turretHealth == 0)
-			{
-				turretPos.x = -200;
-			}
-		}
-
-		if(SDL_HasIntersection(&turretPos2, &dropPos) && turretActive2 == true){
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-
-			turretHealth2 -=1;
-
-			if(turretHealth2 == 0)
-			{
-				turretPos2.x = -200;
-			}
-		}
-
-		if(SDL_HasIntersection(&turretPos3, &dropPos) && turretActive3 == true){
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-
-			turretHealth3 -=1;
-
-			if(turretHealth3 == 0)
-			{
-				turretPos3.x = -200;
-			}
-		}
-
-		if(SDL_HasIntersection(&turretPos4, &dropPos) && turretActive4 == true){
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-
-			turretHealth4 -=1;
-
-			if(turretHealth4 == 0)
-			{
-				turretPos4.x = -200;
-			}
-		}
-
-		if(SDL_HasIntersection(&turretPos5, &dropPos) && turretActive5 == true){
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-
-			turretHealth5 -=1;
-
-			if(turretHealth5 == 0)
-			{
-				turretPos5.x = -200;
-			}
-		}
-
-		if(SDL_HasIntersection(&turretPos6, &dropPos) && turretActive6 == true){
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-
-			turretHealth6 -=1;
-
-			if(turretHealth6 == 0)
-			{
-				turretPos6.x = -200;
-			}
-		}
-
-		if(SDL_HasIntersection(&turretPos7, &dropPos) && turretActive7 == true){
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-
-			turretHealth7 -=1;
-
-			if(turretHealth7 == 0)
-			{
-				turretPos7.x = -200;
-			}
-		}
-
-		if(SDL_HasIntersection(&turretPos8, &dropPos) && turretActive8 == true){
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-
-			turretHealth8 -=1;
-
-			if(turretHealth8 == 0)
-			{
-				turretPos8.x = -200;
-			}
-		}
-
-		if(SDL_HasIntersection(&turretPos9, &dropPos) && turretActive9 == true){
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-
-			turretHealth9 -=1;
-
-			if(turretHealth9 == 0)
-			{
-				turretPos9.x = -200;
-			}
-		}
-
-		if(SDL_HasIntersection(&turretPos10, &dropPos) && turretActive10 == true){
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-
-			turretHealth10 -=1;
-
-			if(turretHealth10 == 0)
-			{
-				turretPos10.x = -200;
-			}
-		}
-
-		if(SDL_HasIntersection(&turretPos11, &dropPos) && turretActive11 == true){
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-
-			turretHealth11 -=1;
-
-			if(turretHealth11 == 0)
-			{
-				turretPos11.x = -200;
-			}
-		}
-
-		if(SDL_HasIntersection(&turretPos12, &dropPos) && turretActive12 == true){
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-
-			turretHealth12 -=1;
-
-			if(turretHealth12 == 0)
-			{
-				turretPos12.x = -200;
-			}
-		}
-
-		if(SDL_HasIntersection(&turretPos13, &dropPos) && turretActive13 == true){
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-
-			turretHealth -=1;
-
-			if(turretHealth13 == 0)
-			{
-				turretPos13.x = -200;
-			}
-		}
-
-		if(SDL_HasIntersection(&turretPos14, &dropPos) && turretActive14 == true){
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-
-			turretHealth14 -=1;
-
-			if(turretHealth14 == 0)
-			{
-				turretPos14.x = -200;
-			}
-		}
-
-		if(SDL_HasIntersection(&turretPos15, &dropPos) && turretActive15 == true){
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-
-			turretHealth15 -=1;
-
-			if(turretHealth15 == 0)
-			{
-				turretPos15.x = -200;
-			}
-		}
-
-		if(SDL_HasIntersection(&turretPos16, &dropPos) && turretActive16 == true){
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-
-			turretHealth16 -=1;
-
-			if(turretHealth16 == 0)
-			{
-				turretPos16.x = -200;
-			}
-		}
-
-		if(SDL_HasIntersection(&turretPos, &dropPos) && turretActive == false){
-
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-		}
-
-		if(SDL_HasIntersection(&turretPos2, &dropPos) && turretActive == false){
-
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-		}
-
-		if(SDL_HasIntersection(&turretPos3, &dropPos) && turretActive == false){
-
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-		}
-
-		if(SDL_HasIntersection(&turretPos4, &dropPos) && turretActive == false){
-
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-		}
-
-		if(SDL_HasIntersection(&turretPos5, &dropPos) && turretActive == false){
-
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-		}
-
-		if(SDL_HasIntersection(&turretPos6, &dropPos) && turretActive == false){
-
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-		}
-
-		if(SDL_HasIntersection(&turretPos7, &dropPos) && turretActive == false){
-
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-		}
-
-		if(SDL_HasIntersection(&turretPos8, &dropPos) && turretActive == false){
-
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-		}
-
-		if(SDL_HasIntersection(&turretPos9, &dropPos) && turretActive == false){
-
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-		}
-
-		if(SDL_HasIntersection(&turretPos10, &dropPos) && turretActive == false){
-
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-		}
-
-		if(SDL_HasIntersection(&turretPos11, &dropPos) && turretActive == false){
-
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-		}
-
-		if(SDL_HasIntersection(&turretPos12, &dropPos) && turretActive == false){
-
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-		}
-
-		if(SDL_HasIntersection(&turretPos13, &dropPos) && turretActive == false){
-
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-		}
-
-		if(SDL_HasIntersection(&turretPos14, &dropPos) && turretActive == false){
-
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-		}
-
-		if(SDL_HasIntersection(&turretPos15, &dropPos) && turretActive == false){
-
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-		}
-
-		if(SDL_HasIntersection(&turretPos16, &dropPos) && turretActive == false){
-
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-		}
-
-		if(SDL_HasIntersection(&EnemyPos, &dropPos) && enemyActive == true){
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
-			pBulletDir = 0;
-
-			enemyHealth -=1;
-
-			if(enemyHealth == 0)
-			{
-				EnemyPos.x = -200;
-			}
-		}
-
-		if(SDL_HasIntersection(&EnemyPos, &dropPos) && enemyActive == false){
-
-			pBulletActive = false;
-			dropPos.x = -200;
-			dropPos.y = -200;
 			pBulletDir = 0;
 		}
 
@@ -2786,11 +2889,54 @@ int main(int argc, char* argv[]) {
 
 		player1.Draw(renderer);
 
-		SDL_RenderCopy(renderer, Enemy, NULL, &EnemyPos);
-
+		if(Right == true)
+		{
+			SDL_RenderCopy(renderer, Enemy, NULL, &EnemyPos);
+		}
+		if(Left == true)
+		{
+			SDL_RenderCopy(renderer, Enemy2, NULL, &EnemyPos);
+		}
 		SDL_RenderPresent(renderer);
+			}
+
+		case WIN:
+			win = true;
+
+			while(win)
+			{
+				while(SDL_PollEvent(&e) != 0)
+				{
+					if(e.type == SDL_QUIT)
+					{
+						quit = true;
+						win = false;
+						break;
+					}
+				}
+			}
+			break;
+
+		case LOSE:
+			lose = true;
+
+			while(lose)
+			{
+				while(SDL_PollEvent(&e) != 0)
+				{
+					if(e.type == SDL_QUIT)
+					{
+						quit = true;
+						lose = false;
+						break;
+					}
+				}
+			}
+			break;
 
 		SDL_Delay(16);
+		break;
+		}
 	}
 
 
