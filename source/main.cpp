@@ -489,33 +489,136 @@ int main(int argc, char* argv[]) {
     SDL_Rect Ammo0Pos;
 
     Ammo0Pos.x = 50;
-
     Ammo0Pos.y = 675;
-
     Ammo0Pos.w = 45;
-
     Ammo0Pos.h = 65;
 
     SDL_Texture *Pickup = IMG_LoadTexture(renderer, (images_dir + "AmmoP.png").c_str());
     SDL_Rect PickupPos;
 
     PickupPos.x = 50;
-
     PickupPos.y = 500;
-
     PickupPos.w = 10;
-
     PickupPos.h = 25;
+
+    SDL_Rect PickupPos2;
+
+    PickupPos2.x = 50;
+    PickupPos2.y = 500;
+    PickupPos2.w = 10;
+    PickupPos2.h = 25;
+
+    SDL_Rect PickupPos3;
+
+    PickupPos3.x = 50;
+    PickupPos3.y = 500;
+    PickupPos3.w = 10;
+    PickupPos3.h = 25;
+
+    SDL_Rect PickupPos4;
+
+    PickupPos4.x = 50;
+    PickupPos4.y = 500;
+    PickupPos4.w = 10;
+    PickupPos4.h = 25;
+
+    SDL_Rect PickupPos5;
+
+    PickupPos5.x = 50;
+    PickupPos5.y = 500;
+    PickupPos5.w = 10;
+    PickupPos5.h = 25;
+
+    SDL_Rect PickupPos6;
+
+    PickupPos6.x = 50;
+    PickupPos6.y = 500;
+    PickupPos6.w = 10;
+    PickupPos6.h = 25;
+
+    SDL_Rect PickupPos7;
+
+    PickupPos7.x = 50;
+    PickupPos7.y = 500;
+    PickupPos7.w = 10;
+    PickupPos7.h = 25;
+
+    SDL_Rect PickupPos8;
+
+    PickupPos8.x = 50;
+    PickupPos8.y = 500;
+    PickupPos8.w = 10;
+    PickupPos8.h = 25;
+
+    SDL_Rect PickupPos9;
+
+    PickupPos9.x = 50;
+    PickupPos9.y = 500;
+    PickupPos9.w = 10;
+    PickupPos9.h = 25;
 
     SDL_Texture *HealthPickup = IMG_LoadTexture(renderer, (images_dir + "HealthP.png").c_str());
     SDL_Rect HealthPickupPos;
 
     HealthPickupPos.x = 125;
-
     HealthPickupPos.y = 500;
-
     HealthPickupPos.w = 10;
+    HealthPickupPos.h = 25;
 
+    SDL_Rect HealthPickupPos2;
+
+    HealthPickupPos2.x = 125;
+    HealthPickupPos2.y = 500;
+    HealthPickupPos2.w = 10;
+    HealthPickupPos2.h = 25;
+
+    SDL_Rect HealthPickupPos3;
+
+    HealthPickupPos3.x = 125;
+    HealthPickupPos3.y = 500;
+    HealthPickupPos3.w = 10;
+    HealthPickupPos3.h = 25;
+
+    SDL_Rect HealthPickupPos4;
+
+    HealthPickupPos4.x = 125;
+    HealthPickupPos4.y = 500;
+    HealthPickupPos4.w = 10;
+    HealthPickupPos4.h = 25;
+
+    SDL_Rect HealthPickupPos5;
+
+    HealthPickupPos5.x = 125;
+    HealthPickupPos5.y = 500;
+    HealthPickupPos5.w = 10;
+    HealthPickupPos5.h = 25;
+
+    SDL_Rect HealthPickupPos6;
+
+    HealthPickupPos6.x = 125;
+    HealthPickupPos6.y = 500;
+    HealthPickupPos6.w = 10;
+    HealthPickupPos6.h = 25;
+
+    SDL_Rect HealthPickupPos7;
+
+    HealthPickupPos7.x = 125;
+    HealthPickupPos7.y = 500;
+    HealthPickupPos7.w = 10;
+    HealthPickupPos7.h = 25;
+
+    SDL_Rect HealthPickupPos8;
+
+    HealthPickupPos8.x = 125;
+    HealthPickupPos8.y = 500;
+    HealthPickupPos8.w = 10;
+    HealthPickupPos8.h = 25;
+
+    SDL_Rect HealthPickupPos;
+
+    HealthPickupPos.x = 125;
+    HealthPickupPos.y = 500;
+    HealthPickupPos.w = 10;
     HealthPickupPos.h = 25;
 
     SDL_Texture *Enemy = IMG_LoadTexture(renderer, (images_dir + "Enemy.png").c_str());
@@ -523,11 +626,8 @@ int main(int argc, char* argv[]) {
     SDL_Rect EnemyPos;
 
     EnemyPos.x = 200;
-
     EnemyPos.y = 300;
-
     EnemyPos.w = 46;
-
     EnemyPos.h = 38;
 
     SDL_Texture *Lake = IMG_LoadTexture(renderer, (images_dir + "Lake.png").c_str());
