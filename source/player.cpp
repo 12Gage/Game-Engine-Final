@@ -64,13 +64,6 @@ Player::Player(SDL_Renderer *renderer, int pNum, string filePath, float x, float
 		bulletPath = filePath + "drop3.png";
 	}
 
-	for(int i = 0; i < 11; i++)
-	{
-		Drop tmpBullet(renderer,bulletPath,-1000,-1000);
-
-		bulletList.push_back(tmpBullet);
-	}
-
 }
 
 void Player::Update(float deltaTime)
@@ -114,46 +107,14 @@ void Player::Update(float deltaTime)
 		posRect.y = 768 - posRect.h;
 		pVelY = posRect.y;
 	}
-
-	  for(int i = 0; i< bulletList.size(); i++)
-	  {
-		  if(bulletList[i].active){
-
-			  bulletList[i].Update(deltaTime);
-		  }
-	  }
 }
 
 void Player::Draw(SDL_Renderer *renderer)
 {
-	for(int i = 0; i < bulletList.size(); i++)
-	{
-		if(bulletList[i].active){
-
-			bulletList[i].Draw(renderer);
-		}
-	}
 
 	//SDL_RenderCopy(renderer, texture, NULL, &posRect);
 
 	SDL_RenderCopy(renderer, Empty, NULL, &EmptyPos);
 	SDL_RenderCopy(renderer, Full, NULL, &FullPos);
 
-}
-
-void Player::CreateBullet(){
-
-	for(int i = 0; i < bulletList.size(); i ++)
-	{
-		if(bulletList[i].active == false){
-
-		bulletList[i].active = true;
-
-		bulletList[i].dropRect.x = (posRect.x + (posRect.w/2));
-		bulletList[i].dropRect.y = (posRect.y + (posRect.h/2));
-
-		break;
-
-		}
-	}
 }

@@ -19,7 +19,6 @@
 using namespace std;
 
 #include <vector>
-#include "drop.h"
 
 class Player{
 
@@ -29,8 +28,6 @@ public:
     SDL_Rect EmptyPos, FullPos;
 
 	bool active;
-
-	vector<Drop> bulletList;
 
 	string playerPath;
 

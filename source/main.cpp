@@ -35,6 +35,8 @@ string images_dir = currentWorkingDirectory + "/Game-Engine-Final/image/";
 #endif
 
 #include "player.h"
+#include "enemy.h"
+#include "turret.h"
 
 bool penGot = false, willGot = false, gunGot = false;
 
@@ -125,6 +127,10 @@ int EnemyDir = 0;
 int pBulletDir = 0;
 
 bool Right, Left;
+
+float deltaTime = 0.0;
+int thisTime = 0;
+int lastTime = 0;
 
 int main(int argc, char* argv[]) {
 
@@ -393,28 +399,24 @@ int main(int argc, char* argv[]) {
 
 
     SDL_Rect Wall;
-
     Wall.x = 0;
     Wall.y = -700;
     Wall.w = 3072;
     Wall.h = 10;
 
     SDL_Rect Wall2;
-
 	Wall2.x = 0;
 	Wall2.y = -700;
 	Wall2.w = 10;
 	Wall2.h = 2304;
 
     SDL_Rect Wall3;
-
 	Wall3.x = 0;
 	Wall3.y = 1600;
 	Wall3.w = 3072;
 	Wall3.h = 10;
 
     SDL_Rect Wall4;
-
 	Wall4.x = 3072;
 	Wall4.y = -700;
 	Wall4.w = 10;
@@ -493,142 +495,133 @@ int main(int argc, char* argv[]) {
     Ammo0Pos.w = 45;
     Ammo0Pos.h = 65;
 
-    SDL_Texture *Pickup = IMG_LoadTexture(renderer, (images_dir + "AmmoP.png").c_str());
+    SDL_Texture *Pickup = IMG_LoadTexture(renderer, (images_dir + "Ammo0.png").c_str());
     SDL_Rect PickupPos;
 
-    PickupPos.x = 50;
-    PickupPos.y = 500;
+    PickupPos.x = 2785;
+    PickupPos.y = 725;
     PickupPos.w = 10;
     PickupPos.h = 25;
 
     SDL_Rect PickupPos2;
 
-    PickupPos2.x = 50;
-    PickupPos2.y = 500;
+    PickupPos2.x = 365;
+    PickupPos2.y = 825;
     PickupPos2.w = 10;
     PickupPos2.h = 25;
 
     SDL_Rect PickupPos3;
 
-    PickupPos3.x = 50;
-    PickupPos3.y = 500;
+    PickupPos3.x = 535;
+    PickupPos3.y = 40;
     PickupPos3.w = 10;
     PickupPos3.h = 25;
 
     SDL_Rect PickupPos4;
 
-    PickupPos4.x = 50;
-    PickupPos4.y = 500;
+    PickupPos4.x = 1375;
+    PickupPos4.y = 775;
     PickupPos4.w = 10;
     PickupPos4.h = 25;
 
     SDL_Rect PickupPos5;
 
-    PickupPos5.x = 50;
-    PickupPos5.y = 500;
+    PickupPos5.x = 1375;
+    PickupPos5.y = 1500;
     PickupPos5.w = 10;
     PickupPos5.h = 25;
 
     SDL_Rect PickupPos6;
 
-    PickupPos6.x = 50;
-    PickupPos6.y = 500;
+    PickupPos6.x = 2025;
+    PickupPos6.y = 750;
     PickupPos6.w = 10;
     PickupPos6.h = 25;
 
     SDL_Rect PickupPos7;
 
-    PickupPos7.x = 50;
-    PickupPos7.y = 500;
+    PickupPos7.x = 2500;
+    PickupPos7.y = -575;
     PickupPos7.w = 10;
     PickupPos7.h = 25;
 
     SDL_Rect PickupPos8;
 
-    PickupPos8.x = 50;
-    PickupPos8.y = 500;
+    PickupPos8.x = 1050;
+    PickupPos8.y = 25;
     PickupPos8.w = 10;
     PickupPos8.h = 25;
 
     SDL_Rect PickupPos9;
 
-    PickupPos9.x = 50;
-    PickupPos9.y = 500;
+    PickupPos9.x = 1400;
+    PickupPos9.y = -425;
     PickupPos9.w = 10;
     PickupPos9.h = 25;
 
-    SDL_Texture *HealthPickup = IMG_LoadTexture(renderer, (images_dir + "HealthP.png").c_str());
+    SDL_Texture *HealthPickup = IMG_LoadTexture(renderer, (images_dir + "HealthPickup.png").c_str());
     SDL_Rect HealthPickupPos;
 
-    HealthPickupPos.x = 125;
-    HealthPickupPos.y = 500;
+    HealthPickupPos.x = 300;
+    HealthPickupPos.y = 900;
     HealthPickupPos.w = 10;
     HealthPickupPos.h = 25;
 
     SDL_Rect HealthPickupPos2;
 
-    HealthPickupPos2.x = 125;
-    HealthPickupPos2.y = 500;
+    HealthPickupPos2.x = 625;
+    HealthPickupPos2.y = -450;
     HealthPickupPos2.w = 10;
     HealthPickupPos2.h = 25;
 
     SDL_Rect HealthPickupPos3;
 
-    HealthPickupPos3.x = 125;
-    HealthPickupPos3.y = 500;
+    HealthPickupPos3.x = 1085;
+    HealthPickupPos3.y = 750;
     HealthPickupPos3.w = 10;
     HealthPickupPos3.h = 25;
 
     SDL_Rect HealthPickupPos4;
 
-    HealthPickupPos4.x = 125;
-    HealthPickupPos4.y = 500;
+    HealthPickupPos4.x = 1485;
+    HealthPickupPos4.y = 585;
     HealthPickupPos4.w = 10;
     HealthPickupPos4.h = 25;
 
     SDL_Rect HealthPickupPos5;
 
-    HealthPickupPos5.x = 125;
-    HealthPickupPos5.y = 500;
+    HealthPickupPos5.x = 1500;
+    HealthPickupPos5.y = 15;
     HealthPickupPos5.w = 10;
     HealthPickupPos5.h = 25;
 
     SDL_Rect HealthPickupPos6;
 
-    HealthPickupPos6.x = 125;
-    HealthPickupPos6.y = 500;
+    HealthPickupPos6.x = 2025;
+    HealthPickupPos6.y = 950;
     HealthPickupPos6.w = 10;
     HealthPickupPos6.h = 25;
 
     SDL_Rect HealthPickupPos7;
 
-    HealthPickupPos7.x = 125;
-    HealthPickupPos7.y = 500;
+    HealthPickupPos7.x = 2925;
+    HealthPickupPos7.y = 150;
     HealthPickupPos7.w = 10;
     HealthPickupPos7.h = 25;
 
     SDL_Rect HealthPickupPos8;
 
-    HealthPickupPos8.x = 125;
-    HealthPickupPos8.y = 500;
+    HealthPickupPos8.x = 2275;
+    HealthPickupPos8.y = -600;
     HealthPickupPos8.w = 10;
     HealthPickupPos8.h = 25;
 
-    SDL_Rect HealthPickupPos;
+    SDL_Rect HealthPickupPos9;
 
-    HealthPickupPos.x = 125;
-    HealthPickupPos.y = 500;
-    HealthPickupPos.w = 10;
-    HealthPickupPos.h = 25;
-
-    SDL_Texture *Enemy = IMG_LoadTexture(renderer, (images_dir + "Enemy.png").c_str());
-    SDL_Texture *Enemy2 = IMG_LoadTexture(renderer, (images_dir + "Enemy2.png").c_str());
-    SDL_Rect EnemyPos;
-
-    EnemyPos.x = 200;
-    EnemyPos.y = 300;
-    EnemyPos.w = 46;
-    EnemyPos.h = 38;
+    HealthPickupPos9.x = 975;
+    HealthPickupPos9.y = -600;
+    HealthPickupPos9.w = 10;
+    HealthPickupPos9.h = 25;
 
     SDL_Texture *Lake = IMG_LoadTexture(renderer, (images_dir + "Lake.png").c_str());
     SDL_Rect LakePos;
@@ -771,6 +764,20 @@ int main(int argc, char* argv[]) {
     TreePos21.w = 68;
     TreePos21.h = 60;
 
+    EnemyTank enemy1 = EnemyTank(renderer, images_dir.c_str(), 400.0f, 300.f, 0);
+    EnemyTank enemy2 = EnemyTank(renderer, images_dir.c_str(), 25.0f, 1450.f, 1);
+    EnemyTank enemy3 = EnemyTank(renderer, images_dir.c_str(), 25.0f, -50.f, 1);
+    EnemyTank enemy4 = EnemyTank(renderer, images_dir.c_str(), 25.0f, -650.f, 0);
+    EnemyTank enemy5 = EnemyTank(renderer, images_dir.c_str(), 1700.0f, 1450.f, 0);
+    EnemyTank enemy6 = EnemyTank(renderer, images_dir.c_str(), 2800.0f, 1450.f, 0);
+    EnemyTank enemy7 = EnemyTank(renderer, images_dir.c_str(), 2250.0f, 150.f, 1);
+    EnemyTank enemy8 = EnemyTank(renderer, images_dir.c_str(), 1800.0f, 150.f, 0);
+    EnemyTank enemy9 = EnemyTank(renderer, images_dir.c_str(), 1875.0f, -50.f, 1);
+    EnemyTank enemy10 = EnemyTank(renderer, images_dir.c_str(), 1975.0f, -175.f, 0);
+    EnemyTank enemy11 = EnemyTank(renderer, images_dir.c_str(), 2350.0f, -175.f, 1);
+    EnemyTank enemy12 = EnemyTank(renderer, images_dir.c_str(), 2925.0f, -575.f, 0);
+    EnemyTank enemy13 = EnemyTank(renderer, images_dir.c_str(), 1400.0f, -675.f, 0);
+
 	//The surface contained by the window
 	SDL_Surface* screenSurface = NULL;
 
@@ -779,7 +786,7 @@ int main(int argc, char* argv[]) {
 
 	enum GameState{MENU, GAME, WIN,LOSE};
 
-	GameState gameState = MENU;
+	GameState gameState = GAME;
 
 	bool menu, game, win, lose;
 
@@ -824,159 +831,16 @@ int main(int argc, char* argv[]) {
 			break;
 
 		case GAME:
-			Pfront = true, Pback = false, Pright = false, Pleft = false;
-
-			PlayerPos.x = 0;
-			PlayerPos.y = 250;
-
-			penGot = false;
-			PenPos.x = 100;
-			PenPos.y = 225;
-
-			willGot = false;
-			WillPos.x = 100;
-			WillPos.y = 275;
-
-			gunGot = false;
-			GunPos.x = 100;
-			GunPos.y = 325;
-
-		    turretPos.x = 275;
-		    turretPos.y = 525;
-
-		    turretPos2.x = 165;
-		    turretPos2.y = 715;
-
-		    turretPos3.x = 475;
-		    turretPos3.y = 765;
-
-		    turretPos4.x = 275;
-		    turretPos4.y = 975;
-
-		    turretPos5.x = 475;
-		    turretPos5.y = 975;
-
-		    turretPos6.x = 915;
-		    turretPos6.y = 450;
-
-		    turretPos7.x = 1065;
-		    turretPos7.y = 450;
-
-		    turretPos8.x = 1375;
-		    turretPos8.y = 450;
-
-		    turretPos9.x = 1525;
-		    turretPos9.y = 450;
-
-		    turretPos10.x = 915;
-		    turretPos10.y = -25;
-
-		    turretPos11.x = 1065;
-		    turretPos11.y = -25;
-
-		    turretPos12.x = 1375;
-		    turretPos12.y = -25;
-
-		    turretPos13.x = 1525;
-		    turretPos13.y = -25;
-
-		    turretPos14.x = 2700;
-		    turretPos14.y = 625;
-
-		    turretPos15.x = 2500;
-		    turretPos15.y = 800;
-
-		    turretPos16.x = 2765;
-		    turretPos16.y = 850;
-
-		    bkgdRect.x = 0;
-		    bkgdRect.y = -700;
-
-		    PickupPos.x = 50;
-		    PickupPos.y = 500;
-
-		    HealthPickupPos.x = 125;
-		    HealthPickupPos.y = 500;
-
-		    EnemyPos.x = 200;
-		    EnemyPos.y = 300;
-
-		    LakePos.x = 185;
-		    LakePos.y = -525;
-
-		    DockPos.x = 85;
-		    DockPos.y = -485;
-
-		    SDL_Rect TreePos;
-		    TreePos.x = 250;
-		    TreePos.y = 650;
-
-		    TreePos2.x = 400;
-		    TreePos2.y = 650;
-
-		    TreePos3.x = 525;
-		    TreePos3.y = 625;
-
-		    TreePos4.x = 525;
-		    TreePos4.y = 725;
-
-		    TreePos5.x = 575;
-		    TreePos5.y = 800;
-
-		    TreePos6.x = 550;
-		    TreePos6.y = 925;
-
-		    TreePos7.x = 465;
-		    TreePos7.y = 875;
-
-		    TreePos8.x = 400;
-		    TreePos8.y = 785;
-
-		    TreePos9.x = 300;
-		    TreePos9.y = 725;
-
-		    TreePos10.x = 235;
-		    TreePos10.y = 800;
-
-		    TreePos11.x = 235;
-		    TreePos11.y = 925;
-
-		    TreePos12.x = 335;
-		    TreePos12.y = 875;
-
-		    TreePos13.x = 400;
-		    TreePos13.y = 975;
-
-		    TreePos14.x = 2750;
-		    TreePos14.y = 850;
-
-		    TreePos15.x = 2600;
-		    TreePos15.y = 835;
-
-		    TreePos16.x = 2585;
-		    TreePos16.y = 755;
-
-		    TreePos17.x = 2675;
-		    TreePos17.y = 765;
-
-		    TreePos18.x = 2780;
-		    TreePos18.y = 750;
-
-		    TreePos19.x = 2400;
-		    TreePos19.y = -250;
-
-		    TreePos20.x = 1435;
-		    TreePos20.y = -655;
-
-		    TreePos21.x = 1000;
-		    TreePos21.y = -660;
-
-			player1.FullPos.w = 239;
+			//Pfront = true, Pback = false, Pright = false, Pleft = false;
 
 			game = true;
 
 			while(game)
 			{
+				thisTime = SDL_GetTicks();
+				deltaTime = (float)(thisTime - lastTime)/1000;
+				lastTime = thisTime;
+
 				while(SDL_PollEvent(&e) != 0)
 				{
 					if(e.type == SDL_QUIT)
@@ -1098,6 +962,22 @@ int main(int argc, char* argv[]) {
 					}
 				}
 
+				enemy1.Update(deltaTime, PlayerPos);
+				/*
+				enemy2.Update(deltaTime, PlayerPos);
+				enemy3.Update(deltaTime, PlayerPos);
+				enemy4.Update(deltaTime, PlayerPos);
+				enemy5.Update(deltaTime, PlayerPos);
+				enemy6.Update(deltaTime, PlayerPos);
+				enemy7.Update(deltaTime, PlayerPos);
+				enemy8.Update(deltaTime, PlayerPos);
+				enemy9.Update(deltaTime, PlayerPos);
+				enemy10.Update(deltaTime, PlayerPos);
+				enemy11.Update(deltaTime, PlayerPos);
+				enemy12.Update(deltaTime, PlayerPos);
+				enemy13.Update(deltaTime, PlayerPos);
+				*/
+
 				PlayerPos.x += pVelX;
 
 				if(PlayerPos.x > (1024 - (PlayerPos.w * 2))){
@@ -1116,9 +996,24 @@ int main(int argc, char* argv[]) {
 					GunPos.x -=pVelX;
 
 					PickupPos.x -=pVelX;
-					HealthPickupPos.x -=pVelX;
+					PickupPos2.x -=pVelX;
+					PickupPos3.x -=pVelX;
+					PickupPos4.x -=pVelX;
+					PickupPos5.x -=pVelX;
+					PickupPos6.x -=pVelX;
+					PickupPos7.x -=pVelX;
+					PickupPos8.x -=pVelX;
+					PickupPos9.x -=pVelX;
 
-					EnemyPos.x -=pVelX;
+					HealthPickupPos.x -=pVelX;
+					HealthPickupPos2.x -=pVelX;
+					HealthPickupPos3.x -=pVelX;
+					HealthPickupPos4.x -=pVelX;
+					HealthPickupPos5.x -=pVelX;
+					HealthPickupPos6.x -=pVelX;
+					HealthPickupPos7.x -=pVelX;
+					HealthPickupPos8.x -=pVelX;
+					HealthPickupPos9.x -=pVelX;
 
 					LakePos.x -=pVelX;
 
@@ -1162,6 +1057,21 @@ int main(int argc, char* argv[]) {
 					turretPos14.x -= pVelX;
 					turretPos15.x -= pVelX;
 					turretPos16.x -= pVelX;
+
+					enemy1.eTankRect.x -= pVelX;
+					enemy2.eTankRect.x -= pVelX;
+					enemy3.eTankRect.x -= pVelX;
+					enemy4.eTankRect.x -= pVelX;
+					enemy5.eTankRect.x -= pVelX;
+					enemy6.eTankRect.x -= pVelX;
+					enemy7.eTankRect.x -= pVelX;
+					enemy8.eTankRect.x -= pVelX;
+					enemy9.eTankRect.x -= pVelX;
+					enemy10.eTankRect.x -= pVelX;
+					enemy11.eTankRect.x -= pVelX;
+					enemy12.eTankRect.x -= pVelX;
+					enemy13.eTankRect.x -= pVelX;
+
 				}
 
 				if(PlayerPos.x < (0 + (PlayerPos.w * 2))){
@@ -1180,9 +1090,24 @@ int main(int argc, char* argv[]) {
 					GunPos.x -=pVelX;
 
 					PickupPos.x -=pVelX;
-					HealthPickupPos.x -=pVelX;
+					PickupPos2.x -=pVelX;
+					PickupPos3.x -=pVelX;
+					PickupPos4.x -=pVelX;
+					PickupPos5.x -=pVelX;
+					PickupPos6.x -=pVelX;
+					PickupPos7.x -=pVelX;
+					PickupPos8.x -=pVelX;
+					PickupPos9.x -=pVelX;
 
-					EnemyPos.x -=pVelX;
+					HealthPickupPos.x -=pVelX;
+					HealthPickupPos2.x -=pVelX;
+					HealthPickupPos3.x -=pVelX;
+					HealthPickupPos4.x -=pVelX;
+					HealthPickupPos5.x -=pVelX;
+					HealthPickupPos6.x -=pVelX;
+					HealthPickupPos7.x -=pVelX;
+					HealthPickupPos8.x -=pVelX;
+					HealthPickupPos9.x -=pVelX;
 
 					LakePos.x -=pVelX;
 
@@ -1226,6 +1151,21 @@ int main(int argc, char* argv[]) {
 					turretPos14.x -= pVelX;
 					turretPos15.x -= pVelX;
 					turretPos16.x -= pVelX;
+
+					enemy1.eTankRect.x -= pVelX;
+					enemy2.eTankRect.x -= pVelX;
+					enemy3.eTankRect.x -= pVelX;
+					enemy4.eTankRect.x -= pVelX;
+					enemy5.eTankRect.x -= pVelX;
+					enemy6.eTankRect.x -= pVelX;
+					enemy7.eTankRect.x -= pVelX;
+					enemy8.eTankRect.x -= pVelX;
+					enemy9.eTankRect.x -= pVelX;
+					enemy10.eTankRect.x -= pVelX;
+					enemy11.eTankRect.x -= pVelX;
+					enemy12.eTankRect.x -= pVelX;
+					enemy13.eTankRect.x -= pVelX;
+
 				}
 
 				if( SDL_HasIntersection(&PlayerPos, &Wall) || SDL_HasIntersection(&PlayerPos, &Wall2) ||
@@ -1263,9 +1203,24 @@ int main(int argc, char* argv[]) {
 					GunPos.y -=pVelY;
 
 					PickupPos.y -=pVelY;
-					HealthPickupPos.y -=pVelY;
+					PickupPos2.y -=pVelY;
+					PickupPos3.y -=pVelY;
+					PickupPos4.y -=pVelY;
+					PickupPos5.y -=pVelY;
+					PickupPos6.y -=pVelY;
+					PickupPos7.y -=pVelY;
+					PickupPos8.y -=pVelY;
+					PickupPos9.y -=pVelY;
 
-					EnemyPos.y -=pVelY;
+					HealthPickupPos.y -=pVelY;
+					HealthPickupPos2.y -=pVelY;
+					HealthPickupPos3.y -=pVelY;
+					HealthPickupPos4.y -=pVelY;
+					HealthPickupPos5.y -=pVelY;
+					HealthPickupPos6.y -=pVelY;
+					HealthPickupPos7.y -=pVelY;
+					HealthPickupPos8.y -=pVelY;
+					HealthPickupPos9.y -=pVelY;
 
 					LakePos.y -=pVelY;
 
@@ -1309,6 +1264,20 @@ int main(int argc, char* argv[]) {
 					turretPos14.y -= pVelY;
 					turretPos15.y -= pVelY;
 					turretPos16.y -= pVelY;
+
+					enemy1.eTankRect.y -= pVelY;
+					enemy2.eTankRect.y -= pVelY;
+					enemy3.eTankRect.y -= pVelY;
+					enemy4.eTankRect.y -= pVelY;
+					enemy5.eTankRect.y -= pVelY;
+					enemy6.eTankRect.y -= pVelY;
+					enemy7.eTankRect.y -= pVelY;
+					enemy8.eTankRect.y -= pVelY;
+					enemy9.eTankRect.y -= pVelY;
+					enemy10.eTankRect.y -= pVelY;
+					enemy11.eTankRect.y -= pVelY;
+					enemy12.eTankRect.y -= pVelY;
+					enemy13.eTankRect.y -= pVelY;
 				}
 
 				if(PlayerPos.y > (768 - (PlayerPos.h * 2))){
@@ -1327,9 +1296,24 @@ int main(int argc, char* argv[]) {
 					GunPos.y -=pVelY;
 
 					PickupPos.y -=pVelY;
-					HealthPickupPos.y -=pVelY;
+					PickupPos2.y -=pVelY;
+					PickupPos3.y -=pVelY;
+					PickupPos4.y -=pVelY;
+					PickupPos5.y -=pVelY;
+					PickupPos6.y -=pVelY;
+					PickupPos7.y -=pVelY;
+					PickupPos8.y -=pVelY;
+					PickupPos9.y -=pVelY;
 
-					EnemyPos.y -=pVelY;
+					HealthPickupPos.y -=pVelY;
+					HealthPickupPos2.y -=pVelY;
+					HealthPickupPos3.y -=pVelY;
+					HealthPickupPos4.y -=pVelY;
+					HealthPickupPos5.y -=pVelY;
+					HealthPickupPos6.y -=pVelY;
+					HealthPickupPos7.y -=pVelY;
+					HealthPickupPos8.y -=pVelY;
+					HealthPickupPos9.y -=pVelY;
 
 					LakePos.y -=pVelY;
 
@@ -1373,6 +1357,20 @@ int main(int argc, char* argv[]) {
 					turretPos14.y -= pVelY;
 					turretPos15.y -= pVelY;
 					turretPos16.y -= pVelY;
+
+					enemy1.eTankRect.y -= pVelY;
+					enemy2.eTankRect.y -= pVelY;
+					enemy3.eTankRect.y -= pVelY;
+					enemy4.eTankRect.y -= pVelY;
+					enemy5.eTankRect.y -= pVelY;
+					enemy6.eTankRect.y -= pVelY;
+					enemy7.eTankRect.y -= pVelY;
+					enemy8.eTankRect.y -= pVelY;
+					enemy9.eTankRect.y -= pVelY;
+					enemy10.eTankRect.y -= pVelY;
+					enemy11.eTankRect.y -= pVelY;
+					enemy12.eTankRect.y -= pVelY;
+					enemy13.eTankRect.y -= pVelY;
 				}
 
 				if( SDL_HasIntersection(&PlayerPos, &Wall) || SDL_HasIntersection(&PlayerPos, &Wall2) ||
@@ -1455,8 +1453,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						game = false;
-						gameState = LOSE;
+						//game = false;
+						//gameState = LOSE;
 						break;
 					}
 				}
@@ -1544,8 +1542,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						game = false;
-						gameState = LOSE;
+						//game = false;
+						//gameState = LOSE;
 						break;
 					}
 				}
@@ -1634,8 +1632,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						game = false;
-						gameState = LOSE;
+						//game = false;
+						//gameState = LOSE;
 						break;
 					}
 				}
@@ -1724,8 +1722,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						game = false;
-						gameState = LOSE;
+						//game = false;
+						//gameState = LOSE;
 						break;
 					}
 				}
@@ -1813,8 +1811,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						game = false;
-						gameState = LOSE;
+						//game = false;
+						//gameState = LOSE;
 						break;
 					}
 				}
@@ -1903,8 +1901,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						game = false;
-						gameState = LOSE;
+						//game = false;
+						//gameState = LOSE;
 						break;
 					}
 				}
@@ -1992,8 +1990,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						game = false;
-						gameState = LOSE;
+						//game = false;
+						//gameState = LOSE;
 						break;
 					}
 				}
@@ -2082,8 +2080,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						game = false;
-						gameState = LOSE;
+						//game = false;
+						//gameState = LOSE;
 						break;
 					}
 				}
@@ -2172,8 +2170,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						game = false;
-						gameState = LOSE;
+						//game = false;
+						//gameState = LOSE;
 						break;
 					}
 				}
@@ -2262,8 +2260,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						game = false;
-						gameState = LOSE;
+						//game = false;
+						//gameState = LOSE;
 						break;
 					}
 				}
@@ -2352,8 +2350,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						game = false;
-						gameState = LOSE;
+						//game = false;
+						//gameState = LOSE;
 						break;
 					}
 				}
@@ -2441,8 +2439,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						game = false;
-						gameState = LOSE;
+						//game = false;
+						//gameState = LOSE;
 						break;
 					}
 				}
@@ -2531,8 +2529,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						game = false;
-						gameState = LOSE;
+						//game = false;
+						//gameState = LOSE;
 						break;
 					}
 				}
@@ -2621,8 +2619,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						game = false;
-						gameState = LOSE;
+						//game = false;
+						//gameState = LOSE;
 						break;
 					}
 				}
@@ -2710,8 +2708,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						game = false;
-						gameState = LOSE;
+						//game = false;
+						//gameState = LOSE;
 						break;
 					}
 				}
@@ -2800,8 +2798,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						game = false;
-						gameState = LOSE;
+						//game = false;
+						//gameState = LOSE;
 						break;
 					}
 				}
@@ -2835,54 +2833,203 @@ int main(int argc, char* argv[]) {
 				////////////////////////////////////////////Enemy - Start/////////////////////////////////
 
 				////////////////////////////////////////////Enemy1 - Start/////////////////////////////////
-				double Enemydistancex = (EnemyPos.x - PlayerPos.x) * (EnemyPos.x - PlayerPos.x);
-				double Enemydistancey = (EnemyPos.y - PlayerPos.y) * (EnemyPos.y - PlayerPos.y);
 
-				double Enemycalcdistance = sqrt(Enemydistancex + Enemydistancey);
-
-				if(Enemycalcdistance <= 255){
-					enemyActive = true;
-
-					if(PlayerPos.x < EnemyPos.x)
-					{
-						Left = true;
-						Right = false;
-					}
-					else
-					{
-						Left = false;
-						Right = true;
-					}
-				}else{
-					enemyActive = false;
-				}
-
-				if(enemyActive)
-				{
-
-				}
-
-				if(SDL_HasIntersection(&EnemyPos, &dropPos) && enemyActive == true){
+				if(SDL_HasIntersection(&enemy1.eTankRect, &dropPos)){
 					pBulletActive = false;
 					dropPos.x = -200;
 					dropPos.y = -200;
 					pBulletDir = 0;
 
-					enemyHealth -=1;
-
-					if(enemyHealth == 0)
-					{
-						EnemyPos.x = -200;
+					if(enemy1.active == true){
+						enemy1.RemoveHealth();
 					}
+
+					break;
 				}
 
-				if(SDL_HasIntersection(&EnemyPos, &dropPos) && enemyActive == false){
-
+				if(SDL_HasIntersection(&enemy1.eTankRect, &dropPos)){
 					pBulletActive = false;
 					dropPos.x = -200;
 					dropPos.y = -200;
 					pBulletDir = 0;
+
+					if(enemy1.active == true){
+						enemy1.RemoveHealth();
+					}
+
+					break;
 				}
+
+				if(SDL_HasIntersection(&enemy2.eTankRect, &dropPos)){
+					pBulletActive = false;
+					dropPos.x = -200;
+					dropPos.y = -200;
+					pBulletDir = 0;
+
+					if(enemy2.active == true){
+						enemy2.RemoveHealth();
+					}
+
+					break;
+				}
+
+				if(SDL_HasIntersection(&enemy3.eTankRect, &dropPos)){
+					pBulletActive = false;
+					dropPos.x = -200;
+					dropPos.y = -200;
+					pBulletDir = 0;
+
+					if(enemy3.active == true){
+						enemy3.RemoveHealth();
+					}
+
+					break;
+				}
+
+				if(SDL_HasIntersection(&enemy4.eTankRect, &dropPos)){
+					pBulletActive = false;
+					dropPos.x = -200;
+					dropPos.y = -200;
+					pBulletDir = 0;
+
+					if(enemy4.active == true){
+						enemy4.RemoveHealth();
+					}
+
+					break;
+				}
+
+				if(SDL_HasIntersection(&enemy5.eTankRect, &dropPos)){
+					pBulletActive = false;
+					dropPos.x = -200;
+					dropPos.y = -200;
+					pBulletDir = 0;
+
+					if(enemy5.active == true){
+						enemy5.RemoveHealth();
+					}
+
+					break;
+				}
+
+				if(SDL_HasIntersection(&enemy6.eTankRect, &dropPos)){
+					pBulletActive = false;
+					dropPos.x = -200;
+					dropPos.y = -200;
+					pBulletDir = 0;
+
+					if(enemy6.active == true){
+						enemy6.RemoveHealth();
+					}
+
+					break;
+				}
+
+				if(SDL_HasIntersection(&enemy7.eTankRect, &dropPos)){
+					pBulletActive = false;
+					dropPos.x = -200;
+					dropPos.y = -200;
+					pBulletDir = 0;
+
+					if(enemy7.active == true){
+						enemy7.RemoveHealth();
+					}
+
+					break;
+				}
+
+				if(SDL_HasIntersection(&enemy8.eTankRect, &dropPos)){
+					pBulletActive = false;
+					dropPos.x = -200;
+					dropPos.y = -200;
+					pBulletDir = 0;
+
+					if(enemy8.active == true){
+						enemy8.RemoveHealth();
+					}
+
+					break;
+				}
+
+				if(SDL_HasIntersection(&enemy9.eTankRect, &dropPos)){
+					pBulletActive = false;
+					dropPos.x = -200;
+					dropPos.y = -200;
+					pBulletDir = 0;
+
+					if(enemy9.active == true){
+						enemy9.RemoveHealth();
+					}
+
+					break;
+				}
+
+				if(SDL_HasIntersection(&enemy10.eTankRect, &dropPos)){
+					pBulletActive = false;
+					dropPos.x = -200;
+					dropPos.y = -200;
+					pBulletDir = 0;
+
+					if(enemy10.active == true){
+						enemy10.RemoveHealth();
+					}
+
+					break;
+				}
+
+				if(SDL_HasIntersection(&enemy11.eTankRect, &dropPos)){
+					pBulletActive = false;
+					dropPos.x = -200;
+					dropPos.y = -200;
+					pBulletDir = 0;
+
+					if(enemy11.active == true){
+						enemy11.RemoveHealth();
+					}
+
+					break;
+				}
+
+				if(SDL_HasIntersection(&enemy12.eTankRect, &dropPos)){
+					pBulletActive = false;
+					dropPos.x = -200;
+					dropPos.y = -200;
+					pBulletDir = 0;
+
+					if(enemy12.active == true){
+						enemy12.RemoveHealth();
+					}
+
+					break;
+				}
+
+				if(SDL_HasIntersection(&enemy13.eTankRect, &dropPos)){
+					pBulletActive = false;
+					dropPos.x = -200;
+					dropPos.y = -200;
+					pBulletDir = 0;
+
+					if(enemy13.active == true){
+						enemy13.RemoveHealth();
+					}
+
+					break;
+				}
+
+				if(SDL_HasIntersection(&PlayerPos, &enemy1.eTankRect)){
+					player1.FullPos.w -=.025;
+
+					/*
+					if(player1.FullPos.w <= 0)
+					{
+						player1.FullPos.w = 0;
+						//game = false;
+						//gameState = LOSE;
+						break;
+					}
+					*/
+				}
+
 				////////////////////////////////////////////Enemy1 - End/////////////////////////////////
 
 				////////////////////////////////////////////Enemy - End/////////////////////////////////
@@ -2957,6 +3104,54 @@ int main(int argc, char* argv[]) {
 						PickupPos.x = -1000;
 						ammo += 6;
 					}
+
+					if( SDL_HasIntersection(&PlayerPos, &PickupPos2)) {
+
+						PickupPos2.x = -1000;
+						ammo += 6;
+					}
+
+					if( SDL_HasIntersection(&PlayerPos, &PickupPos3)) {
+
+						PickupPos3.x = -1000;
+						ammo += 6;
+					}
+
+					if( SDL_HasIntersection(&PlayerPos, &PickupPos4)) {
+
+						PickupPos4.x = -1000;
+						ammo += 6;
+					}
+
+					if( SDL_HasIntersection(&PlayerPos, &PickupPos5)) {
+
+						PickupPos5.x = -1000;
+						ammo += 6;
+					}
+
+					if( SDL_HasIntersection(&PlayerPos, &PickupPos6)) {
+
+						PickupPos6.x = -1000;
+						ammo += 6;
+					}
+
+					if( SDL_HasIntersection(&PlayerPos, &PickupPos7)) {
+
+						PickupPos7.x = -1000;
+						ammo += 6;
+					}
+
+					if( SDL_HasIntersection(&PlayerPos, &PickupPos8)) {
+
+						PickupPos8.x = -1000;
+						ammo += 6;
+					}
+
+					if( SDL_HasIntersection(&PlayerPos, &PickupPos9)) {
+
+						PickupPos9.x = -1000;
+						ammo += 6;
+					}
 				}
 
 				if(player1.FullPos.w <= 120)
@@ -2966,22 +3161,55 @@ int main(int argc, char* argv[]) {
 						HealthPickupPos.x = -1000;
 						player1.FullPos.w += 60;
 					}
-				}
 
-				if( SDL_HasIntersection(&PlayerPos, &EnemyPos)) {
+					if( SDL_HasIntersection(&PlayerPos, &HealthPickupPos2)) {
 
-					player1.FullPos.w -=.025;
+						HealthPickupPos2.x = -1000;
+						player1.FullPos.w += 60;
+					}
 
-					if(player1.FullPos.w <= 0)
-					{
-						player1.FullPos.w = 0;
-						game = false;
-						gameState = LOSE;
-						break;
+					if( SDL_HasIntersection(&PlayerPos, &HealthPickupPos3)) {
+
+						HealthPickupPos3.x = -1000;
+						player1.FullPos.w += 60;
+					}
+
+					if( SDL_HasIntersection(&PlayerPos, &HealthPickupPos4)) {
+
+						HealthPickupPos4.x = -1000;
+						player1.FullPos.w += 60;
+					}
+
+					if( SDL_HasIntersection(&PlayerPos, &HealthPickupPos5)) {
+
+						HealthPickupPos5.x = -1000;
+						player1.FullPos.w += 60;
+					}
+
+					if( SDL_HasIntersection(&PlayerPos, &HealthPickupPos6)) {
+
+						HealthPickupPos6.x = -1000;
+						player1.FullPos.w += 60;
+					}
+
+					if( SDL_HasIntersection(&PlayerPos, &HealthPickupPos7)) {
+
+						HealthPickupPos7.x = -1000;
+						player1.FullPos.w += 60;
+					}
+
+					if( SDL_HasIntersection(&PlayerPos, &HealthPickupPos8)) {
+
+						HealthPickupPos8.x = -1000;
+						player1.FullPos.w += 60;
+					}
+
+					if( SDL_HasIntersection(&PlayerPos, &HealthPickupPos9)) {
+
+						HealthPickupPos9.x = -1000;
+						player1.FullPos.w += 60;
 					}
 				}
-
-
 
 				SDL_RenderClear(renderer);
 
@@ -2989,9 +3217,24 @@ int main(int argc, char* argv[]) {
 
 
 				SDL_RenderCopy(renderer, HealthPickup, NULL, &HealthPickupPos);
+				SDL_RenderCopy(renderer, HealthPickup, NULL, &HealthPickupPos2);
+				SDL_RenderCopy(renderer, HealthPickup, NULL, &HealthPickupPos3);
+				SDL_RenderCopy(renderer, HealthPickup, NULL, &HealthPickupPos4);
+				SDL_RenderCopy(renderer, HealthPickup, NULL, &HealthPickupPos5);
+				SDL_RenderCopy(renderer, HealthPickup, NULL, &HealthPickupPos6);
+				SDL_RenderCopy(renderer, HealthPickup, NULL, &HealthPickupPos7);
+				SDL_RenderCopy(renderer, HealthPickup, NULL, &HealthPickupPos8);
+				SDL_RenderCopy(renderer, HealthPickup, NULL, &HealthPickupPos9);
 
 				SDL_RenderCopy(renderer, Pickup, NULL, &PickupPos);
-
+				SDL_RenderCopy(renderer, Pickup, NULL, &PickupPos2);
+				SDL_RenderCopy(renderer, Pickup, NULL, &PickupPos3);
+				SDL_RenderCopy(renderer, Pickup, NULL, &PickupPos4);
+				SDL_RenderCopy(renderer, Pickup, NULL, &PickupPos5);
+				SDL_RenderCopy(renderer, Pickup, NULL, &PickupPos6);
+				SDL_RenderCopy(renderer, Pickup, NULL, &PickupPos7);
+				SDL_RenderCopy(renderer, Pickup, NULL, &PickupPos8);
+				SDL_RenderCopy(renderer, Pickup, NULL, &PickupPos9);
 
 				SDL_RenderCopy(renderer, Pen, NULL, &PenPos);
 
@@ -3211,14 +3454,21 @@ int main(int argc, char* argv[]) {
 
 				player1.Draw(renderer);
 
-				if(Right == true)
-				{
-					SDL_RenderCopy(renderer, Enemy, NULL, &EnemyPos);
-				}
-				if(Left == true)
-				{
-					SDL_RenderCopy(renderer, Enemy2, NULL, &EnemyPos);
-				}
+				enemy1.Draw(renderer);
+				enemy2.Draw(renderer);
+				enemy3.Draw(renderer);
+				enemy4.Draw(renderer);
+				enemy5.Draw(renderer);
+				enemy6.Draw(renderer);
+				enemy7.Draw(renderer);
+				enemy8.Draw(renderer);
+				enemy9.Draw(renderer);
+				enemy10.Draw(renderer);
+				enemy11.Draw(renderer);
+				enemy12.Draw(renderer);
+				enemy13.Draw(renderer);
+
+
 				SDL_RenderPresent(renderer);
 				}
 			break;
