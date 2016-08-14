@@ -36,7 +36,6 @@ string images_dir = currentWorkingDirectory + "/Game-Engine-Final/image/";
 
 #include "player.h"
 #include "enemy.h"
-#include "turret.h"
 
 bool penGot = false, willGot = false, gunGot = false;
 
