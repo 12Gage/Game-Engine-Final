@@ -47,6 +47,12 @@ void EnemyTank::Reset()
 	active = false;
 }
 
+void EnemyTank::Reset2()
+{
+	eTankRect.x = x;
+	eTankRect.y = y;
+}
+
 void EnemyTank::eTankMoveX(float tankSpeed, float deltaTime)
 {
 	posT_X += (tankSpeed) *deltaTime;

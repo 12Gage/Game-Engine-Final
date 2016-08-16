@@ -25,7 +25,7 @@ using namespace std;
 #include "SDL2/SDL_ttf.h"
 #endif
 
-class EnemyTank{
+class People {
 
 public:
 
@@ -37,9 +37,9 @@ public:
 
 	SDL_Rect eTankRect;
 
-	float x,y,tankangle;
+	float x, y, tankangle;
 
-	Mix_Chunk *explode;
+	string basePath;
 
 	float speed;
 
@@ -47,7 +47,7 @@ public:
 
 	SDL_Point center;
 
-	EnemyTank(SDL_Renderer *renderer, string filepath, float x, float y, int enemyNumber);
+	People(SDL_Renderer *renderer, string filepath, float x, float y, int enemyNumber);
 
 	void Update(float deltaTime, SDL_Rect etankRect);
 

@@ -36,6 +36,7 @@ string images_dir = currentWorkingDirectory + "/Game-Engine-Final/image/";
 
 #include "player.h"
 #include "enemy.h"
+#include "people.h"
 
 bool penGot = false, willGot = false, gunGot = false;
 
@@ -762,12 +763,13 @@ int main(int argc, char* argv[]) {
     TreePos21.y = -660;
     TreePos21.w = 68;
     TreePos21.h = 60;
-
+	
     //EnemyTank enemy1 = EnemyTank(renderer, images_dir.c_str(), 1085.0f, 1465.f, 0);
     EnemyTank enemy1 = EnemyTank(renderer, images_dir.c_str(), 400.0f, 300.f, 0);
-    EnemyTank enemy2 = EnemyTank(renderer, images_dir.c_str(), 25.0f, 1450.f, 1);
-    EnemyTank enemy3 = EnemyTank(renderer, images_dir.c_str(), 25.0f, -50.f, 1);
-    EnemyTank enemy4 = EnemyTank(renderer, images_dir.c_str(), 25.0f, -650.f, 0);
+    
+	EnemyTank enemy2 = EnemyTank(renderer, images_dir.c_str(), 25.0f, 1450.f, 1);
+	EnemyTank enemy3 = EnemyTank(renderer, images_dir.c_str(), 25.0f, -50.f, 1);
+    /*EnemyTank enemy4 = EnemyTank(renderer, images_dir.c_str(), 25.0f, -650.f, 0);
     EnemyTank enemy5 = EnemyTank(renderer, images_dir.c_str(), 1700.0f, 1450.f, 0);
     EnemyTank enemy6 = EnemyTank(renderer, images_dir.c_str(), 2800.0f, 1450.f, 0);
     EnemyTank enemy7 = EnemyTank(renderer, images_dir.c_str(), 2250.0f, 150.f, 1);
@@ -777,6 +779,40 @@ int main(int argc, char* argv[]) {
     EnemyTank enemy11 = EnemyTank(renderer, images_dir.c_str(), 2350.0f, -175.f, 1);
     EnemyTank enemy12 = EnemyTank(renderer, images_dir.c_str(), 2925.0f, -575.f, 0);
     EnemyTank enemy13 = EnemyTank(renderer, images_dir.c_str(), 1400.0f, -675.f, 0);
+	*/
+
+	People person1 = People(renderer, images_dir.c_str(), 750, 200, 0);
+	People person2 = People(renderer, images_dir.c_str(), 750, 300, 1);
+	People person3 = People(renderer, images_dir.c_str(), 500, 600, 0);
+	People person4 = People(renderer, images_dir.c_str(), 200, 900, 1);
+	People person5 = People(renderer, images_dir.c_str(), 600, 1000, 0);
+	People person6 = People(renderer, images_dir.c_str(), 100, -400, 1);
+	People person7 = People(renderer, images_dir.c_str(), 1100, 200, 1);
+	People person8 = People(renderer, images_dir.c_str(), 1100, 300, 0);
+	People person9 = People(renderer, images_dir.c_str(), 1600, 200, 1);
+	People person10 = People(renderer, images_dir.c_str(), 1600, 300, 1);
+	People person11 = People(renderer, images_dir.c_str(), 1250, 600, 0);
+	People person12 = People(renderer, images_dir.c_str(), 1900, 150, 1);
+	People person13 = People(renderer, images_dir.c_str(), 1950, 200.0f, 1);
+	People person14 = People(renderer, images_dir.c_str(), 2000, 150, 0);
+	People person15 = People(renderer, images_dir.c_str(), 2050, 200, 0);
+	People person16 = People(renderer, images_dir.c_str(), 2000, 400, 0);
+	People person17 = People(renderer, images_dir.c_str(), 1800, 1300, 1);
+	People person18 = People(renderer, images_dir.c_str(), 1800, 1400, 0);
+	People person19 = People(renderer, images_dir.c_str(), 1800, 1500, 0);
+	People person20 = People(renderer, images_dir.c_str(), 1900, 1300, 0);
+	People person21 = People(renderer, images_dir.c_str(), 1900, 1400, 1);
+	People person22 = People(renderer, images_dir.c_str(), 1900, 1500, 1);
+	People person23 = People(renderer, images_dir.c_str(), 1300, 1100, 1);
+	People person24 = People(renderer, images_dir.c_str(), 2050, -600, 0);
+	People person25 = People(renderer, images_dir.c_str(), 2150, -600, 1);
+	People person26 = People(renderer, images_dir.c_str(), 2250, -650, 1);
+	People person27 = People(renderer, images_dir.c_str(), 2350, -650, 0);
+	People person28 = People(renderer, images_dir.c_str(), 2450, 200, 0);
+	People person29 = People(renderer, images_dir.c_str(), 2450, 300, 1);
+	People person30 = People(renderer, images_dir.c_str(), 2600, 200, 1);
+	People person31 = People(renderer, images_dir.c_str(), 2600, 300, 1);
+	People person32 = People(renderer, images_dir.c_str(), 2950, 200, 1);
 
     SDL_Texture *bushGreen = IMG_LoadTexture(renderer, (images_dir + "bushGreen.png").c_str());
     SDL_Rect bushGreenPos;
@@ -1055,19 +1091,20 @@ int main(int argc, char* argv[]) {
 			break;
 
 		case GAME:
-
-			Pfront = true, Pback = false, Pright = false, Pleft = false;
-			/*
-			penGot = false, willGot = false, gunGot = false;
+			//Pfront = true, Pback = false, Pright = false, Pleft = false;
+			
+			penGot = true, willGot = true, gunGot = true;
 
 			pVelX = 0;
 			pVelY = 0;
 
+			ammo = 11;
+
 			player1.FullPos.w = 239;
 
-		    PlayerPos.x = 0;
-		    PlayerPos.y = 250;
-
+		    PlayerPos.x = PlayerPos.x;
+		    PlayerPos.y = PlayerPos.y;
+			
 		    dropPos.x = -100;
 		    dropPos.y = -100;
 
@@ -1438,7 +1475,6 @@ int main(int argc, char* argv[]) {
 		    bushPinkPos18.x = 1350;
 		    bushPinkPos18.y = 1550;
 
-		    SDL_Rect bushPinkPos19;
 		    bushPinkPos19.x = 1350;
 		    bushPinkPos19.y = -60;
 
@@ -1447,7 +1483,49 @@ int main(int argc, char* argv[]) {
 
 		    winningPos.x = 3000;
 		    winningPos.y = 300;
-		    */
+
+			
+			enemy1.eTankRect.x = 400;
+			enemy1.eTankRect.y = 300;
+			
+			enemy2.eTankRect.x = 25;
+			enemy2.eTankRect.y = 1450;
+
+			enemy3.eTankRect.x = 25;
+			enemy3.eTankRect.y = -50;
+
+			/*enemy4.eTankRect.x = 25;
+			enemy4.eTankRect.y = -650;
+
+			enemy5.eTankRect.x = 1700;
+			enemy5.eTankRect.y = 1450;
+
+			enemy6.eTankRect.x = 2800;
+			enemy6.eTankRect.y = 1450;
+
+			enemy7.eTankRect.x = 2250;
+			enemy7.eTankRect.y = 150;
+
+			enemy8.eTankRect.x = 1800;
+			enemy8.eTankRect.y = 150;
+
+			enemy9.eTankRect.x = 1875;
+			enemy9.eTankRect.y = -50;
+
+			enemy10.eTankRect.x = 1975;
+			enemy10.eTankRect.y = -175;
+
+			enemy11.eTankRect.x = 2350;
+			enemy11.eTankRect.y = -175;
+
+			enemy12.eTankRect.x = 2925;
+			enemy12.eTankRect.y = -575;
+
+			enemy13.eTankRect.x = 1400;
+			enemy13.eTankRect.y = -675;
+			*/
+
+			game = true;
 
 			while(game)
 			{
@@ -1576,20 +1654,6 @@ int main(int argc, char* argv[]) {
 					}
 				}
 
-				enemy1.Update(deltaTime, PlayerPos);
-				enemy2.Update(deltaTime, PlayerPos);
-				enemy3.Update(deltaTime, PlayerPos);
-				enemy4.Update(deltaTime, PlayerPos);
-				enemy5.Update(deltaTime, PlayerPos);
-				enemy6.Update(deltaTime, PlayerPos);
-				enemy7.Update(deltaTime, PlayerPos);
-				enemy8.Update(deltaTime, PlayerPos);
-				enemy9.Update(deltaTime, PlayerPos);
-				enemy10.Update(deltaTime, PlayerPos);
-				enemy11.Update(deltaTime, PlayerPos);
-				enemy12.Update(deltaTime, PlayerPos);
-				enemy13.Update(deltaTime, PlayerPos);
-
 				PlayerPos.x += pVelX;
 
 				if(PlayerPos.x > (1024 - (PlayerPos.w * 2))){
@@ -1709,11 +1773,44 @@ int main(int argc, char* argv[]) {
 					bushPinkPos20.x -= pVelX;
 
 					winningPos.x -= pVelX;
-
+					
+					person1.eTankRect.x -= pVelX;
+					person2.eTankRect.x -= pVelX;
+					person3.eTankRect.x -= pVelX;
+					person4.eTankRect.x -= pVelX;
+					person5.eTankRect.x -= pVelX;
+					person6.eTankRect.x -= pVelX;
+					person7.eTankRect.x -= pVelX;
+					person8.eTankRect.x -= pVelX;
+					person9.eTankRect.x -= pVelX;
+					person10.eTankRect.x -= pVelX;
+					person11.eTankRect.x -= pVelX;
+					person12.eTankRect.x -= pVelX;
+					person13.eTankRect.x -= pVelX;
+					person14.eTankRect.x -= pVelX;
+					person15.eTankRect.x -= pVelX;
+					person16.eTankRect.x -= pVelX;
+					person17.eTankRect.x -= pVelX;
+					person18.eTankRect.x -= pVelX;
+					person19.eTankRect.x -= pVelX;
+					person20.eTankRect.x -= pVelX;
+					person21.eTankRect.x -= pVelX;
+					person22.eTankRect.x -= pVelX;
+					person23.eTankRect.x -= pVelX;
+					person24.eTankRect.x -= pVelX;
+					person25.eTankRect.x -= pVelX;
+					person26.eTankRect.x -= pVelX;
+					person27.eTankRect.x -= pVelX;
+					person28.eTankRect.x -= pVelX;
+					person29.eTankRect.x -= pVelX;
+					person30.eTankRect.x -= pVelX;
+					person31.eTankRect.x -= pVelX;
+					person32.eTankRect.x -= pVelX;
+					
 					enemy1.eTankRect.x -= pVelX;
 					enemy2.eTankRect.x -= pVelX;
 					enemy3.eTankRect.x -= pVelX;
-					enemy4.eTankRect.x -= pVelX;
+					/*enemy4.eTankRect.x -= pVelX;
 					enemy5.eTankRect.x -= pVelX;
 					enemy6.eTankRect.x -= pVelX;
 					enemy7.eTankRect.x -= pVelX;
@@ -1723,6 +1820,7 @@ int main(int argc, char* argv[]) {
 					enemy11.eTankRect.x -= pVelX;
 					enemy12.eTankRect.x -= pVelX;
 					enemy13.eTankRect.x -= pVelX;
+					*/
 				}
 
 				if(PlayerPos.x < (0 + (PlayerPos.w * 2))){
@@ -1843,10 +1941,43 @@ int main(int argc, char* argv[]) {
 
 					winningPos.x -= pVelX;
 
+					person1.eTankRect.x -= pVelX;
+					person2.eTankRect.x -= pVelX;
+					person3.eTankRect.x -= pVelX;
+					person4.eTankRect.x -= pVelX;
+					person5.eTankRect.x -= pVelX;
+					person6.eTankRect.x -= pVelX;
+					person7.eTankRect.x -= pVelX;
+					person8.eTankRect.x -= pVelX;
+					person9.eTankRect.x -= pVelX;
+					person10.eTankRect.x -= pVelX;
+					person11.eTankRect.x -= pVelX;
+					person12.eTankRect.x -= pVelX;
+					person13.eTankRect.x -= pVelX;
+					person14.eTankRect.x -= pVelX;
+					person15.eTankRect.x -= pVelX;
+					person16.eTankRect.x -= pVelX;
+					person17.eTankRect.x -= pVelX;
+					person18.eTankRect.x -= pVelX;
+					person19.eTankRect.x -= pVelX;
+					person20.eTankRect.x -= pVelX;
+					person21.eTankRect.x -= pVelX;
+					person22.eTankRect.x -= pVelX;
+					person23.eTankRect.x -= pVelX;
+					person24.eTankRect.x -= pVelX;
+					person25.eTankRect.x -= pVelX;
+					person26.eTankRect.x -= pVelX;
+					person27.eTankRect.x -= pVelX;
+					person28.eTankRect.x -= pVelX;
+					person29.eTankRect.x -= pVelX;
+					person30.eTankRect.x -= pVelX;
+					person31.eTankRect.x -= pVelX;
+					person32.eTankRect.x -= pVelX;
+					
 					enemy1.eTankRect.x -= pVelX;
 					enemy2.eTankRect.x -= pVelX;
 					enemy3.eTankRect.x -= pVelX;
-					enemy4.eTankRect.x -= pVelX;
+					/*enemy4.eTankRect.x -= pVelX;
 					enemy5.eTankRect.x -= pVelX;
 					enemy6.eTankRect.x -= pVelX;
 					enemy7.eTankRect.x -= pVelX;
@@ -1856,6 +1987,7 @@ int main(int argc, char* argv[]) {
 					enemy11.eTankRect.x -= pVelX;
 					enemy12.eTankRect.x -= pVelX;
 					enemy13.eTankRect.x -= pVelX;
+					*/
 				}
 
 				if( SDL_HasIntersection(&PlayerPos, &Wall) || SDL_HasIntersection(&PlayerPos, &Wall2) ||
@@ -2013,10 +2145,43 @@ int main(int argc, char* argv[]) {
 
 					winningPos.y -= pVelY;
 
+					person1.eTankRect.y -= pVelY;
+					person2.eTankRect.y -= pVelY;
+					person3.eTankRect.y -= pVelY;
+					person4.eTankRect.y -= pVelY;
+					person5.eTankRect.y -= pVelY;
+					person6.eTankRect.y -= pVelY;
+					person7.eTankRect.y -= pVelY;
+					person8.eTankRect.y -= pVelY;
+					person9.eTankRect.y -= pVelY;
+					person10.eTankRect.y -= pVelY;
+					person11.eTankRect.y -= pVelY;
+					person12.eTankRect.y -= pVelY;
+					person13.eTankRect.y -= pVelY;
+					person14.eTankRect.y -= pVelY;
+					person15.eTankRect.y -= pVelY;
+					person16.eTankRect.y -= pVelY;
+					person17.eTankRect.y -= pVelY;
+					person18.eTankRect.y -= pVelY;
+					person19.eTankRect.y -= pVelY;
+					person20.eTankRect.y -= pVelY;
+					person21.eTankRect.y -= pVelY;
+					person22.eTankRect.y -= pVelY;
+					person23.eTankRect.y -= pVelY;
+					person24.eTankRect.y -= pVelY;
+					person25.eTankRect.y -= pVelY;
+					person26.eTankRect.y -= pVelY;
+					person27.eTankRect.y -= pVelY;
+					person28.eTankRect.y -= pVelY;
+					person29.eTankRect.y -= pVelY;
+					person30.eTankRect.y -= pVelY;
+					person31.eTankRect.y -= pVelY;
+					person32.eTankRect.y -= pVelY;
+
 					enemy1.eTankRect.y -= pVelY;
 					enemy2.eTankRect.y -= pVelY;
 					enemy3.eTankRect.y -= pVelY;
-					enemy4.eTankRect.y -= pVelY;
+					/*enemy4.eTankRect.y -= pVelY;
 					enemy5.eTankRect.y -= pVelY;
 					enemy6.eTankRect.y -= pVelY;
 					enemy7.eTankRect.y -= pVelY;
@@ -2026,6 +2191,7 @@ int main(int argc, char* argv[]) {
 					enemy11.eTankRect.y -= pVelY;
 					enemy12.eTankRect.y -= pVelY;
 					enemy13.eTankRect.y -= pVelY;
+					*/
 				}
 
 				if(PlayerPos.y > (768 - (PlayerPos.h * 2))){
@@ -2146,10 +2312,43 @@ int main(int argc, char* argv[]) {
 
 					winningPos.y -= pVelY;
 
+					person1.eTankRect.y -= pVelY;
+					person2.eTankRect.y -= pVelY;
+					person3.eTankRect.y -= pVelY;
+					person4.eTankRect.y -= pVelY;
+					person5.eTankRect.y -= pVelY;
+					person6.eTankRect.y -= pVelY;
+					person7.eTankRect.y -= pVelY;
+					person8.eTankRect.y -= pVelY;
+					person9.eTankRect.y -= pVelY;
+					person10.eTankRect.y -= pVelY;
+					person11.eTankRect.y -= pVelY;
+					person12.eTankRect.y -= pVelY;
+					person13.eTankRect.y -= pVelY;
+					person14.eTankRect.y -= pVelY;
+					person15.eTankRect.y -= pVelY;
+					person16.eTankRect.y -= pVelY;
+					person17.eTankRect.y -= pVelY;
+					person18.eTankRect.y -= pVelY;
+					person19.eTankRect.y -= pVelY;
+					person20.eTankRect.y -= pVelY;
+					person21.eTankRect.y -= pVelY;
+					person22.eTankRect.y -= pVelY;
+					person23.eTankRect.y -= pVelY;
+					person24.eTankRect.y -= pVelY;
+					person25.eTankRect.y -= pVelY;
+					person26.eTankRect.y -= pVelY;
+					person27.eTankRect.y -= pVelY;
+					person28.eTankRect.y -= pVelY;
+					person29.eTankRect.y -= pVelY;
+					person30.eTankRect.y -= pVelY;
+					person31.eTankRect.y -= pVelY;
+					person32.eTankRect.y -= pVelY;
+					
 					enemy1.eTankRect.y -= pVelY;
 					enemy2.eTankRect.y -= pVelY;
 					enemy3.eTankRect.y -= pVelY;
-					enemy4.eTankRect.y -= pVelY;
+					/*enemy4.eTankRect.y -= pVelY;
 					enemy5.eTankRect.y -= pVelY;
 					enemy6.eTankRect.y -= pVelY;
 					enemy7.eTankRect.y -= pVelY;
@@ -2159,6 +2358,7 @@ int main(int argc, char* argv[]) {
 					enemy11.eTankRect.y -= pVelY;
 					enemy12.eTankRect.y -= pVelY;
 					enemy13.eTankRect.y -= pVelY;
+					*/
 				}
 
 				if( SDL_HasIntersection(&PlayerPos, &Wall) || SDL_HasIntersection(&PlayerPos, &Wall2) ||
@@ -3640,11 +3840,58 @@ int main(int argc, char* argv[]) {
 
 				////////////////////////////////////////////Enemy1 - Start/////////////////////////////////
 
+				person1.Update(deltaTime, PlayerPos);
+				person2.Update(deltaTime, PlayerPos);
+				person3.Update(deltaTime, PlayerPos);
+				person4.Update(deltaTime, PlayerPos);
+				person5.Update(deltaTime, PlayerPos);
+				person6.Update(deltaTime, PlayerPos);
+				person7.Update(deltaTime, PlayerPos);
+				person8.Update(deltaTime, PlayerPos);
+				person9.Update(deltaTime, PlayerPos);
+				person10.Update(deltaTime, PlayerPos);
+				person11.Update(deltaTime, PlayerPos);
+				person12.Update(deltaTime, PlayerPos);
+				person13.Update(deltaTime, PlayerPos);
+				person14.Update(deltaTime, PlayerPos);
+				person15.Update(deltaTime, PlayerPos);
+				person16.Update(deltaTime, PlayerPos);
+				person17.Update(deltaTime, PlayerPos);
+				person18.Update(deltaTime, PlayerPos);
+				person19.Update(deltaTime, PlayerPos);
+				person20.Update(deltaTime, PlayerPos);
+				person21.Update(deltaTime, PlayerPos);
+				person22.Update(deltaTime, PlayerPos);
+				person23.Update(deltaTime, PlayerPos);
+				person24.Update(deltaTime, PlayerPos);
+				person25.Update(deltaTime, PlayerPos);
+				person26.Update(deltaTime, PlayerPos);
+				person27.Update(deltaTime, PlayerPos);
+				person28.Update(deltaTime, PlayerPos);
+				person29.Update(deltaTime, PlayerPos);
+				person30.Update(deltaTime, PlayerPos);
+				person31.Update(deltaTime, PlayerPos);
+				person32.Update(deltaTime, PlayerPos);
+				
+				enemy1.Update(deltaTime, PlayerPos);
+				enemy2.Update(deltaTime, PlayerPos);
+				enemy3.Update(deltaTime, PlayerPos);
+				/*enemy4.Update(deltaTime, PlayerPos);
+				enemy5.Update(deltaTime, PlayerPos);
+				enemy6.Update(deltaTime, PlayerPos);
+				enemy7.Update(deltaTime, PlayerPos);
+				enemy8.Update(deltaTime, PlayerPos);
+				enemy9.Update(deltaTime, PlayerPos);
+				enemy10.Update(deltaTime, PlayerPos);
+				enemy11.Update(deltaTime, PlayerPos);
+				enemy12.Update(deltaTime, PlayerPos);
+				enemy13.Update(deltaTime, PlayerPos);
+				*/
 				if(SDL_HasIntersection(&enemy1.eTankRect, &dropPos)){
-					pBulletActive = false;
+					/*pBulletActive = false;
 					dropPos.x = -200;
 					dropPos.y = -200;
-					pBulletDir = 0;
+					pBulletDir = 0;*/
 
 					if(enemy1.active == true){
 						enemy1.RemoveHealth();
@@ -3652,7 +3899,9 @@ int main(int argc, char* argv[]) {
 
 					break;
 				}
+				
 
+				
 				if(SDL_HasIntersection(&enemy2.eTankRect, &dropPos)){
 					pBulletActive = false;
 					dropPos.x = -200;
@@ -3679,7 +3928,7 @@ int main(int argc, char* argv[]) {
 					break;
 				}
 
-				if(SDL_HasIntersection(&enemy4.eTankRect, &dropPos)){
+				/*if(SDL_HasIntersection(&enemy4.eTankRect, &dropPos)){
 					pBulletActive = false;
 					dropPos.x = -200;
 					dropPos.y = -200;
@@ -3808,7 +4057,7 @@ int main(int argc, char* argv[]) {
 
 					break;
 				}
-
+				*/
 				if(SDL_HasIntersection(&PlayerPos, &enemy1.eTankRect)){
 					player1.FullPos.w -=.025;
 
@@ -4135,6 +4384,39 @@ int main(int argc, char* argv[]) {
 				SDL_RenderCopy(renderer, PlayerL, NULL, &PlayerPos);
 				}
 
+				person1.Draw(renderer);
+				person2.Draw(renderer);
+				person3.Draw(renderer);
+				person4.Draw(renderer);
+				person5.Draw(renderer);
+				person6.Draw(renderer);
+				person7.Draw(renderer);
+				person8.Draw(renderer);
+				person9.Draw(renderer);
+				person10.Draw(renderer);
+				person11.Draw(renderer);
+				person12.Draw(renderer);
+				person13.Draw(renderer);
+				person14.Draw(renderer);
+				person15.Draw(renderer);
+				person16.Draw(renderer);
+				person17.Draw(renderer);
+				person18.Draw(renderer);
+				person19.Draw(renderer);
+				person20.Draw(renderer);
+				person21.Draw(renderer);
+				person22.Draw(renderer);
+				person23.Draw(renderer);
+				person24.Draw(renderer);
+				person25.Draw(renderer);
+				person26.Draw(renderer);
+				person27.Draw(renderer);
+				person28.Draw(renderer);
+				person29.Draw(renderer);
+				person30.Draw(renderer);
+				person31.Draw(renderer);
+				person32.Draw(renderer);
+
 				SDL_RenderCopy(renderer, Tree, NULL, &TreePos);
 				SDL_RenderCopy(renderer, Tree, NULL, &TreePos2);
 				SDL_RenderCopy(renderer, Tree, NULL, &TreePos3);
@@ -4295,10 +4577,12 @@ int main(int argc, char* argv[]) {
 
 				player1.Draw(renderer);
 
+				
 				enemy1.Draw(renderer);
+				
 				enemy2.Draw(renderer);
 				enemy3.Draw(renderer);
-				enemy4.Draw(renderer);
+				/*enemy4.Draw(renderer);
 				enemy5.Draw(renderer);
 				enemy6.Draw(renderer);
 				enemy7.Draw(renderer);
@@ -4308,6 +4592,7 @@ int main(int argc, char* argv[]) {
 				enemy11.Draw(renderer);
 				enemy12.Draw(renderer);
 				enemy13.Draw(renderer);
+				*/
 
 				SDL_RenderPresent(renderer);
 				}
