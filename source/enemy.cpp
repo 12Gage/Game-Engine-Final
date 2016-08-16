@@ -19,7 +19,7 @@ EnemyTank::EnemyTank(SDL_Renderer *Renderer, string filepath, float x, float y, 
 	posT_X = eTankRect.x;
 	posT_Y = eTankRect.y;
 
-	speed = 100;
+	speed = 75;
 
 	center.x = 24;
 	center.y = 18;
@@ -38,19 +38,13 @@ void EnemyTank::RemoveHealth()
 
 void EnemyTank::Reset()
 {
-	eTankRect.x = -1000;
+	eTankRect.x = -5000;
 
 	posT_X = eTankRect.x;
 
 	health = 10;
 
 	active = false;
-}
-
-void EnemyTank::Reset2()
-{
-	eTankRect.x = x;
-	eTankRect.y = y;
 }
 
 void EnemyTank::eTankMoveX(float tankSpeed, float deltaTime)
@@ -81,7 +75,7 @@ void EnemyTank::Update(float deltaTime, SDL_Rect tankRect)
 
 	double calcdistance = sqrt(distancex + distancey);
 
-	if(calcdistance <= 250){
+	if(calcdistance <= 2500){
 		active = true;
 	}else{
 		active = false;
@@ -101,8 +95,8 @@ void EnemyTank::Update(float deltaTime, SDL_Rect tankRect)
 		posT_X += (move_x) * deltaTime;
 		posT_Y += (move_y) * deltaTime;
 
-		eTankRect.x = (int)(posT_X + 0.5f);
-		eTankRect.y = (int)(posT_Y + 0.5f);
+		eTankRect.x = (int)(posT_X + 0.03f);
+		eTankRect.y = (int)(posT_Y + 0.03f);
 	}
 
 }

@@ -769,7 +769,7 @@ int main(int argc, char* argv[]) {
     
 	EnemyTank enemy2 = EnemyTank(renderer, images_dir.c_str(), 25.0f, 1450.f, 1);
 	EnemyTank enemy3 = EnemyTank(renderer, images_dir.c_str(), 25.0f, -50.f, 1);
-    /*EnemyTank enemy4 = EnemyTank(renderer, images_dir.c_str(), 25.0f, -650.f, 0);
+    EnemyTank enemy4 = EnemyTank(renderer, images_dir.c_str(), 25.0f, -650.f, 0);
     EnemyTank enemy5 = EnemyTank(renderer, images_dir.c_str(), 1700.0f, 1450.f, 0);
     EnemyTank enemy6 = EnemyTank(renderer, images_dir.c_str(), 2800.0f, 1450.f, 0);
     EnemyTank enemy7 = EnemyTank(renderer, images_dir.c_str(), 2250.0f, 150.f, 1);
@@ -779,7 +779,7 @@ int main(int argc, char* argv[]) {
     EnemyTank enemy11 = EnemyTank(renderer, images_dir.c_str(), 2350.0f, -175.f, 1);
     EnemyTank enemy12 = EnemyTank(renderer, images_dir.c_str(), 2925.0f, -575.f, 0);
     EnemyTank enemy13 = EnemyTank(renderer, images_dir.c_str(), 1400.0f, -675.f, 0);
-	*/
+
 
 	People person1 = People(renderer, images_dir.c_str(), 750, 200, 0);
 	People person2 = People(renderer, images_dir.c_str(), 750, 300, 1);
@@ -1046,7 +1046,7 @@ int main(int argc, char* argv[]) {
 
 	enum GameState{MENU, GAME, WIN,LOSE};
 
-	GameState gameState = GAME;
+	GameState gameState = MENU;
 
 	bool menu, game, win, lose;
 
@@ -1091,410 +1091,19 @@ int main(int argc, char* argv[]) {
 			break;
 
 		case GAME:
-			//Pfront = true, Pback = false, Pright = false, Pleft = false;
-			
-			penGot = true, willGot = true, gunGot = true;
 
-			pVelX = 0;
-			pVelY = 0;
+			game = true;
 
-			ammo = 11;
-
-			player1.FullPos.w = 239;
-
-		    PlayerPos.x = PlayerPos.x;
-		    PlayerPos.y = PlayerPos.y;
-			
-		    dropPos.x = -100;
-		    dropPos.y = -100;
-
-		    turretPos.x = 275;
-		    turretPos.y = 525;
-
-		    turretPos2.x = 165;
-		    turretPos2.y = 715;
-
-		    turretPos3.x = 475;
-		    turretPos3.y = 765;
-
-		    turretPos4.x = 275;
-		    turretPos4.y = 975;
-
-		    turretPos5.x = 475;
-		    turretPos5.y = 975;
-
-		    turretPos6.x = 915;
-		    turretPos6.y = 450;
-
-		    turretPos7.x = 1065;
-		    turretPos7.y = 450;
-
-		    turretPos8.x = 1375;
-		    turretPos8.y = 450;
-
-		    turretPos9.x = 1525;
-		    turretPos9.y = 450;
-
-		    turretPos10.x = 915;
-		    turretPos10.y = -25;
-
-		    turretPos11.x = 1065;
-		    turretPos11.y = -25;
-
-		    turretPos12.x = 1375;
-		    turretPos12.y = -25;
-
-		    turretPos13.x = 1525;
-		    turretPos13.y = -25;
-
-		    turretPos14.x = 2700;
-		    turretPos14.y = 625;
-
-		    turretPos15.x = 2500;
-		    turretPos15.y = 800;
-
-		    turretPos16.x = 2765;
-		    turretPos16.y = 850;
-
-		    beePos.x = -200;
-		    beePos.y = -200;
-
-		    beePos2.x = -200;
-		    beePos2.y = -200;
-
-		    beePos3.x = -200;
-		    beePos3.y = -200;
-
-		    beePos4.x = -200;
-		    beePos4.y = -200;
-
-		    beePos5.x = -200;
-		    beePos5.y = -200;
-
-		    beePos6.x = -200;
-		    beePos6.y = -200;
-
-		    beePos7.x = -200;
-		    beePos7.y = -200;
-
-		    beePos8.x = -200;
-		    beePos8.y = -200;
-
-		    beePos9.x = -200;
-		    beePos9.y = -200;
-
-		    beePos10.x = -200;
-		    beePos10.y = -200;
-
-		    beePos11.x = -200;
-		    beePos11.y = -200;
-
-		    beePos12.x = -200;
-		    beePos12.y = -200;
-
-		    beePos13.x = -200;
-		    beePos13.y = -200;
-
-		    beePos14.x = -200;
-		    beePos14.y = -200;
-
-		    beePos15.x = -200;
-		    beePos15.y = -200;
-
-		    beePos16.x = -200;
-		    beePos16.y = -200;
-
-		    bkgdRect.x = 0;
-		    bkgdRect.y = -700;
-
-		    Wall.x = 0;
-		    Wall.y = -700;
-		    Wall.w = 3072;
-		    Wall.h = 10;
-
-			Wall2.x = 0;
-			Wall2.y = -700;
-			Wall2.w = 10;
-			Wall2.h = 2304;
-
-			Wall3.x = 0;
-			Wall3.y = 1600;
-			Wall3.w = 3072;
-			Wall3.h = 10;
-
-			Wall4.x = 3072;
-			Wall4.y = -700;
-			Wall4.w = 10;
-			Wall4.h = 2304;
-
-		    bag1Pos.x = 375;
-		    bag1Pos.y = 10;
-
-		    bag2Pos.x = 475;
-		    bag2Pos.y = 10;
-
-		    bag3Pos.x = 575;
-		    bag3Pos.y = 10;
-		    bag3Pos.w = 90;
-		    bag3Pos.h = 135;
-
-		    PenPos.x = 2700;
-			PenPos.y = 875;
-
-		    WillPos.x = 1125;
-		    WillPos.y = 1050;
-
-		    GunPos.x = 100;
-		    GunPos.y = -550;
-
-		    Ammo0Pos.x = 50;
-		    Ammo0Pos.y = 675;
-
-		    PickupPos.x = 2785;
-		    PickupPos.y = 725;
-
-		    PickupPos2.x = 365;
-		    PickupPos2.y = 825;
-
-		    PickupPos3.x = 535;
-		    PickupPos3.y = 40;
-
-		    PickupPos4.x = 1375;
-		    PickupPos4.y = 775;
-
-		    PickupPos5.x = 1375;
-		    PickupPos5.y = 1500;
-
-		    PickupPos6.x = 2025;
-		    PickupPos6.y = 750;
-
-		    PickupPos7.x = 2500;
-		    PickupPos7.y = -575;
-
-		    PickupPos8.x = 1050;
-		    PickupPos8.y = 25;
-
-		    PickupPos9.x = 1400;
-		    PickupPos9.y = -425;
-
-		    HealthPickupPos.x = 300;
-		    HealthPickupPos.y = 900;
-
-		    HealthPickupPos2.x = 625;
-		    HealthPickupPos2.y = -450;
-
-		    HealthPickupPos3.x = 1085;
-		    HealthPickupPos3.y = 750;
-
-		    HealthPickupPos4.x = 1485;
-		    HealthPickupPos4.y = 585;
-
-		    HealthPickupPos5.x = 1500;
-		    HealthPickupPos5.y = 15;
-
-		    HealthPickupPos6.x = 2025;
-		    HealthPickupPos6.y = 950;
-
-		    HealthPickupPos7.x = 2925;
-		    HealthPickupPos7.y = 150;
-
-		    HealthPickupPos8.x = 2275;
-		    HealthPickupPos8.y = -600;
-
-		    HealthPickupPos9.x = 975;
-		    HealthPickupPos9.y = -600;
-
-		    LakePos.x = 185;
-		    LakePos.y = -525;
-
-		    DockPos.x = 85;
-		    DockPos.y = -485;
-
-		    TreePos.x = 250;
-		    TreePos.y = 650;
-
-		    TreePos2.x = 400;
-		    TreePos2.y = 650;
-
-		    TreePos3.x = 525;
-		    TreePos3.y = 625;
-
-		    TreePos4.x = 525;
-		    TreePos4.y = 725;
-
-		    TreePos5.x = 575;
-		    TreePos5.y = 800;
-
-		    TreePos6.x = 550;
-		    TreePos6.y = 925;
-
-		    TreePos7.x = 465;
-		    TreePos7.y = 875;
-
-		    TreePos8.x = 400;
-		    TreePos8.y = 785;
-
-		    TreePos9.x = 300;
-		    TreePos9.y = 725;
-
-		    TreePos10.x = 235;
-		    TreePos10.y = 800;
-
-		    TreePos11.x = 235;
-		    TreePos11.y = 925;
-
-		    TreePos12.x = 335;
-		    TreePos12.y = 875;
-
-		    TreePos13.x = 400;
-		    TreePos13.y = 975;
-
-		    TreePos14.x = 2750;
-		    TreePos14.y = 850;
-
-		    TreePos15.x = 2600;
-		    TreePos15.y = 835;
-
-		    TreePos16.x = 2585;
-		    TreePos16.y = 755;
-
-		    TreePos17.x = 2675;
-		    TreePos17.y = 765;
-
-		    TreePos18.x = 2780;
-		    TreePos18.y = 750;
-
-		    TreePos19.x = 2400;
-		    TreePos19.y = -250;
-
-		    TreePos20.x = 1435;
-		    TreePos20.y = -655;
-
-		    TreePos21.x = 1000;
-		    TreePos21.y = -660;
-
-		    bushGreenPos.x = 1150;
-		    bushGreenPos.y = -590;
-
-		    bushGreenPos2.x = 1150;
-		    bushGreenPos2.y = -360;
-
-		    bushGreenPos3.x = 1150;
-		    bushGreenPos3.y = -130;
-
-		    bushGreenPos4.x = 1150;
-		    bushGreenPos4.y = 60;
-
-		    bushGreenPos5.x = 1350;
-		    bushGreenPos5.y = -360;
-
-		    bushGreenPos6.x = 1350;
-		    bushGreenPos6.y = -130;
-
-		    bushGreenPos7.x = 1350;
-		    bushGreenPos7.y = 60;
-
-		    bushGreenPos8.x = 1350;
-		    bushGreenPos8.y = -590;
-
-		    bushGreenPos9.x = 1150;
-		    bushGreenPos9.y = 800;
-
-		    bushGreenPos10.x = 1150;
-		    bushGreenPos10.y = 1030;
-
-		    bushGreenPos11.x = 1150;
-		    bushGreenPos11.y = 1260;
-
-		    bushGreenPos12.x = 1150;
-		    bushGreenPos12.y = 1460;
-
-		    bushGreenPos13.x = 1350;
-		    bushGreenPos13.y = 800;
-
-		    bushGreenPos14.x = 1350;
-		    bushGreenPos14.y = 1030;
-
-		    bushGreenPos15.x = 1350;
-		    bushGreenPos15.y = 1260;
-
-		    bushGreenPos16.x = 1350;
-		    bushGreenPos16.y = 1460;
-
-		    bushPinkPos.x = 1140;
-		    bushPinkPos.y = -690;
-
-		    bushPinkPos2.x = 1140;
-		    bushPinkPos2.y = -460;
-
-		    bushPinkPos3.x = 1140;
-		    bushPinkPos3.y = -230;
-
-		    bushPinkPos4.x = 1140;
-		    bushPinkPos4.y = 160;
-
-		    bushPinkPos5.x = 1350;
-		    bushPinkPos5.y = -460;
-
-		    bushPinkPos6.x = 1350;
-		    bushPinkPos6.y = -230;
-
-		    bushPinkPos7.x = 1350;
-		    bushPinkPos7.y = 160;
-
-		    bushPinkPos8.x = 1350;
-		    bushPinkPos8.y = -690;
-
-		    bushPinkPos9.x = 1140;
-		    bushPinkPos9.y = 700;
-
-		    bushPinkPos10.x = 1140;
-		    bushPinkPos10.y = 930;
-
-		    bushPinkPos11.x = 1140;
-		    bushPinkPos11.y = 1160;
-
-		    bushPinkPos12.x = 1140;
-		    bushPinkPos12.y = 1360;
-
-		    bushPinkPos13.x = 1350;
-		    bushPinkPos13.y = 700;
-
-		    bushPinkPos14.x = 1350;
-		    bushPinkPos14.y = 930;
-
-		    bushPinkPos15.x = 1350;
-		    bushPinkPos15.y = 1160;
-
-		    bushPinkPos16.x = 1350;
-		    bushPinkPos16.y = 1360;
-
-		    bushPinkPos17.x = 1140;
-		    bushPinkPos17.y = 1550;
-
-		    bushPinkPos18.x = 1350;
-		    bushPinkPos18.y = 1550;
-
-		    bushPinkPos19.x = 1350;
-		    bushPinkPos19.y = -60;
-
-		    bushPinkPos20.x = 1140;
-		    bushPinkPos20.y = -60;
-
-		    winningPos.x = 3000;
-		    winningPos.y = 300;
-
-			
 			enemy1.eTankRect.x = 400;
 			enemy1.eTankRect.y = 300;
-			
+
 			enemy2.eTankRect.x = 25;
 			enemy2.eTankRect.y = 1450;
 
 			enemy3.eTankRect.x = 25;
 			enemy3.eTankRect.y = -50;
 
-			/*enemy4.eTankRect.x = 25;
+			enemy4.eTankRect.x = 25;
 			enemy4.eTankRect.y = -650;
 
 			enemy5.eTankRect.x = 1700;
@@ -1523,9 +1132,6 @@ int main(int argc, char* argv[]) {
 
 			enemy13.eTankRect.x = 1400;
 			enemy13.eTankRect.y = -675;
-			*/
-
-			game = true;
 
 			while(game)
 			{
@@ -1810,7 +1416,7 @@ int main(int argc, char* argv[]) {
 					enemy1.eTankRect.x -= pVelX;
 					enemy2.eTankRect.x -= pVelX;
 					enemy3.eTankRect.x -= pVelX;
-					/*enemy4.eTankRect.x -= pVelX;
+					enemy4.eTankRect.x -= pVelX;
 					enemy5.eTankRect.x -= pVelX;
 					enemy6.eTankRect.x -= pVelX;
 					enemy7.eTankRect.x -= pVelX;
@@ -1820,7 +1426,7 @@ int main(int argc, char* argv[]) {
 					enemy11.eTankRect.x -= pVelX;
 					enemy12.eTankRect.x -= pVelX;
 					enemy13.eTankRect.x -= pVelX;
-					*/
+
 				}
 
 				if(PlayerPos.x < (0 + (PlayerPos.w * 2))){
@@ -1977,7 +1583,7 @@ int main(int argc, char* argv[]) {
 					enemy1.eTankRect.x -= pVelX;
 					enemy2.eTankRect.x -= pVelX;
 					enemy3.eTankRect.x -= pVelX;
-					/*enemy4.eTankRect.x -= pVelX;
+					enemy4.eTankRect.x -= pVelX;
 					enemy5.eTankRect.x -= pVelX;
 					enemy6.eTankRect.x -= pVelX;
 					enemy7.eTankRect.x -= pVelX;
@@ -1987,7 +1593,7 @@ int main(int argc, char* argv[]) {
 					enemy11.eTankRect.x -= pVelX;
 					enemy12.eTankRect.x -= pVelX;
 					enemy13.eTankRect.x -= pVelX;
-					*/
+
 				}
 
 				if( SDL_HasIntersection(&PlayerPos, &Wall) || SDL_HasIntersection(&PlayerPos, &Wall2) ||
@@ -2181,7 +1787,7 @@ int main(int argc, char* argv[]) {
 					enemy1.eTankRect.y -= pVelY;
 					enemy2.eTankRect.y -= pVelY;
 					enemy3.eTankRect.y -= pVelY;
-					/*enemy4.eTankRect.y -= pVelY;
+					enemy4.eTankRect.y -= pVelY;
 					enemy5.eTankRect.y -= pVelY;
 					enemy6.eTankRect.y -= pVelY;
 					enemy7.eTankRect.y -= pVelY;
@@ -2191,7 +1797,7 @@ int main(int argc, char* argv[]) {
 					enemy11.eTankRect.y -= pVelY;
 					enemy12.eTankRect.y -= pVelY;
 					enemy13.eTankRect.y -= pVelY;
-					*/
+
 				}
 
 				if(PlayerPos.y > (768 - (PlayerPos.h * 2))){
@@ -2348,7 +1954,7 @@ int main(int argc, char* argv[]) {
 					enemy1.eTankRect.y -= pVelY;
 					enemy2.eTankRect.y -= pVelY;
 					enemy3.eTankRect.y -= pVelY;
-					/*enemy4.eTankRect.y -= pVelY;
+					enemy4.eTankRect.y -= pVelY;
 					enemy5.eTankRect.y -= pVelY;
 					enemy6.eTankRect.y -= pVelY;
 					enemy7.eTankRect.y -= pVelY;
@@ -2358,7 +1964,7 @@ int main(int argc, char* argv[]) {
 					enemy11.eTankRect.y -= pVelY;
 					enemy12.eTankRect.y -= pVelY;
 					enemy13.eTankRect.y -= pVelY;
-					*/
+
 				}
 
 				if( SDL_HasIntersection(&PlayerPos, &Wall) || SDL_HasIntersection(&PlayerPos, &Wall2) ||
@@ -2459,8 +2065,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						//game = false;
-						//gameState = LOSE;
+						game = false;
+						gameState = LOSE;
 						break;
 					}
 				}
@@ -2548,8 +2154,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						//game = false;
-						//gameState = LOSE;
+						game = false;
+						gameState = LOSE;
 						break;
 					}
 				}
@@ -2638,8 +2244,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						//game = false;
-						//gameState = LOSE;
+						game = false;
+						gameState = LOSE;
 						break;
 					}
 				}
@@ -2728,8 +2334,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						//game = false;
-						//gameState = LOSE;
+						game = false;
+						gameState = LOSE;
 						break;
 					}
 				}
@@ -2817,8 +2423,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						//game = false;
-						//gameState = LOSE;
+						game = false;
+						gameState = LOSE;
 						break;
 					}
 				}
@@ -2907,8 +2513,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						//game = false;
-						//gameState = LOSE;
+						game = false;
+						gameState = LOSE;
 						break;
 					}
 				}
@@ -2996,8 +2602,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						//game = false;
-						//gameState = LOSE;
+						game = false;
+						gameState = LOSE;
 						break;
 					}
 				}
@@ -3086,8 +2692,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						//game = false;
-						//gameState = LOSE;
+						game = false;
+						gameState = LOSE;
 						break;
 					}
 				}
@@ -3266,8 +2872,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						//game = false;
-						//gameState = LOSE;
+						game = false;
+						gameState = LOSE;
 						break;
 					}
 				}
@@ -3356,8 +2962,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						//game = false;
-						//gameState = LOSE;
+						game = false;
+						gameState = LOSE;
 						break;
 					}
 				}
@@ -3445,8 +3051,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						//game = false;
-						//gameState = LOSE;
+						game = false;
+						gameState = LOSE;
 						break;
 					}
 				}
@@ -3535,8 +3141,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						//game = false;
-						//gameState = LOSE;
+						game = false;
+						gameState = LOSE;
 						break;
 					}
 				}
@@ -3625,8 +3231,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						//game = false;
-						//gameState = LOSE;
+						game = false;
+						gameState = LOSE;
 						break;
 					}
 				}
@@ -3714,8 +3320,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						//game = false;
-						//gameState = LOSE;
+						game = false;
+						gameState = LOSE;
 						break;
 					}
 				}
@@ -3804,8 +3410,8 @@ int main(int argc, char* argv[]) {
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
-						//game = false;
-						//gameState = LOSE;
+						game = false;
+						gameState = LOSE;
 						break;
 					}
 				}
@@ -3839,44 +3445,13 @@ int main(int argc, char* argv[]) {
 				////////////////////////////////////////////Enemy - Start/////////////////////////////////
 
 				////////////////////////////////////////////Enemy1 - Start/////////////////////////////////
-
-				person1.Update(deltaTime, PlayerPos);
-				person2.Update(deltaTime, PlayerPos);
-				person3.Update(deltaTime, PlayerPos);
-				person4.Update(deltaTime, PlayerPos);
-				person5.Update(deltaTime, PlayerPos);
-				person6.Update(deltaTime, PlayerPos);
-				person7.Update(deltaTime, PlayerPos);
-				person8.Update(deltaTime, PlayerPos);
-				person9.Update(deltaTime, PlayerPos);
-				person10.Update(deltaTime, PlayerPos);
-				person11.Update(deltaTime, PlayerPos);
-				person12.Update(deltaTime, PlayerPos);
-				person13.Update(deltaTime, PlayerPos);
-				person14.Update(deltaTime, PlayerPos);
-				person15.Update(deltaTime, PlayerPos);
-				person16.Update(deltaTime, PlayerPos);
-				person17.Update(deltaTime, PlayerPos);
-				person18.Update(deltaTime, PlayerPos);
-				person19.Update(deltaTime, PlayerPos);
-				person20.Update(deltaTime, PlayerPos);
-				person21.Update(deltaTime, PlayerPos);
-				person22.Update(deltaTime, PlayerPos);
-				person23.Update(deltaTime, PlayerPos);
-				person24.Update(deltaTime, PlayerPos);
-				person25.Update(deltaTime, PlayerPos);
-				person26.Update(deltaTime, PlayerPos);
-				person27.Update(deltaTime, PlayerPos);
-				person28.Update(deltaTime, PlayerPos);
-				person29.Update(deltaTime, PlayerPos);
-				person30.Update(deltaTime, PlayerPos);
-				person31.Update(deltaTime, PlayerPos);
-				person32.Update(deltaTime, PlayerPos);
 				
+				if(game == true)
+				{
 				enemy1.Update(deltaTime, PlayerPos);
 				enemy2.Update(deltaTime, PlayerPos);
 				enemy3.Update(deltaTime, PlayerPos);
-				/*enemy4.Update(deltaTime, PlayerPos);
+				enemy4.Update(deltaTime, PlayerPos);
 				enemy5.Update(deltaTime, PlayerPos);
 				enemy6.Update(deltaTime, PlayerPos);
 				enemy7.Update(deltaTime, PlayerPos);
@@ -3886,12 +3461,13 @@ int main(int argc, char* argv[]) {
 				enemy11.Update(deltaTime, PlayerPos);
 				enemy12.Update(deltaTime, PlayerPos);
 				enemy13.Update(deltaTime, PlayerPos);
-				*/
+				}
+
 				if(SDL_HasIntersection(&enemy1.eTankRect, &dropPos)){
-					/*pBulletActive = false;
+					pBulletActive = false;
 					dropPos.x = -200;
 					dropPos.y = -200;
-					pBulletDir = 0;*/
+					pBulletDir = 0;
 
 					if(enemy1.active == true){
 						enemy1.RemoveHealth();
@@ -3928,7 +3504,7 @@ int main(int argc, char* argv[]) {
 					break;
 				}
 
-				/*if(SDL_HasIntersection(&enemy4.eTankRect, &dropPos)){
+				if(SDL_HasIntersection(&enemy4.eTankRect, &dropPos)){
 					pBulletActive = false;
 					dropPos.x = -200;
 					dropPos.y = -200;
@@ -4057,11 +3633,11 @@ int main(int argc, char* argv[]) {
 
 					break;
 				}
-				*/
-				if(SDL_HasIntersection(&PlayerPos, &enemy1.eTankRect)){
-					player1.FullPos.w -=.025;
 
-					/*
+				if(SDL_HasIntersection(&PlayerPos, &enemy1.eTankRect)){
+					player1.FullPos.w -=.005;
+
+
 					if(player1.FullPos.w <= 0)
 					{
 						player1.FullPos.w = 0;
@@ -4069,7 +3645,187 @@ int main(int argc, char* argv[]) {
 						gameState = LOSE;
 						break;
 					}
-					*/
+
+
+				}
+
+				if(SDL_HasIntersection(&PlayerPos, &enemy2.eTankRect)){
+					player1.FullPos.w -=.005;
+
+
+					if(player1.FullPos.w <= 0)
+					{
+						player1.FullPos.w = 0;
+						game = false;
+						gameState = LOSE;
+						break;
+					}
+
+
+				}
+
+				if(SDL_HasIntersection(&PlayerPos, &enemy3.eTankRect)){
+					player1.FullPos.w -=.005;
+
+
+					if(player1.FullPos.w <= 0)
+					{
+						player1.FullPos.w = 0;
+						game = false;
+						gameState = LOSE;
+						break;
+					}
+
+
+				}
+
+				if(SDL_HasIntersection(&PlayerPos, &enemy4.eTankRect)){
+					player1.FullPos.w -=.005;
+
+
+					if(player1.FullPos.w <= 0)
+					{
+						player1.FullPos.w = 0;
+						game = false;
+						gameState = LOSE;
+						break;
+					}
+
+
+				}
+
+				if(SDL_HasIntersection(&PlayerPos, &enemy5.eTankRect)){
+					player1.FullPos.w -=.005;
+
+
+					if(player1.FullPos.w <= 0)
+					{
+						player1.FullPos.w = 0;
+						game = false;
+						gameState = LOSE;
+						break;
+					}
+
+
+				}
+
+				if(SDL_HasIntersection(&PlayerPos, &enemy6.eTankRect)){
+					player1.FullPos.w -=.005;
+
+
+					if(player1.FullPos.w <= 0)
+					{
+						player1.FullPos.w = 0;
+						game = false;
+						gameState = LOSE;
+						break;
+					}
+
+
+				}
+
+				if(SDL_HasIntersection(&PlayerPos, &enemy7.eTankRect)){
+					player1.FullPos.w -=.005;
+
+
+					if(player1.FullPos.w <= 0)
+					{
+						player1.FullPos.w = 0;
+						game = false;
+						gameState = LOSE;
+						break;
+					}
+
+
+				}
+
+				if(SDL_HasIntersection(&PlayerPos, &enemy8.eTankRect)){
+					player1.FullPos.w -=.005;
+
+
+					if(player1.FullPos.w <= 0)
+					{
+						player1.FullPos.w = 0;
+						game = false;
+						gameState = LOSE;
+						break;
+					}
+
+
+				}
+
+				if(SDL_HasIntersection(&PlayerPos, &enemy9.eTankRect)){
+					player1.FullPos.w -=.005;
+
+
+					if(player1.FullPos.w <= 0)
+					{
+						player1.FullPos.w = 0;
+						game = false;
+						gameState = LOSE;
+						break;
+					}
+
+
+				}
+
+				if(SDL_HasIntersection(&PlayerPos, &enemy10.eTankRect)){
+					player1.FullPos.w -=.005;
+
+
+					if(player1.FullPos.w <= 0)
+					{
+						player1.FullPos.w = 0;
+						game = false;
+						gameState = LOSE;
+						break;
+					}
+
+
+				}
+
+				if(SDL_HasIntersection(&PlayerPos, &enemy11.eTankRect)){
+					player1.FullPos.w -=.005;
+
+
+					if(player1.FullPos.w <= 0)
+					{
+						player1.FullPos.w = 0;
+						game = false;
+						gameState = LOSE;
+						break;
+					}
+
+
+				}
+
+				if(SDL_HasIntersection(&PlayerPos, &enemy12.eTankRect)){
+					player1.FullPos.w -=.005;
+
+
+					if(player1.FullPos.w <= 0)
+					{
+						player1.FullPos.w = 0;
+						game = false;
+						gameState = LOSE;
+						break;
+					}
+
+
+				}
+
+				if(SDL_HasIntersection(&PlayerPos, &enemy13.eTankRect)){
+					player1.FullPos.w -=.005;
+
+
+					if(player1.FullPos.w <= 0)
+					{
+						player1.FullPos.w = 0;
+						game = false;
+						gameState = LOSE;
+						break;
+					}
+
 
 				}
 
@@ -4417,6 +4173,20 @@ int main(int argc, char* argv[]) {
 				person31.Draw(renderer);
 				person32.Draw(renderer);
 
+				enemy1.Draw(renderer);
+				enemy2.Draw(renderer);
+				enemy3.Draw(renderer);
+				enemy4.Draw(renderer);
+				enemy5.Draw(renderer);
+				enemy6.Draw(renderer);
+				enemy7.Draw(renderer);
+				enemy8.Draw(renderer);
+				enemy9.Draw(renderer);
+				enemy10.Draw(renderer);
+				enemy11.Draw(renderer);
+				enemy12.Draw(renderer);
+				enemy13.Draw(renderer);
+
 				SDL_RenderCopy(renderer, Tree, NULL, &TreePos);
 				SDL_RenderCopy(renderer, Tree, NULL, &TreePos2);
 				SDL_RenderCopy(renderer, Tree, NULL, &TreePos3);
@@ -4577,23 +4347,6 @@ int main(int argc, char* argv[]) {
 
 				player1.Draw(renderer);
 
-				
-				enemy1.Draw(renderer);
-				
-				enemy2.Draw(renderer);
-				enemy3.Draw(renderer);
-				/*enemy4.Draw(renderer);
-				enemy5.Draw(renderer);
-				enemy6.Draw(renderer);
-				enemy7.Draw(renderer);
-				enemy8.Draw(renderer);
-				enemy9.Draw(renderer);
-				enemy10.Draw(renderer);
-				enemy11.Draw(renderer);
-				enemy12.Draw(renderer);
-				enemy13.Draw(renderer);
-				*/
-
 				SDL_RenderPresent(renderer);
 				}
 			break;
@@ -4620,6 +4373,509 @@ int main(int argc, char* argv[]) {
 							case SDLK_p:
 								win = false;
 								gameState = GAME;
+
+								Pfront = true, Pback = false, Pright = false, Pleft = false;
+
+								penGot = false, willGot = false, gunGot = false;
+
+								pVelX = 0;
+								pVelY = 0;
+
+								ammo = 11;
+
+								player1.FullPos.w = 239;
+
+							    PlayerPos.x = 0;
+							    PlayerPos.y = 250;
+
+							    dropPos.x = -100;
+							    dropPos.y = -100;
+
+							    turretPos.x = 275;
+							    turretPos.y = 525;
+
+							    turretPos2.x = 165;
+							    turretPos2.y = 715;
+
+							    turretPos3.x = 475;
+							    turretPos3.y = 765;
+
+							    turretPos4.x = 275;
+							    turretPos4.y = 975;
+
+							    turretPos5.x = 475;
+							    turretPos5.y = 975;
+
+							    turretPos6.x = 915;
+							    turretPos6.y = 450;
+
+							    turretPos7.x = 1065;
+							    turretPos7.y = 450;
+
+							    turretPos8.x = 1375;
+							    turretPos8.y = 450;
+
+							    turretPos9.x = 1525;
+							    turretPos9.y = 450;
+
+							    turretPos10.x = 915;
+							    turretPos10.y = -25;
+
+							    turretPos11.x = 1065;
+							    turretPos11.y = -25;
+
+							    turretPos12.x = 1375;
+							    turretPos12.y = -25;
+
+							    turretPos13.x = 1525;
+							    turretPos13.y = -25;
+
+							    turretPos14.x = 2700;
+							    turretPos14.y = 625;
+
+							    turretPos15.x = 2500;
+							    turretPos15.y = 800;
+
+							    turretPos16.x = 2765;
+							    turretPos16.y = 850;
+
+							    beePos.x = -200;
+							    beePos.y = -200;
+
+							    beePos2.x = -200;
+							    beePos2.y = -200;
+
+							    beePos3.x = -200;
+							    beePos3.y = -200;
+
+							    beePos4.x = -200;
+							    beePos4.y = -200;
+
+							    beePos5.x = -200;
+							    beePos5.y = -200;
+
+							    beePos6.x = -200;
+							    beePos6.y = -200;
+
+							    beePos7.x = -200;
+							    beePos7.y = -200;
+
+							    beePos8.x = -200;
+							    beePos8.y = -200;
+
+							    beePos9.x = -200;
+							    beePos9.y = -200;
+
+							    beePos10.x = -200;
+							    beePos10.y = -200;
+
+							    beePos11.x = -200;
+							    beePos11.y = -200;
+
+							    beePos12.x = -200;
+							    beePos12.y = -200;
+
+							    beePos13.x = -200;
+							    beePos13.y = -200;
+
+							    beePos14.x = -200;
+							    beePos14.y = -200;
+
+							    beePos15.x = -200;
+							    beePos15.y = -200;
+
+							    beePos16.x = -200;
+							    beePos16.y = -200;
+
+							    bkgdRect.x = 0;
+							    bkgdRect.y = -700;
+
+							    Wall.x = 0;
+							    Wall.y = -700;
+							    Wall.w = 3072;
+							    Wall.h = 10;
+
+								Wall2.x = 0;
+								Wall2.y = -700;
+								Wall2.w = 10;
+								Wall2.h = 2304;
+
+								Wall3.x = 0;
+								Wall3.y = 1600;
+								Wall3.w = 3072;
+								Wall3.h = 10;
+
+								Wall4.x = 3072;
+								Wall4.y = -700;
+								Wall4.w = 10;
+								Wall4.h = 2304;
+
+							    bag1Pos.x = 375;
+							    bag1Pos.y = 10;
+
+							    bag2Pos.x = 475;
+							    bag2Pos.y = 10;
+
+							    bag3Pos.x = 575;
+							    bag3Pos.y = 10;
+							    bag3Pos.w = 90;
+							    bag3Pos.h = 135;
+
+							    PenPos.x = 2700;
+								PenPos.y = 875;
+
+							    WillPos.x = 1125;
+							    WillPos.y = 1050;
+
+							    GunPos.x = 100;
+							    GunPos.y = -550;
+
+							    Ammo0Pos.x = 50;
+							    Ammo0Pos.y = 675;
+
+							    PickupPos.x = 2785;
+							    PickupPos.y = 725;
+
+							    PickupPos2.x = 365;
+							    PickupPos2.y = 825;
+
+							    PickupPos3.x = 535;
+							    PickupPos3.y = 40;
+
+							    PickupPos4.x = 1375;
+							    PickupPos4.y = 775;
+
+							    PickupPos5.x = 1375;
+							    PickupPos5.y = 1500;
+
+							    PickupPos6.x = 2025;
+							    PickupPos6.y = 750;
+
+							    PickupPos7.x = 2500;
+							    PickupPos7.y = -575;
+
+							    PickupPos8.x = 1050;
+							    PickupPos8.y = 25;
+
+							    PickupPos9.x = 1400;
+							    PickupPos9.y = -425;
+
+							    HealthPickupPos.x = 300;
+							    HealthPickupPos.y = 900;
+
+							    HealthPickupPos2.x = 625;
+							    HealthPickupPos2.y = -450;
+
+							    HealthPickupPos3.x = 1085;
+							    HealthPickupPos3.y = 750;
+
+							    HealthPickupPos4.x = 1485;
+							    HealthPickupPos4.y = 585;
+
+							    HealthPickupPos5.x = 1500;
+							    HealthPickupPos5.y = 15;
+
+							    HealthPickupPos6.x = 2025;
+							    HealthPickupPos6.y = 950;
+
+							    HealthPickupPos7.x = 2925;
+							    HealthPickupPos7.y = 150;
+
+							    HealthPickupPos8.x = 2275;
+							    HealthPickupPos8.y = -600;
+
+							    HealthPickupPos9.x = 975;
+							    HealthPickupPos9.y = -600;
+
+							    LakePos.x = 185;
+							    LakePos.y = -525;
+
+							    DockPos.x = 85;
+							    DockPos.y = -485;
+
+							    TreePos.x = 250;
+							    TreePos.y = 650;
+
+							    TreePos2.x = 400;
+							    TreePos2.y = 650;
+
+							    TreePos3.x = 525;
+							    TreePos3.y = 625;
+
+							    TreePos4.x = 525;
+							    TreePos4.y = 725;
+
+							    TreePos5.x = 575;
+							    TreePos5.y = 800;
+
+							    TreePos6.x = 550;
+							    TreePos6.y = 925;
+
+							    TreePos7.x = 465;
+							    TreePos7.y = 875;
+
+							    TreePos8.x = 400;
+							    TreePos8.y = 785;
+
+							    TreePos9.x = 300;
+							    TreePos9.y = 725;
+
+							    TreePos10.x = 235;
+							    TreePos10.y = 800;
+
+							    TreePos11.x = 235;
+							    TreePos11.y = 925;
+
+							    TreePos12.x = 335;
+							    TreePos12.y = 875;
+
+							    TreePos13.x = 400;
+							    TreePos13.y = 975;
+
+							    TreePos14.x = 2750;
+							    TreePos14.y = 850;
+
+							    TreePos15.x = 2600;
+							    TreePos15.y = 835;
+
+							    TreePos16.x = 2585;
+							    TreePos16.y = 755;
+
+							    TreePos17.x = 2675;
+							    TreePos17.y = 765;
+
+							    TreePos18.x = 2780;
+							    TreePos18.y = 750;
+
+							    TreePos19.x = 2400;
+							    TreePos19.y = -250;
+
+							    TreePos20.x = 1435;
+							    TreePos20.y = -655;
+
+							    TreePos21.x = 1000;
+							    TreePos21.y = -660;
+
+							    bushGreenPos.x = 1150;
+							    bushGreenPos.y = -590;
+
+							    bushGreenPos2.x = 1150;
+							    bushGreenPos2.y = -360;
+
+							    bushGreenPos3.x = 1150;
+							    bushGreenPos3.y = -130;
+
+							    bushGreenPos4.x = 1150;
+							    bushGreenPos4.y = 60;
+
+							    bushGreenPos5.x = 1350;
+							    bushGreenPos5.y = -360;
+
+							    bushGreenPos6.x = 1350;
+							    bushGreenPos6.y = -130;
+
+							    bushGreenPos7.x = 1350;
+							    bushGreenPos7.y = 60;
+
+							    bushGreenPos8.x = 1350;
+							    bushGreenPos8.y = -590;
+
+							    bushGreenPos9.x = 1150;
+							    bushGreenPos9.y = 800;
+
+							    bushGreenPos10.x = 1150;
+							    bushGreenPos10.y = 1030;
+
+							    bushGreenPos11.x = 1150;
+							    bushGreenPos11.y = 1260;
+
+							    bushGreenPos12.x = 1150;
+							    bushGreenPos12.y = 1460;
+
+							    bushGreenPos13.x = 1350;
+							    bushGreenPos13.y = 800;
+
+							    bushGreenPos14.x = 1350;
+							    bushGreenPos14.y = 1030;
+
+							    bushGreenPos15.x = 1350;
+							    bushGreenPos15.y = 1260;
+
+							    bushGreenPos16.x = 1350;
+							    bushGreenPos16.y = 1460;
+
+							    bushPinkPos.x = 1140;
+							    bushPinkPos.y = -690;
+
+							    bushPinkPos2.x = 1140;
+							    bushPinkPos2.y = -460;
+
+							    bushPinkPos3.x = 1140;
+							    bushPinkPos3.y = -230;
+
+							    bushPinkPos4.x = 1140;
+							    bushPinkPos4.y = 160;
+
+							    bushPinkPos5.x = 1350;
+							    bushPinkPos5.y = -460;
+
+							    bushPinkPos6.x = 1350;
+							    bushPinkPos6.y = -230;
+
+							    bushPinkPos7.x = 1350;
+							    bushPinkPos7.y = 160;
+
+							    bushPinkPos8.x = 1350;
+							    bushPinkPos8.y = -690;
+
+							    bushPinkPos9.x = 1140;
+							    bushPinkPos9.y = 700;
+
+							    bushPinkPos10.x = 1140;
+							    bushPinkPos10.y = 930;
+
+							    bushPinkPos11.x = 1140;
+							    bushPinkPos11.y = 1160;
+
+							    bushPinkPos12.x = 1140;
+							    bushPinkPos12.y = 1360;
+
+							    bushPinkPos13.x = 1350;
+							    bushPinkPos13.y = 700;
+
+							    bushPinkPos14.x = 1350;
+							    bushPinkPos14.y = 930;
+
+							    bushPinkPos15.x = 1350;
+							    bushPinkPos15.y = 1160;
+
+							    bushPinkPos16.x = 1350;
+							    bushPinkPos16.y = 1360;
+
+							    bushPinkPos17.x = 1140;
+							    bushPinkPos17.y = 1550;
+
+							    bushPinkPos18.x = 1350;
+							    bushPinkPos18.y = 1550;
+
+							    bushPinkPos19.x = 1350;
+							    bushPinkPos19.y = -60;
+
+							    bushPinkPos20.x = 1140;
+							    bushPinkPos20.y = -60;
+
+							    winningPos.x = 3000;
+							    winningPos.y = 300;
+
+								enemy1.active = false;
+								enemy2.active = false;
+								enemy3.active = false;
+								enemy4.active = false;
+								enemy5.active = false;
+								enemy6.active = false;
+								enemy7.active = false;
+								enemy8.active = false;
+								enemy9.active = false;
+								enemy10.active = false;
+								enemy11.active = false;
+								enemy12.active = false;
+								enemy13.active = false;
+
+								person1.eTankRect.x = 750;
+								person1.eTankRect.y = 200;
+
+								person2.eTankRect.x = 500;
+								person2.eTankRect.y = 300;
+
+								person3.eTankRect.x = 500;
+								person3.eTankRect.y = 600;
+
+								person4.eTankRect.x = 200;
+								person4.eTankRect.y = 900;
+
+								person5.eTankRect.x = 600;
+								person5.eTankRect.y = 1000;
+
+								person6.eTankRect.x = 100;
+								person6.eTankRect.y = -400;
+
+								person7.eTankRect.x = 1100;
+								person7.eTankRect.y = 200;
+
+								person8.eTankRect.x = 1100;
+								person8.eTankRect.y = 300;
+
+								person9.eTankRect.x = 1600;
+								person9.eTankRect.y = 200;
+
+								person10.eTankRect.x = 1600;
+								person10.eTankRect.y = 300;
+
+								person11.eTankRect.x = 1250;
+								person11.eTankRect.y = 600;
+
+								person12.eTankRect.x = 1900;
+								person12.eTankRect.y = 150;
+
+								person13.eTankRect.x = 1950;
+								person13.eTankRect.y = 200;
+
+								person14.eTankRect.x = 2000;
+								person14.eTankRect.y = 150;
+
+								person15.eTankRect.x = 2050;
+								person15.eTankRect.y = 200;
+
+								person16.eTankRect.x = 2000;
+								person16.eTankRect.y = 400;
+
+								person17.eTankRect.x = 1800;
+								person17.eTankRect.y = 1300;
+
+								person18.eTankRect.x = 1800;
+								person18.eTankRect.y = 1400;
+
+								person19.eTankRect.x = 1800;
+								person19.eTankRect.y = 1500;
+
+								person20.eTankRect.x = 1900;
+								person20.eTankRect.y = 1300;
+
+								person21.eTankRect.x = 1900;
+								person21.eTankRect.y = 1400;
+
+								person22.eTankRect.x = 1900;
+								person22.eTankRect.y = 1500;
+
+								person23.eTankRect.x = 1300;
+								person23.eTankRect.y = 1100;
+
+								person24.eTankRect.x = 2050;
+								person24.eTankRect.y = -600;
+
+								person25.eTankRect.x = 2150;
+								person25.eTankRect.y = -600;
+
+								person26.eTankRect.x = 2250;
+								person26.eTankRect.y = 1300;
+
+								person27.eTankRect.x = 2350;
+								person27.eTankRect.y = -650;
+
+								person28.eTankRect.x = 2450;
+								person28.eTankRect.y = 200;
+
+								person29.eTankRect.x = 2450;
+								person29.eTankRect.y = 300;
+
+								person30.eTankRect.x = 2600;
+								person30.eTankRect.y = 200;
+
+								person31.eTankRect.x = 2600;
+								person31.eTankRect.y = 200;
+
+								person32.eTankRect.x = 2950;
+								person32.eTankRect.y = 200;
 								break;
 
 							case SDLK_q:
@@ -4662,6 +4918,461 @@ int main(int argc, char* argv[]) {
 							case SDLK_p:
 								lose = false;
 								gameState = GAME;
+
+								Pfront = true, Pback = false, Pright = false, Pleft = false;
+
+								penGot = false, willGot = false, gunGot = false;
+
+								pVelX = 0;
+								pVelY = 0;
+
+								ammo = 11;
+
+								player1.FullPos.w = 239;
+
+								PlayerPos.x = 0;
+								PlayerPos.y = 250;
+
+								dropPos.x = -100;
+								dropPos.y = -100;
+
+								turretPos.x = 275;
+								turretPos.y = 525;
+
+								turretPos2.x = 165;
+								turretPos2.y = 715;
+
+								turretPos3.x = 475;
+								turretPos3.y = 765;
+
+								turretPos4.x = 275;
+								turretPos4.y = 975;
+
+								turretPos5.x = 475;
+								turretPos5.y = 975;
+
+								turretPos6.x = 915;
+								turretPos6.y = 450;
+
+								turretPos7.x = 1065;
+								turretPos7.y = 450;
+
+								turretPos8.x = 1375;
+								turretPos8.y = 450;
+
+								turretPos9.x = 1525;
+								turretPos9.y = 450;
+
+								turretPos10.x = 915;
+								turretPos10.y = -25;
+
+								turretPos11.x = 1065;
+								turretPos11.y = -25;
+
+								turretPos12.x = 1375;
+								turretPos12.y = -25;
+
+								turretPos13.x = 1525;
+								turretPos13.y = -25;
+
+								turretPos14.x = 2700;
+								turretPos14.y = 625;
+
+								turretPos15.x = 2500;
+								turretPos15.y = 800;
+
+								turretPos16.x = 2765;
+								turretPos16.y = 850;
+
+
+								bkgdRect.x = 0;
+								bkgdRect.y = -700;
+
+								Wall.x = 0;
+								Wall.y = -700;
+								Wall.w = 3072;
+								Wall.h = 10;
+
+								Wall2.x = 0;
+								Wall2.y = -700;
+								Wall2.w = 10;
+								Wall2.h = 2304;
+
+								Wall3.x = 0;
+								Wall3.y = 1600;
+								Wall3.w = 3072;
+								Wall3.h = 10;
+
+								Wall4.x = 3072;
+								Wall4.y = -700;
+								Wall4.w = 10;
+								Wall4.h = 2304;
+
+
+								bag1Pos.x = 375;
+								bag1Pos.y = 10;
+
+								bag2Pos.x = 475;
+								bag2Pos.y = 10;
+
+								bag3Pos.x = 575;
+								bag3Pos.y = 10;
+
+								PenPos.x = 2700;
+								PenPos.y = 875;
+
+								WillPos.x = 1125;
+								WillPos.y = 1050;
+
+							    GunPos.x = 100;
+							    GunPos.y = -550;
+
+							    Ammo0Pos.x = 50;
+							    Ammo0Pos.y = 675;
+
+							    PickupPos.x = 2785;
+							    PickupPos.y = 725;
+
+							    PickupPos2.x = 365;
+							    PickupPos2.y = 825;
+
+							    PickupPos3.x = 535;
+							    PickupPos3.y = 40;
+
+							    PickupPos4.x = 1375;
+							    PickupPos4.y = 775;
+
+							    PickupPos5.x = 1375;
+							    PickupPos5.y = 1500;
+
+							    PickupPos6.x = 2025;
+							    PickupPos6.y = 750;
+
+							    PickupPos7.x = 2500;
+							    PickupPos7.y = -575;
+
+							    PickupPos8.x = 1050;
+							    PickupPos8.y = 25;
+
+							    PickupPos9.x = 1400;
+							    PickupPos9.y = -425;
+
+							    HealthPickupPos.x = 300;
+							    HealthPickupPos.y = 900;
+
+							    HealthPickupPos2.x = 625;
+							    HealthPickupPos2.y = -450;
+
+							    HealthPickupPos3.x = 1085;
+							    HealthPickupPos3.y = 750;
+
+							    HealthPickupPos4.x = 1485;
+							    HealthPickupPos4.y = 585;
+
+							    HealthPickupPos5.x = 1500;
+							    HealthPickupPos5.y = 15;
+
+							    HealthPickupPos6.x = 2025;
+							    HealthPickupPos6.y = 950;
+
+							    HealthPickupPos7.x = 2925;
+							    HealthPickupPos7.y = 150;
+
+							    HealthPickupPos8.x = 2275;
+							    HealthPickupPos8.y = -600;
+
+							    HealthPickupPos9.x = 975;
+							    HealthPickupPos9.y = -600;
+
+							    LakePos.x = 185;
+							    LakePos.y = -525;
+
+							    DockPos.x = 85;
+							    DockPos.y = -485;
+
+							    TreePos.x = 250;
+							    TreePos.y = 650;
+
+							    TreePos2.x = 400;
+							    TreePos2.y = 650;
+
+							    TreePos3.x = 525;
+							    TreePos3.y = 625;
+
+							    TreePos4.x = 525;
+							    TreePos4.y = 725;
+
+							    TreePos5.x = 575;
+							    TreePos5.y = 800;
+
+							    TreePos6.x = 550;
+							    TreePos6.y = 925;
+
+							    TreePos7.x = 465;
+							    TreePos7.y = 875;
+
+							    TreePos8.x = 400;
+							    TreePos8.y = 785;
+
+							    TreePos9.x = 300;
+							    TreePos9.y = 725;
+
+							    TreePos10.x = 235;
+							    TreePos10.y = 800;
+
+							    TreePos11.x = 235;
+							    TreePos11.y = 925;
+
+							    TreePos12.x = 335;
+							    TreePos12.y = 875;
+
+							    TreePos13.x = 400;
+							    TreePos13.y = 975;
+
+							    TreePos14.x = 2750;
+							    TreePos14.y = 850;
+
+							    TreePos15.x = 2600;
+							    TreePos15.y = 835;
+
+							    TreePos16.x = 2585;
+							    TreePos16.y = 755;
+
+							    TreePos17.x = 2675;
+							    TreePos17.y = 765;
+
+							    TreePos18.x = 2780;
+							    TreePos18.y = 750;
+
+							    TreePos19.x = 2400;
+							    TreePos19.y = -250;
+
+							    TreePos20.x = 1435;
+							    TreePos20.y = -655;
+
+							    TreePos21.x = 1000;
+							    TreePos21.y = -660;
+
+							    bushGreenPos.x = 1150;
+							    bushGreenPos.y = -590;
+
+							    bushGreenPos2.x = 1150;
+							    bushGreenPos2.y = -360;
+
+							    bushGreenPos3.x = 1150;
+							    bushGreenPos3.y = -130;
+
+							    bushGreenPos4.x = 1150;
+							    bushGreenPos4.y = 60;
+
+							    bushGreenPos5.x = 1350;
+							    bushGreenPos5.y = -360;
+
+							    bushGreenPos6.x = 1350;
+							    bushGreenPos6.y = -130;
+
+							    bushGreenPos7.x = 1350;
+							    bushGreenPos7.y = 60;
+
+							    bushGreenPos8.x = 1350;
+							    bushGreenPos8.y = -590;
+
+							    bushGreenPos9.x = 1150;
+							    bushGreenPos9.y = 800;
+
+							    bushGreenPos10.x = 1150;
+							    bushGreenPos10.y = 1030;
+
+							    bushGreenPos11.x = 1150;
+							    bushGreenPos11.y = 1260;
+
+							    bushGreenPos12.x = 1150;
+							    bushGreenPos12.y = 1460;
+
+							    bushGreenPos13.x = 1350;
+							    bushGreenPos13.y = 800;
+
+							    bushGreenPos14.x = 1350;
+							    bushGreenPos14.y = 1030;
+
+							    bushGreenPos15.x = 1350;
+							    bushGreenPos15.y = 1260;
+
+							    bushGreenPos16.x = 1350;
+							    bushGreenPos16.y = 1460;
+
+							    bushPinkPos.x = 1140;
+							    bushPinkPos.y = -690;
+
+							    bushPinkPos2.x = 1140;
+							    bushPinkPos2.y = -460;
+
+							    bushPinkPos3.x = 1140;
+							    bushPinkPos3.y = -230;
+
+							    bushPinkPos4.x = 1140;
+							    bushPinkPos4.y = 160;
+
+							    bushPinkPos5.x = 1350;
+							    bushPinkPos5.y = -460;
+
+							    bushPinkPos6.x = 1350;
+							    bushPinkPos6.y = -230;
+
+							    bushPinkPos7.x = 1350;
+							    bushPinkPos7.y = 160;
+
+							    bushPinkPos8.x = 1350;
+							    bushPinkPos8.y = -690;
+
+							    bushPinkPos9.x = 1140;
+							    bushPinkPos9.y = 700;
+
+							    bushPinkPos10.x = 1140;
+							    bushPinkPos10.y = 930;
+
+							    bushPinkPos11.x = 1140;
+							    bushPinkPos11.y = 1160;
+
+							    bushPinkPos12.x = 1140;
+							    bushPinkPos12.y = 1360;
+
+							    bushPinkPos13.x = 1350;
+							    bushPinkPos13.y = 700;
+
+							    bushPinkPos14.x = 1350;
+							    bushPinkPos14.y = 930;
+
+							    bushPinkPos15.x = 1350;
+							    bushPinkPos15.y = 1160;
+
+							    bushPinkPos16.x = 1350;
+							    bushPinkPos16.y = 1360;
+
+							    bushPinkPos17.x = 1140;
+							    bushPinkPos17.y = 1550;
+
+							    bushPinkPos18.x = 1350;
+							    bushPinkPos18.y = 1550;
+
+							    bushPinkPos19.x = 1350;
+							    bushPinkPos19.y = -60;
+
+							    bushPinkPos20.x = 1140;
+							    bushPinkPos20.y = -60;
+
+							    winningPos.x = 3000;
+							    winningPos.y = 300;
+
+								enemy1.active = false;
+								enemy2.active = false;
+								enemy3.active = false;
+								enemy4.active = false;
+								enemy5.active = false;
+								enemy6.active = false;
+								enemy7.active = false;
+								enemy8.active = false;
+								enemy9.active = false;
+								enemy10.active = false;
+								enemy11.active = false;
+								enemy12.active = false;
+								enemy13.active = false;
+
+								person1.eTankRect.x = 750;
+								person1.eTankRect.y = 200;
+
+								person2.eTankRect.x = 500;
+								person2.eTankRect.y = 300;
+
+								person3.eTankRect.x = 500;
+								person3.eTankRect.y = 600;
+
+								person4.eTankRect.x = 200;
+								person4.eTankRect.y = 900;
+
+								person5.eTankRect.x = 600;
+								person5.eTankRect.y = 1000;
+
+								person6.eTankRect.x = 100;
+								person6.eTankRect.y = -400;
+
+								person7.eTankRect.x = 1100;
+								person7.eTankRect.y = 200;
+
+								person8.eTankRect.x = 1100;
+								person8.eTankRect.y = 300;
+
+								person9.eTankRect.x = 1600;
+								person9.eTankRect.y = 200;
+
+								person10.eTankRect.x = 1600;
+								person10.eTankRect.y = 300;
+
+								person11.eTankRect.x = 1250;
+								person11.eTankRect.y = 600;
+
+								person12.eTankRect.x = 1900;
+								person12.eTankRect.y = 150;
+
+								person13.eTankRect.x = 1950;
+								person13.eTankRect.y = 200;
+
+								person14.eTankRect.x = 2000;
+								person14.eTankRect.y = 150;
+
+								person15.eTankRect.x = 2050;
+								person15.eTankRect.y = 200;
+
+								person16.eTankRect.x = 2000;
+								person16.eTankRect.y = 400;
+
+								person17.eTankRect.x = 1800;
+								person17.eTankRect.y = 1300;
+
+								person18.eTankRect.x = 1800;
+								person18.eTankRect.y = 1400;
+
+								person19.eTankRect.x = 1800;
+								person19.eTankRect.y = 1500;
+
+								person20.eTankRect.x = 1900;
+								person20.eTankRect.y = 1300;
+
+								person21.eTankRect.x = 1900;
+								person21.eTankRect.y = 1400;
+
+								person22.eTankRect.x = 1900;
+								person22.eTankRect.y = 1500;
+
+								person23.eTankRect.x = 1300;
+								person23.eTankRect.y = 1100;
+
+								person24.eTankRect.x = 2050;
+								person24.eTankRect.y = -600;
+
+								person25.eTankRect.x = 2150;
+								person25.eTankRect.y = -600;
+
+								person26.eTankRect.x = 2250;
+								person26.eTankRect.y = 1300;
+
+								person27.eTankRect.x = 2350;
+								person27.eTankRect.y = -650;
+
+								person28.eTankRect.x = 2450;
+								person28.eTankRect.y = 200;
+
+								person29.eTankRect.x = 2450;
+								person29.eTankRect.y = 300;
+
+								person30.eTankRect.x = 2600;
+								person30.eTankRect.y = 200;
+
+								person31.eTankRect.x = 2600;
+								person31.eTankRect.y = 200;
+
+								person32.eTankRect.x = 2950;
+								person32.eTankRect.y = 200;
 								break;
 
 							case SDLK_q:
